@@ -1,6 +1,6 @@
 <?php 
  return array (
-  'appName' => '后台管理系统',
+  'appName' => '中控箱后台管理系统',
   'logo' => '@web/images/logo.png',
   'keywords' => '',
   'description' => '',

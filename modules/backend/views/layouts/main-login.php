@@ -3,7 +3,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<title>后台登录管理V3.2</title>
+	<title><?= Yii::$app->name ?></title>
 
 	<!--- CSS --->
 	<link rel="stylesheet" href="/login/style.css" type="text/css" />
@@ -20,6 +20,6 @@
 	</head>
 
 	<body>
-<?php echo $content;?>
+<?= $content ?>
 	</body>
 </html>
