@@ -1,59 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Leonidax
- * Date: 2016/12/7
- * Time: 15:25
- * Email:wap@iamlk.cn
- */
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\modules\backend\models\LoginForm */
-
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
-$this->title = Yii::$app->name;
-$fieldOptions1 = [
-    'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
-];
-
-$fieldOptions2 = [
-    'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
-];
 ?>
-<div class="site-login login-box">
-    <div class="login-logo">
-        <a href="#"><b><?= Html::encode($this->title) ?></b></a>
-    </div>
-    <div class="login-box-body">
-
-        <?php $form = ActiveForm::begin([
+<div id="container">
+		<?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'enableClientValidation' => false,
         ]); ?>
-
-        <?= $form->field($model, 'username', $fieldOptions1)->label(false)->textInput(['autofocus' => true]) ?>
-
-        <?= $form->field($model, 'password', $fieldOptions2)->label(false)->passwordInput() ?>
-
-        <div class="row">
-            <div class="col-xs-8">
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-            </div>
-            <!-- /.col -->
-            <div class="col-xs-4">
-                <?= Html::submitButton('登录', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
-            </div>
-            <!-- /.col -->
-        </div>
+		<div class="login">LOGIN</div>
+		<div class="username-text">Username:</div>
+		<div class="password-text">Password:</div>
+		<div class="username-field">
+			<input type="text" name="username" value="" />
+		</div>
+		<div class="password-field">
+			<input type="password" name="password" value="" />
+		</div>
+		<input type="checkbox" name="rememberMe" id="rememberMe" /><label for="rememberMe">下次自动登录</label>
+		<div class="forgot-usr-pwd">Forgot <a href="#">username</a> or <a href="#">password</a>?</div>
+		<input type="submit" name="submit" value="GO" />
+	
         <?php ActiveForm::end(); ?>
-
-        <div class="social-auth-links">
-            You may login with <strong>demo/demo</strong>.<br>
-        </div>
-    </div>
+</div>
+<div id="footer">
+	Web 2.0 Login More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
 </div>
