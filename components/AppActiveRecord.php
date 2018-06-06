@@ -1,10 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: david
+ * User: Leonidax
  * Date: 2016/12/8
  * Time: 16:39
- * Email:liyongsheng@meicai.cn
+ * Email:wap@iamlk.cn
  */
 
 namespace app\components;

@@ -1,10 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: david
+ * User: Leonidax
  * Date: 2017/1/19
  * Time: 14:18
- * Email:liyongsheng@meicai.cn
+ * Email:wap@iamlk.cn
  */
 
 namespace app\helpers;
