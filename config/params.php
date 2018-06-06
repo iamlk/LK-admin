@@ -1,7 +1,7 @@
 <?php 
  return array (
   'appName' => '中控箱后台管理系统',
-  'logo' => '@web/images/logo.png',
+  'logo' => '@web/logo.png',
   'keywords' => '',
   'description' => '',
   'cacheDuration' => '-1',
