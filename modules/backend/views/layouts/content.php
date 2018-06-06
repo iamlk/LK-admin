@@ -5,6 +5,7 @@ use dmstr\widgets\Alert;
 ?>
 <div class="content-wrapper" style="min-height: 916px;">
     <section class="content-header">
+        <?= Alert::widget() ?>
         <?php if (isset($this->blocks['content-header'])) { ?>
             <h1><?= $this->blocks['content-header'] ?></h1>
         <?php } else { ?>
@@ -28,7 +29,6 @@ use dmstr\widgets\Alert;
     </section>
 
     <section class="content">
-        <?= Alert::widget() ?>
         <?php if($this->context->module->id=='backend'):?>
             <?= $content ?>
         <?php else:?>
