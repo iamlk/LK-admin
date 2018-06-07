@@ -43,7 +43,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://yiicms.co">YiiCms</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-<?=date('Y')?> <a href="http://www.iamlk.cn/">LK-admin</a>.</strong> All rights
     reserved.
 </footer>
 
