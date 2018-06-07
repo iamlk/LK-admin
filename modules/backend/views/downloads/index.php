@@ -27,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => CheckboxColumn::className()],
                     [
                         'attribute' => 'id',
-                        'options' => ['style' => 'width:50px']
+                        'options' => ['style' => 'width:70px']
                     ],
                     'title',
 //            'image',
                     'description',
                     [
                         'attribute' => 'status',
-                        'options' => ['style' => 'width:60px'],
+                        'options' => ['style' => 'width:80px'],
                         'format' => 'html',
                         'filter'=>$searchModel::$statusList,
                         'value' => function ($item) {
@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             }else{
                                 return '<span class="badge">' . $item['statusText'] . '</span>';
                             }
-                        }
+                        },
+                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
                     ],
                     // 'admin_user_id',
                     [

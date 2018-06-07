@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\CheckboxColumn'],
                     [
                         'attribute' => 'id',
-                        'options' => ['style' => 'width:50px']
+                        'options' => ['style' => 'width:70px']
                     ],
                     'title',
 //            'image',
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'status',
                         'filter'=>$searchModel::$statusList,
-                        'options' => ['style' => 'width:60px'],
+                        'options' => ['style' => 'width:80px'],
                         'format' => 'html',
                         'value' => function ($item) {
                             if ($item['status'] == Photos::STATUS_ENABLE) {
@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             } else {
                                 return '<span class="badge">' . $item['statusText'] . '</span>';
                             }
-                        }
+                        },
+                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
                     ],
                     // 'admin_user_id',
                     [
