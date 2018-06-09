@@ -121,7 +121,7 @@ class AdminUser extends AppActiveRecord
     public function rules()
     {
         return [
-            [['username', 'email', 'updated_at'],'required'],
+            [['username', 'updated_at'],'required'],
 
             [['updated_at'], 'required', 'on'=>'update'],
 

@@ -58,6 +58,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'admin'=>'/backend/default/index',
+                '/'=>'/backend/default/index',
                 'index'=>'site/index',
                 'about'=>'site/about',
                 'contact'=>'site/contact',

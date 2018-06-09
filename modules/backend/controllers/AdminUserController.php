@@ -8,6 +8,8 @@ use app\modules\backend\models\AdminUserSearch;
 use app\modules\backend\components\BackendController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use mdm\admin\models\searchs\AuthItem;
+use mdm\admin\models\Assignment;
 
 /**
  * AdminUserController implements the CRUD actions for AdminUser model.
@@ -64,12 +66,28 @@ class AdminUserController extends BackendController
     public function actionCreate()
     {
         $model = new AdminUser(['scenario' => 'create']);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $role = new AuthItem(['type' => 1]);
+        $role = $role->search([]);
+        $role = $role->getModels();
+        $dropList = [];
+        foreach($role as $name=>$d){
+            if($name=='Administrator' || $name=='Visitor') continue;
+            $dropList[$name] = $d->name;
+        }
+        $post = Yii::$app->request->post();
+        if($post){
+            $items = [];
+            $items[] = $post['AdminUser']['email'];
+            $post['AdminUser']['email'] = '';
+        }
+        if ($model->load($post) && $model->save()) {
+            $assignment = new Assignment($model->id);
+            $assignment->assign($items);
             return $this->showFlash('添加成功', 'success');
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'dropList' => $dropList,
             ]);
         }
     }
