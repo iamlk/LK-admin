@@ -66,6 +66,8 @@ class AdminUserController extends BackendController
     public function actionCreate()
     {
         $model = new AdminUser(['scenario' => 'create']);
+
+        //DROP LIST
         $role = new AuthItem(['type' => 1]);
         $role = $role->search([]);
         $role = $role->getModels();
@@ -74,6 +76,7 @@ class AdminUserController extends BackendController
             if($name=='Administrator' || $name=='Visitor') continue;
             $dropList[$name] = $d->name;
         }
+
         $post = Yii::$app->request->post();
         if($post){
             $items = [];
@@ -103,11 +106,22 @@ class AdminUserController extends BackendController
         $model = $this->findModel($id);
         $model->scenario = 'update';
 
+        //DROP LIST
+        $role = new AuthItem(['type' => 1]);
+        $role = $role->search([]);
+        $role = $role->getModels();
+        $dropList = [];
+        foreach($role as $name=>$d){
+            if($name=='Administrator' || $name=='Visitor') continue;
+            $dropList[$name] = $d->name;
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->showFlash('修改成功', 'success');
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'dropList' => $dropList,
             ]);
         }
     }

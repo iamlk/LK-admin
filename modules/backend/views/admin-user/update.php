@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = '修改';
         <div class="tab-content">
             <?= $this->render('_form', [
                 'model' => $model,
+                'dropList' => $dropList,
             ]) ?>
 
         </div>
