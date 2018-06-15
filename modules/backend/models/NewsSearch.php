@@ -2,7 +2,6 @@
 
 namespace app\modules\backend\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\News;
@@ -83,7 +82,7 @@ class NewsSearch extends News
             'id' => $this->id,
             'status' => $this->status,
             'admin_user_id' => $this->admin_user_id,
-            'hits' => $this->hits,
+        //    'hits' => $this->hits,
             'updated_at' => $this->updated_at,
         ]);
 
