@@ -29,12 +29,25 @@ class StreamController extends BackendController
             ],
         ];
     }
+
+    public function actionExport()
+    {
+        $session = Yii::$app->session;
+        print_r($session['search']);
+    }
     /**
      * Lists all Content models.
      * @return mixed
      */
     public function actionIndex()
     {
+        $get = Yii::$app->request->get();
+        $session = Yii::$app->session;
+        if(empty($get['StreamSearch'])){
+            $session['search'] = [];
+        }else{
+            $session['search'] = $get['StreamSearch'];
+        }
         $searchModel = new StreamSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
         StreamType::GetList(StreamType::CLS);

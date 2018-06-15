@@ -1,6 +1,6 @@
 <?php 
  return array (
-  'appName' => '中控箱后台管理系统',
+  'appName' => '重晶石粉称重管理系统',
   'logo' => '@web/logo.png',
   'keywords' => '',
   'description' => '',
