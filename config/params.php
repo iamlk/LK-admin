@@ -1,12 +1,15 @@
 <?php 
  return array (
-  'appName' => '重晶石粉称重管理系统',
-  'logo' => '@web/logo.png',
-  'keywords' => '',
-  'description' => '',
-  'cacheDuration' => '-1',
-  'pageSize' => '2',
-  'nav' => '{
+    'appName' => '重晶石粉称重管理系统',
+    'logo' => '@web/logo.png',
+    'keywords' => '',
+    'description' => '',
+    'cacheDuration' => '-1',
+    'pageSize' => '2',
+    'mdm.admin.configs' => [
+        'menuTable' => 'admin_menu',
+    ],
+    'nav' => '{
     "options": {
         "class": "nav navbar-nav navbar-right"
     },

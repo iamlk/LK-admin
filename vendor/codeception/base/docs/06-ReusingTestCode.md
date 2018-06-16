@@ -12,7 +12,6 @@ We will get back to this later in this chapter, but for now let's look at the fo
 
 ```php
 <?php
-$I = new AcceptanceTester($scenario);
 $I->amOnPage('/');
 $I->see('Hello');
 $I->seeInDatabase('users', ['id' => 1]);
@@ -26,7 +25,7 @@ Modules are attached to Actor classes in the suite config.
 For example, in `tests/acceptance.suite.yml` we should see:
 
 ```yaml
-class_name: AcceptanceTester
+actor: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
@@ -150,14 +149,14 @@ We call such a classes StepObjects.
 Lets create an Admin StepObject with the generator:
 
 ```bash
-php codecept generate:stepobject acceptance Admin
+php vendor/bin/codecept generate:stepobject acceptance Admin
 ```
 
 You can supply optional action names. Enter one at a time, followed by a newline.
 End with an empty line to continue to StepObject creation.
 
 ```bash
-php codecept generate:stepobject acceptance Admin
+php vendor/bin/codecept generate:stepobject acceptance Admin
 Add action to StepObject class (ENTER to exit): loginAsAdmin
 Add action to StepObject class (ENTER to exit):
 StepObject was created in /tests/acceptance/_support/Step/Acceptance/Admin.php
@@ -230,7 +229,6 @@ If you have a complex interaction scenario, you may use several step objects in 
 If you feel like adding too many actions into your Actor class
 (which is AcceptanceTester in this case) consider moving some of them into separate StepObjects.
 
-
 ## PageObjects
 
 For acceptance and functional testing, we will not only need to have common actions being reused across different tests,
@@ -244,7 +242,7 @@ Do not hardcode complex CSS or XPath locators in your tests but rather move them
 Codeception can generate a PageObject class for you with command:
 
 ```bash
-php codecept generate:pageobject Login
+php vendor/bin/codecept generate:pageobject Login
 ```
 
 This will create a `Login` class in `tests/_support/Page`.
@@ -362,7 +360,6 @@ For instance, `Page\Login` required `AcceptanceTester`, and so it was injected i
 and PageObject was created and passed into method arguments. You should explicitly specify
 the types of required objects for Codeception to know what objects should be created for a test.
 Dependency Injection will be described in the next chapter.
-
 
 ## Conclusion
 

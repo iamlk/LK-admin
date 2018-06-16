@@ -1,6 +1,12 @@
 yii2-widget-alert
 =================
 
+[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-widget-alert/v/stable)](https://packagist.org/packages/kartik-v/yii2-widget-alert)
+[![License](https://poser.pugx.org/kartik-v/yii2-widget-alert/license)](https://packagist.org/packages/kartik-v/yii2-widget-alert)
+[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-widget-alert/downloads)](https://packagist.org/packages/kartik-v/yii2-widget-alert)
+[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-widget-alert/d/monthly)](https://packagist.org/packages/kartik-v/yii2-widget-alert)
+[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-widget-alert/d/daily)](https://packagist.org/packages/kartik-v/yii2-widget-alert)
+
 This extension contains a couple of useful widgets. The `Alert` widget extends the `\yii\bootstrap\Alert` widget with more easy styling and auto fade out options. In addition, it includes a `AlertBlock` widget that groups multiple `\kartik\widget\Alert` or `kartik\widget\Growl` widgets in one single block and renders them stacked vertically on the current page. 
 You can choose the `TYPE_ALERT` style or the `TYPE_GROWL` style for your notifications. You can also set the widget to automatically read and display session flash 
 messages (which is the default setting). Alternatively, you can setup and configure your own block of custom alerts.
@@ -25,9 +31,17 @@ or add
 
 to the ```require``` section of your `composer.json` file.
 
-## Latest Release
+> NOTE: Using Growl is optional and it is not automatically installed with this extension. If you want to use it in your project, you need to either run
+```
+$ php composer.phar require kartik-v/yii2-widget-growl "*"
+```
+or add
+```
+"kartik-v/yii2-widget-growl": "*"
+```
+to the `require` section of your `composer.json` file.
 
-> NOTE: The latest version of the module is v1.1.0 released on 19-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-alert/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the module is v1.1.1. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-alert/blob/master/CHANGE.md) for details.
 
 ## Demo
 

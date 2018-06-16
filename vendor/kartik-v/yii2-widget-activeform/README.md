@@ -19,6 +19,7 @@ Extends and enhances the [Yii ActiveForm widget](https://github.com/yiisoft/yii2
     * Segmented Button Addon
     * Prepend & Append
     * Input Group Settings
+    * Multiple Addons Configuration (_new_ since v1.4.9)
 - Input Feedback Icons
 - Input Hints Management
 - Inputs
@@ -58,7 +59,7 @@ to the ```require``` section of your `composer.json` file.
 
 ## Latest Release
 
-> NOTE: The latest version of the module is v1.4.8. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-activeform/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the module is v1.4.9. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-widget-activeform/blob/master/CHANGE.md) for details.
 
 ## Demo
 

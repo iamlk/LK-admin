@@ -14,45 +14,82 @@ class Menu extends \yii\widgets\Menu
      * @inheritdoc
      */
     public $linkTemplate = '<a href="{url}">{icon} {label}</a>';
+    /**
+     * @inheritdoc
+     * Styles all labels of items on sidebar by AdminLTE
+     */
+    public $labelTemplate = '<span>{label}</span>';
     public $submenuTemplate = "\n<ul class='treeview-menu' {show}>\n{items}\n</ul>\n";
     public $activateParents = true;
+    public $defaultIconHtml = '<i class="fa fa-circle-o"></i> ';
+    public $options = ['class' => 'sidebar-menu', 'data-widget' => 'tree'];
+
+    /**
+     * @var string is prefix that will be added to $item['icon'] if it exist.
+     * By default uses for Font Awesome (http://fontawesome.io/)
+     */
+    public static $iconClassPrefix = 'fa fa-';
+
+    private $noDefaultAction;
+    private $noDefaultRoute;
+
+    /**
+     * Renders the menu.
+     */
+    public function run()
+    {
+        if ($this->route === null && Yii::$app->controller !== null) {
+            $this->route = Yii::$app->controller->getRoute();
+        }
+        if ($this->params === null) {
+            $this->params = Yii::$app->request->getQueryParams();
+        }
+        $posDefaultAction = strpos($this->route, Yii::$app->controller->defaultAction);
+        if ($posDefaultAction) {
+            $this->noDefaultAction = rtrim(substr($this->route, 0, $posDefaultAction), '/');
+        } else {
+            $this->noDefaultAction = false;
+        }
+        $posDefaultRoute = strpos($this->route, Yii::$app->controller->module->defaultRoute);
+        if ($posDefaultRoute) {
+            $this->noDefaultRoute = rtrim(substr($this->route, 0, $posDefaultRoute), '/');
+        } else {
+            $this->noDefaultRoute = false;
+        }
+        $items = $this->normalizeItems($this->items, $hasActiveChild);
+        if (!empty($items)) {
+            $options = $this->options;
+            $tag = ArrayHelper::remove($options, 'tag', 'ul');
+
+            echo Html::tag($tag, $this->renderItems($items), $options);
+        }
+    }
+
     /**
      * @inheritdoc
      */
     protected function renderItem($item)
     {
-        if(isset($item['items'])) {
-            $labelTemplate = '<a href="{url}">{label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+        if (isset($item['items'])) {
+            $labelTemplate = '<a href="{url}">{icon} {label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
             $linkTemplate = '<a href="{url}">{icon} {label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
-        }
-        else {
+        } else {
             $labelTemplate = $this->labelTemplate;
             $linkTemplate = $this->linkTemplate;
         }
 
-        if (isset($item['url'])) {
-            $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
-            $replace = !empty($item['icon']) ? [
-                '{url}' => Url::to($item['url']),
-                '{label}' => '<span>'.$item['label'].'</span>',
-                '{icon}' => '<i class="' . $item['icon'] . '"></i> '
-            ] : [
-                '{url}' => Url::to($item['url']),
-                '{label}' => '<span>'.$item['label'].'</span>',
-                '{icon}' => null,
-            ];
-            return strtr($template, $replace);
-        } else {
-            $template = ArrayHelper::getValue($item, 'template', $labelTemplate);
-            $replace = !empty($item['icon']) ? [
-                '{label}' => '<span>'.$item['label'].'</span>',
-                '{icon}' => '<i class="' . $item['icon'] . '"></i> '
-            ] : [
-                '{label}' => '<span>'.$item['label'].'</span>',
-            ];
-            return strtr($template, $replace);
-        }
+        $replacements = [
+            '{label}' => strtr($this->labelTemplate, ['{label}' => $item['label'],]),
+            '{icon}' => empty($item['icon']) ? $this->defaultIconHtml
+                : '<i class="' . self::$iconClassPrefix . $item['icon'] . '"></i> ',
+            '{url}' => isset($item['url']) ? Url::to($item['url']) : 'javascript:void(0);',
+        ];
+
+        $template = ArrayHelper::getValue($item, 'template', isset($item['url']) ? $linkTemplate : $labelTemplate);
+
+        return strtr($template, $replacements);
     }
+
     /**
      * Recursively renders the menu items (without the container tag).
      * @param array $items the menu items to be rendered recursively
@@ -88,11 +125,17 @@ class Menu extends \yii\widgets\Menu
                     '{show}' => $item['active'] ? "style='display: block'" : '',
                     '{items}' => $this->renderItems($item['items']),
                 ]);
+				if (isset($options['class'])) {
+					$options['class'] .= ' treeview';
+				} else {
+					$options['class'] = 'treeview';
+				}
             }
             $lines[] = Html::tag($tag, $menu, $options);
         }
         return implode("\n", $lines);
     }
+
     /**
      * @inheritdoc
      */
@@ -132,6 +175,7 @@ class Menu extends \yii\widgets\Menu
         }
         return array_values($items);
     }
+
     /**
      * Checks whether a menu item is active.
      * This is done by checking if [[route]] and [[params]] match that specified in the `url` option of the menu item.
@@ -147,17 +191,10 @@ class Menu extends \yii\widgets\Menu
         if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
             $route = $item['url'][0];
             if ($route[0] !== '/' && Yii::$app->controller) {
-                $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
+                $route = ltrim(Yii::$app->controller->module->getUniqueId() . '/' . $route, '/');
             }
-            $arrayRoute = explode('/', ltrim($route, '/'));
-            $arrayThisRoute = explode('/', $this->route);
-            if ($arrayRoute[0] !== $arrayThisRoute[0]) {
-                return false;
-            }
-            if (isset($arrayRoute[1]) && $arrayRoute[1] !== $arrayThisRoute[1]) {
-                return false;
-            }
-            if (isset($arrayRoute[2]) && $arrayRoute[2] !== $arrayThisRoute[2]) {
+            $route = ltrim($route, '/');
+            if ($route != $this->route && $route !== $this->noDefaultRoute && $route !== $this->noDefaultAction) {
                 return false;
             }
             unset($item['url']['#']);

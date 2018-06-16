@@ -10,6 +10,7 @@ return array(
     'Props\\' => array($vendorDir . '/mrclay/props-dic/src', $vendorDir . '/mrclay/props-dic/test'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
+    'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
     'JSMin\\' => array($vendorDir . '/mrclay/jsmin-php/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),

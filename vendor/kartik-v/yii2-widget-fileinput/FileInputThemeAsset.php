@@ -1,15 +1,16 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2017
  * @package yii2-widgets
  * @subpackage yii2-widget-fileinput
- * @version 1.0.5
+ * @version 1.0.6
  */
 
 namespace kartik\file;
 
 use kartik\base\AssetBundle;
+use Yii;
 
 /**
  * Theme Asset bundle for the FileInput Widget
@@ -36,11 +37,13 @@ class FileInputThemeAsset extends AssetBundle
      */
     public function addTheme($theme)
     {
-        if ($this->checkExists("themes/{$theme}/{$theme}.js")) {
-            $this->js[] = "themes/{$theme}/{$theme}.js";
+        $file = YII_DEBUG ? "theme.js" : "theme.min.js";
+        if ($this->checkExists("themes/{$theme}/{$file}")) {
+            $this->js[] = "themes/{$theme}/{$file}";
         } 
-        if ($this->checkExists("themes/{$theme}/{$theme}.css")) {
-            $this->css[] = "themes/{$theme}/{$theme}.css";
+        $file = YII_DEBUG ? "theme.css" : "theme.min.css";
+        if ($this->checkExists("themes/{$theme}/{$file}")) {
+            $this->css[] = "themes/{$theme}/{$file}";
         } 
         return $this;
     }
@@ -50,7 +53,7 @@ class FileInputThemeAsset extends AssetBundle
      *
      * @param string $path the file path
      *
-     * @return bool
+     * @return boolean
      */
     protected  function checkExists($path)
     {

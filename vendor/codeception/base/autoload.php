@@ -1,32 +1,26 @@
 <?php
-// for phar
-if (file_exists(__DIR__.'/vendor/autoload.php')) {
-    require_once(__DIR__.'/vendor/autoload.php');
-} elseif (file_exists(__DIR__.'/../../autoload.php')) {
+
+$autoloadFile = './vendor/codeception/codeception/autoload.php';
+if (file_exists('./vendor/autoload.php') && file_exists($autoloadFile) && __FILE__ != realpath($autoloadFile)) {
+    //for global installation or phar file
+    fwrite(
+        STDERR,
+        "\n==== Redirecting to Composer-installed version in vendor/codeception ====\n"
+    );
+    require $autoloadFile;
+    //require package/bin instead of codecept to avoid printing hashbang line
+    require './vendor/codeception/codeception/package/bin';
+    die;
+} elseif (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    // for phar
+    require_once(__DIR__ . '/vendor/autoload.php');
+} elseif (file_exists(__DIR__ . '/../../autoload.php')) {
+    //for composer
     require_once __DIR__ . '/../../autoload.php';
 }
+unset($autoloadFile);
 
 // @codingStandardsIgnoreStart
-// loading WebDriver aliases
-if (!class_exists('RemoteWebDriver') and class_exists('Facebook\WebDriver\Remote\RemoteWebDriver')) {
-    class RemoteWebDriver extends \Facebook\WebDriver\Remote\RemoteWebDriver {};
-    class InvalidSelectorException extends Facebook\WebDriver\Exception\InvalidSelectorException {};
-    class NoSuchElementException extends Facebook\WebDriver\Exception\NoSuchElementException {};
-    class WebDriverCurlException extends Facebook\WebDriver\Exception\WebDriverCurlException {};
-    class WebDriverActions extends Facebook\WebDriver\Interactions\WebDriverActions {};
-    class LocalFileDetector extends Facebook\WebDriver\Remote\LocalFileDetector {};
-    class WebDriverCapabilityType extends Facebook\WebDriver\Remote\WebDriverCapabilityType {};
-    class WebDriverAlert extends Facebook\WebDriver\WebDriverAlert {};
-    class WebDriverBy extends Facebook\WebDriver\WebDriverBy {};
-    class WebDriverDimension extends Facebook\WebDriver\WebDriverDimension {};
-    class RemoteWebElement extends Facebook\WebDriver\Remote\RemoteWebElement {};
-    class WebDriverExpectedCondition extends Facebook\WebDriver\WebDriverExpectedCondition {};
-    class WebDriverKeys extends Facebook\WebDriver\WebDriverKeys {};
-    class WebDriverSelect extends Facebook\WebDriver\WebDriverSelect {};
-    class WebDriverTimeouts extends Facebook\WebDriver\WebDriverTimeouts {};
-    class WebDriverWindow extends Facebook\WebDriver\WebDriverWindow {};
-    interface WebDriverElement extends Facebook\WebDriver\WebDriverElement {};
-}
 
 include_once __DIR__ . DIRECTORY_SEPARATOR . 'shim.php';
 // compat
@@ -105,5 +99,20 @@ if (!function_exists('codecept_relative_path')) {
             \Codeception\Configuration::projectDir(),
             DIRECTORY_SEPARATOR
         );
+    }
+}
+
+if (!function_exists('codecept_absolute_path')) {
+    /**
+     * If $path is absolute, it will be returned without changes.
+     * If $path is relative, it will be passed to `codecept_root_dir()` function
+     * to make it absolute.
+     *
+     * @param string $path
+     * @return string the absolute path
+     */
+    function codecept_absolute_path($path)
+    {
+        return mb_substr($path, 0, 1) === DIRECTORY_SEPARATOR ? $path : codecept_root_dir($path);
     }
 }

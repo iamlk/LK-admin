@@ -1,10 +1,10 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2016
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2018
  * @package yii2-widgets
  * @subpackage yii2-widget-activeform
- * @version 1.4.8
+ * @version 1.4.9
  *
- * Active Form Styling for Bootstrap 3.0
+ * Active Form Styling for Bootstrap 3.x
  * Built for Yii Framework 2.0
  * Author: Kartik Visweswaran
  * Year: 2015
@@ -73,9 +73,7 @@ label.disabled, label.readonly, .disabled label, .readonly label {
 }
 
 /**
- * input group buttons styling change for 
- * has-success and has-danger states
- * added by Kartik Visweswaran
+ * input group buttons styling change for `has-success` and `has-danger` states
  */
 .has-success .input-group-btn .btn-default {
     color: #3c763d;
@@ -101,15 +99,15 @@ label.disabled, label.readonly, .disabled label, .readonly label {
 }
 
 .has-success .input-group-btn .btn-default.disabled,
-.has-success .input-group-btn .btn-default[disabled]
+.has-success .input-group-btn .btn-default[disabled],
 .has-success .input-group-btn .btn-default.disabled:hover,
-.has-success .input-group-btn .btn-default[disabled]:hover
+.has-success .input-group-btn .btn-default[disabled]:hover,
 .has-success .input-group-btn .btn-default.disabled:focus,
-.has-success .input-group-btn .btn-default[disabled]:focus
+.has-success .input-group-btn .btn-default[disabled]:focus,
 .has-success .input-group-btn .btn-default.disabled.focus,
-.has-success .input-group-btn .btn-default[disabled].focus
+.has-success .input-group-btn .btn-default[disabled].focus,
 .has-success .input-group-btn .btn-default.disabled:active,
-.has-success .input-group-btn .btn-default[disabled]:active
+.has-success .input-group-btn .btn-default[disabled]:active,
 .has-success .input-group-btn .btn-default.disabled.active,
 .has-success .input-group-btn .btn-default[disabled].active {
     background-color: #5cb85c;
@@ -147,13 +145,13 @@ label.disabled, label.readonly, .disabled label, .readonly label {
 .has-error .input-group-btn .btn-default.disabled,
 .has-error .input-group-btn .btn-default[disabled]
 .has-error .input-group-btn .btn-default.disabled:hover,
-.has-error .input-group-btn .btn-default[disabled]:hover
+.has-error .input-group-btn .btn-default[disabled]:hover,
 .has-error .input-group-btn .btn-default.disabled:focus,
-.has-error .input-group-btn .btn-default[disabled]:focus
+.has-error .input-group-btn .btn-default[disabled]:focus,
 .has-error .input-group-btn .btn-default.disabled.focus,
-.has-error .input-group-btn .btn-default[disabled].focus
+.has-error .input-group-btn .btn-default[disabled].focus,
 .has-error .input-group-btn .btn-default.disabled:active,
-.has-error .input-group-btn .btn-default[disabled]:active
+.has-error .input-group-btn .btn-default[disabled]:active,
 .has-error .input-group-btn .btn-default.disabled.active,
 .has-error .input-group-btn .btn-default[disabled].active {
     background-color: #d9534f;
@@ -178,4 +176,19 @@ label.disabled, label.readonly, .disabled label, .readonly label {
 .has-error .kv-feedback-error,
 .has-success .kv-feedback-success {
     display: inline;
+}
+
+/**
+ * multiple addons border fix
+ **/
+.input-group .input-group-addon:not(:last-child) {
+    border-right: 0;
+}
+
+.input-group .input-group-addon:last-child {
+    border-left: 1px solid #ccc;
+}
+
+.form-control + .input-group-addon:not(:first-child) {
+    border-left: 0;
 }

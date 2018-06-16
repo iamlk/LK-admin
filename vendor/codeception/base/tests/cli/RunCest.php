@@ -14,6 +14,14 @@ class RunCest
         $I->seeInShellOutput("OK (");
     }
 
+    public function runOneFileWithColors(\CliGuy $I)
+    {
+        $I->wantTo('execute one test');
+        $I->executeCommand('run --colors tests/dummy/FileExistsCept.php');
+        $I->seeInShellOutput("OK (");
+        $I->seeInShellOutput("\033[35;1mFileExistsCept:\033[39;22m Check config exists");
+    }
+
     /**
      * @group reports
      * @group core
@@ -89,22 +97,11 @@ class RunCest
      *
      * @param CliGuy $I
      */
-    public function runReportMode(\CliGuy $I)
-    {
-        $I->wantTo('try the reporting mode');
-        $I->executeCommand('run dummy --report');
-        $I->seeInShellOutput('FileExistsCept');
-        $I->seeInShellOutput('........Ok');
-    }
-
-    /**
-     * @group reports
-     *
-     * @param CliGuy $I
-     */
     public function runCustomReport(\CliGuy $I)
     {
-        $I->wantTo('try the reporting mode');
+        if (\PHPUnit\Runner\Version::series() >= 7) {
+            throw new \Codeception\Exception\Skip('Not for PHPUnit 7');
+        }
         $I->executeCommand('run dummy --report -c codeception_custom_report.yml');
         $I->seeInShellOutput('FileExistsCept: Check config exists');
         $I->dontSeeInShellOutput('Ok');
@@ -202,7 +199,7 @@ class RunCest
         $I->dontSeeInShellOutput("PassingTest: Me");
     }
 
-    public function runWithCustomOuptutPath(\CliGuy $I)
+    public function runWithCustomOutputPath(\CliGuy $I)
     {
         $I->executeCommand('run dummy --xml myverycustom.xml --html myownhtmlreport.html');
         $I->seeFileFound('myverycustom.xml', 'tests/_output');
@@ -231,7 +228,7 @@ class RunCest
         $I->executeCommand('run unit ErrorTest --no-exit');
         $I->seeInShellOutput('There was 1 error');
         $I->seeInShellOutput('Array to string conversion');
-        $I->seeInShellOutput('ErrorTest.php:9');
+        $I->seeInShellOutput('ErrorTest.php');
     }
 
     public function runTestWithException(\CliGuy $I)
@@ -347,11 +344,18 @@ EOF
         $I->seeInShellOutput('PASSED');
     }
 
-    public function runIncompleteGherkinTest(CliGuy $I)
+    public function reportsCorrectFailedStep(CliGuy $I)
     {
         $I->executeCommand('run scenario File.feature -v');
         $I->seeInShellOutput('OK, but incomplete');
         $I->seeInShellOutput('Step definition for `I have only idea of what\'s going on here` not found in contexts');
+    }
+
+    public function runFailingGherkinTest(CliGuy $I)
+    {
+        $I->executeCommand('run scenario Fail.feature -v --no-exit');
+        $I->seeInShellOutput('Step  I see file "games.zip"');
+        $I->seeInShellOutput('Step  I see file "tools.zip"');
     }
 
     public function runGherkinScenarioWithMultipleStepDefinitions(CliGuy $I)
@@ -425,6 +429,15 @@ EOF
         $I->dontSeeInShellOutput('............Ok');
     }
 
+    public function overrideModuleOptions(CliGuy $I)
+    {
+        $I->executeCommand('run powers PowerIsRisingCept --no-exit');
+        $I->seeInShellOutput('FAILURES');
+        $I->executeCommand('run powers PowerIsRisingCept -o "modules: config: PowerHelper: has_power: true" --no-exit');
+        $I->dontSeeInShellOutput('FAILURES');
+    }
+
+
     public function runTestWithAnnotationExamplesFromGroupFileTest(CliGuy $I)
     {
         $I->executeCommand('run scenario -g groupFileTest1 --steps');
@@ -442,7 +455,43 @@ EOF
 
     public function runTestWithAnnotationDataprovider(CliGuy $I)
     {
-        $I->executeCommand('run scenario DataProviderCest --steps');
-        $I->seeInShellOutput('OK (10 tests');
+        $I->executeCommand('run scenario -g dataprovider --steps');
+        $I->seeInShellOutput('OK (15 tests');
     }
+
+    public function runFailedTestAndCheckOutput(CliGuy $I)
+    {
+        $I->executeCommand('run scenario FailedCept', false);
+        $testPath = implode(DIRECTORY_SEPARATOR, ['tests', 'scenario', 'FailedCept.php']);
+        $I->seeInShellOutput('1) FailedCept: Fail when file is not found');
+        $I->seeInShellOutput('Test  ' . $testPath);
+        $I->seeInShellOutput('Step  See file found "games.zip"');
+        $I->seeInShellOutput('Fail  File "games.zip" not found at ""');
+    }
+
+    public function runTestWithCustomSetupMethod(CliGuy $I)
+    {
+        $I->executeCommand('run powers PowerUpCest');
+        $I->dontSeeInShellOutput('FAILURES');
+    }
+
+    public function runCestWithTwoFailedTest(CliGuy $I)
+    {
+        $I->executeCommand('run scenario PartialFailedCest', false);
+        $I->seeInShellOutput('See file found "testcasetwo.txt"');
+        $I->seeInShellOutput('See file found "testcasethree.txt"');
+        $I->seeInShellOutput('Tests: 3,');
+        $I->seeInShellOutput('Failures: 2.');
+    }
+
+
+    public function runWarningTests(CliGuy $I)
+    {
+        $I->executeCommand('run unit WarningTest.php', false);
+        $I->seeInShellOutput('There was 1 warning');
+        $I->seeInShellOutput('WarningTest::testWarningInvalidDataProvider');
+        $I->seeInShellOutput('Tests: 1,');
+        $I->seeInShellOutput('Warnings: 1.');
+    }
+
 }

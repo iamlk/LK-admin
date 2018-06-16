@@ -36,9 +36,9 @@ class JsonArrayTest extends \Codeception\Test\Unit
 
     public function testXPathLocation()
     {
-        $this->assertTrue($this->jsonArray->filterByXPath('//ticket/title')->length > 0);
-        $this->assertTrue($this->jsonArray->filterByXPath('//ticket/user/name')->length > 0);
-        $this->assertTrue($this->jsonArray->filterByXPath('//user/name')->length > 0);
+        $this->assertGreaterThan(0, $this->jsonArray->filterByXPath('//ticket/title')->length);
+        $this->assertGreaterThan(0, $this->jsonArray->filterByXPath('//ticket/user/name')->length);
+        $this->assertGreaterThan(0, $this->jsonArray->filterByXPath('//user/name')->length);
     }
 
     public function testJsonPathLocation()
@@ -60,6 +60,15 @@ class JsonArrayTest extends \Codeception\Test\Unit
     }
 
     /**
+     * @issue https://github.com/Codeception/Codeception/issues/4944
+     */
+    public function testConvertsBareJson()
+    {
+        $jsonArray = new JsonArray('"I am a {string}."');
+        $this->assertEquals(['I am a {string}.'], $jsonArray->toArray());
+    }
+
+    /**
      * @Issue https://github.com/Codeception/Codeception/issues/2899
      */
     public function testInvalidXmlTag()
@@ -68,5 +77,29 @@ class JsonArrayTest extends \Codeception\Test\Unit
         $expectedXml = '<a><invalidTag1>1</invalidTag1><invalidTag2>2</invalidTag2></a>'
             . '<b><invalidTag1>1</invalidTag1><invalidTag2>2</invalidTag2></b><baz>2</baz>';
         $this->assertContains($expectedXml, $jsonArray->toXml()->saveXML());
+    }
+
+    public function testConvertsArrayHavingSingleElement()
+    {
+        $jsonArray = new JsonArray('{"success": 1}');
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>'
+            . "\n<root><success>1</success></root>\n";
+        $this->assertEquals($expectedXml, $jsonArray->toXml()->saveXML());
+    }
+
+    public function testConvertsArrayHavingTwoElements()
+    {
+        $jsonArray = new JsonArray('{"success": 1, "info": "test"}');
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>'
+            . "\n<root><success>1</success><info>test</info></root>\n";
+        $this->assertEquals($expectedXml, $jsonArray->toXml()->saveXML());
+    }
+
+    public function testConvertsArrayHavingSingleSubArray()
+    {
+        $jsonArray = new JsonArray('{"array": {"success": 1}}');
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>'
+            . "\n<array><success>1</success></array>\n";
+        $this->assertEquals($expectedXml, $jsonArray->toXml()->saveXML());
     }
 }

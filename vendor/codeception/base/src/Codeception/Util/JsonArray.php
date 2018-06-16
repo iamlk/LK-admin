@@ -23,7 +23,13 @@ class JsonArray
             throw new InvalidArgumentException('$jsonString param must be a string.');
         }
 
-        $this->jsonArray = json_decode($jsonString, true);
+        $jsonDecode = json_decode($jsonString, true);
+
+        if (!is_array($jsonDecode)) {
+            $jsonDecode = [$jsonDecode];
+        }
+
+        $this->jsonArray = $jsonDecode;
 
         if (JSON_ERROR_NONE !== json_last_error()) {
             throw new InvalidArgumentException(
@@ -46,8 +52,11 @@ class JsonArray
         $root = 'root';
         $jsonArray = $this->jsonArray;
         if (count($jsonArray) == 1) {
-            $root = key($jsonArray);
-            $jsonArray = reset($jsonArray);
+            $value = reset($jsonArray);
+            if (is_array($value)) {
+                $root = key($jsonArray);
+                $jsonArray = $value;
+            }
         }
 
         $dom = new DOMDocument('1.0', 'UTF-8');
