@@ -50,17 +50,19 @@ class GridView extends YiiGridView
         $id = $this->options['id'];
         $buttonList = [
             Html::tag('button', '导出',[
+                'title'=>'当前筛选所有结果将导出',
                 'class'=>'content-operation btn btn-xs btn-success',
                 'onclick'=>'window.location.href=\'export\';',
             ]),
             Html::tag('button', '打印',[
+                'title'=>'推荐先导出Excel再打印',
                 'class'=>'content-operation btn btn-xs btn-warning',
-                'onclick'=>'$("#w0").jqprint({printContainer:true});',
+                'onclick'=>'$(\'#w0\').jqprint({printContainer:true});',
             ]),
             Html::tag('button', '删除',[
                 'id'=>'delete',
                 'class'=>'content-operation btn btn-xs btn-danger',
-                'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                'data-queren' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                 'data-action'=>Url::to(['delete-all'])
             ]),
         ];
@@ -69,26 +71,31 @@ class GridView extends YiiGridView
             var self = this;
             this.disabled =true;
             var url = $(this).data(\'action\');
+            var queren = $(this).data(\'queren\');
             var ids = $(\'#'.$id.'\').yiiGridView(\'getSelectedRows\');
             if(!url){
                 alert(\'action不能为空\');
-            }
-            if(!ids){
-                alert(\'请选择要处理的记录\');return;
-            }
-            $.ajax({
-                "url":url,
-                "type":"post",
-                "data":{"ids":ids},
-                "dataType":"json"
-            }).done(function(res){
-                if(res.code==1){
-                    alert(res.data);
-                }
-                alert(\'操作成功\');
-                $(\'#'.$id.'\').yiiGridView(\'applyFilter\');
                 self.disabled = false;
-            });
+                return;
+            }
+            if(ids==""){
+                alert(\'请选择要处理的记录\');
+                self.disabled = false;
+                return;
+            }
+            if(confirm(queren)){
+                $.ajax({
+                    "url":url,
+                    "type":"post",
+                    "data":{"ids":ids},
+                    "dataType":"json"
+                }).done(function(res){
+                    alert(res.data);
+                    $(\'#'.$id.'\').yiiGridView(\'applyFilter\');
+                    self.disabled = false;
+                });
+            }
+            self.disabled = false;
         });');
         return Html::tag('div', implode('', $buttonList), [
             'class'=>'btn-group'

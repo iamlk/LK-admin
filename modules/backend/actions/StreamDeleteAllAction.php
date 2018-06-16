@@ -10,10 +10,9 @@
 namespace app\modules\backend\actions;
 
 use yii\base\Action;
-use app\models\Content;
+use app\models\Stream;
 use app\models\ContentQuery;
 use Yii;
-use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\web\Response;
 /**
@@ -21,17 +20,12 @@ use yii\web\Response;
  * @property \app\modules\backend\components\BackendController $controller
  * @package app\modules\backend\actions
  */
-class ContentDeleteAllAction extends Action
+class StreamDeleteAllAction extends Action
 {
-
-    public $type = null;
 
     public function init()
     {
         parent::init();
-        if($this->type === null){
-            throw new ErrorException('type 不能为空');
-        }
     }
 
     /**
@@ -44,16 +38,15 @@ class ContentDeleteAllAction extends Action
         if(empty($ids)){
             return ['data'=>'id不能为空','code'=>1];
         }
-        Content::$currentType = $this->type;
 
         /** @var $query ContentQuery */
-        $query = Content::find();
+        $query = Stream::find();
 
         $query->andFilterWhere([
             'in', 'id', $ids
         ]);
         try {
-            //Content::deleteAll($query->where);
+            //Stream::deleteAll($query->where);
             return [
                 'code'=>0,
                 'data'=>'操作成功'

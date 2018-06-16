@@ -7,6 +7,7 @@ use Yii;
 use app\models\Stream;
 use app\modules\backend\models\StreamSearch;
 use app\modules\backend\components\BackendController;
+use app\modules\backend\actions\StreamDeleteAllAction;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -30,10 +31,36 @@ class StreamController extends BackendController
         ];
     }
 
+    public function actions()
+    {
+        return array_merge(parent::actions(),[
+            'delete-all'=>[
+                'class'=>StreamDeleteAllAction::className()
+            ]
+        ]);
+    }
+
     public function actionExport()
     {
         $session = Yii::$app->session;
-        print_r($session['search']);
+        $model = Stream::find()->all();
+        \moonland\phpexcel\Excel::widget([
+            'models' => $model,
+            'mode' => 'export', //default value as 'export'
+            'columns' => [
+                'type',
+                ['attribute'=>'start_time','format'=>'datetime'],
+                ['attribute'=>'end_time','format'=>'datetime'],
+                'start_weight',
+                'end_weight',
+                'the_weight',
+                'total_weight',
+                'property_no',
+                'well_no',
+                'team_no',
+                'well_class'
+                ],
+        ]);
     }
     /**
      * Lists all Content models.
@@ -114,6 +141,7 @@ class StreamController extends BackendController
      */
     public function actionDelete($id)
     {
+        return $this->showFlash('删除成功','success',['index']);
         if($this->findModel($id)->delete()){
             return $this->showFlash('删除成功','success',['index']);
         }
