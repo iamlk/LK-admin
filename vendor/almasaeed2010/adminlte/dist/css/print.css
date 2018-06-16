@@ -1,0 +1,21 @@
+a {
+    color: black;
+}
+a::after {
+    content: ""; /* 所有链接后显示链接地址 */
+}
+#w0 div:first-child {
+    display: none;
+}
+
+#w0 table th:first-child {
+    display: none;
+}
+
+#w0 table td:first-child {
+    display: none;
+}
+
+#w0 table thead .filters {
+    display: none;
+}

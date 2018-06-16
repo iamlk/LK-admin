@@ -21,6 +21,7 @@ class AppActiveRecord extends ActiveRecord
 {
     public function init(){
         parent::init();
+        return;
         $this->attachBehaviors([
                 TimestampBehavior::className(),
             ]
