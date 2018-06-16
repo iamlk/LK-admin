@@ -38,12 +38,37 @@ class Stream extends \app\components\AppActiveRecord
     {
         return [
             [['start_time', 'end_time', 'start_weight', 'end_weight', 'the_weight', 'total_weight'], 'required'],
-            [['start_time', 'end_time', 'total_weight'], 'integer'],
+            [[ 'total_weight'], 'integer'],
             [['start_weight', 'end_weight', 'the_weight'], 'number'],
+            [['start_time','end_time'], 'fomateTime'],
             [['uid', 'property_no', 'well_no', 'team_no', 'well_class'], 'string', 'max' => 50],
             [['type'], 'string', 'max' => 6],
             [['uid'], 'unique'],
         ];
+    }
+
+    public function afterFind()
+    {
+        parent::afterFind();
+        $this->start_time   = date('Y-m-d H:i:s', $this->start_time);
+        $this->end_time     = date('Y-m-d H:i:s', $this->end_time);
+    }
+
+    public function fomateTime($attr,$params)
+    {
+        if ($this->hasErrors()) return false;
+
+        $datetime = $this->{$attr};
+
+        $time = strtotime($datetime);
+        // 验证时间格式是否正确
+        if ($time === false) {
+            $this->addError($attr, '时间格式错误.');
+            return false;
+        }
+        // 将转换为时间戳后的时间赋值给time属性
+        $this->{$attr} = $time;
+        return true;
     }
 
     /**

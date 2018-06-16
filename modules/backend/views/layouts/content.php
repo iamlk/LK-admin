@@ -4,8 +4,8 @@ use dmstr\widgets\Alert;
 /* @var $this \yii\web\View */
 ?>
 <div class="content-wrapper" style="min-height: 916px;">
+    <?= Alert::widget() ?>
     <section class="content-header">
-        <?= Alert::widget() ?>
         <?php if (isset($this->blocks['content-header'])) { ?>
             <h1><?= $this->blocks['content-header'] ?></h1>
         <?php } else { ?>

@@ -76,8 +76,10 @@ class StreamSearch extends Stream
             'well_class' => $this->well_class,
         ]);
 
-        $query->andFilterWhere(['>=','start_time',$this->start_time])
-            ->andFilterWhere(['<=','end_time',$this->end_time]);
+        if($this->start_time)
+            $query->andFilterWhere(['>=','start_time',strtotime($this->start_time)]);
+        if($this->end_time)
+            $query->andFilterWhere(['<=','end_time',strtotime($this->end_time)+86400]);
         return $dataProvider;
     }
 

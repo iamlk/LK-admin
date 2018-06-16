@@ -28,7 +28,7 @@ class Menu extends \yii\widgets\Menu
      * @var string is prefix that will be added to $item['icon'] if it exist.
      * By default uses for Font Awesome (http://fontawesome.io/)
      */
-    public static $iconClassPrefix = 'fa fa-';
+    public static $iconClassPrefix = '';
 
     private $noDefaultAction;
     private $noDefaultRoute;

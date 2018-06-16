@@ -77,7 +77,7 @@ class StreamController extends BackendController
         }
         $searchModel = new StreamSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
-        StreamType::GetList(StreamType::CLS);
+        $dataProvider->setSort(false);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
@@ -125,7 +125,7 @@ class StreamController extends BackendController
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->showFlash('修改新闻成功','success');
+            return $this->showFlash('修改数据成功','success');
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -157,7 +157,7 @@ class StreamController extends BackendController
      */
     protected function findModel($id)
     {
-        if (($model = News::findOne($id)) !== null) {
+        if (($model = Stream::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
