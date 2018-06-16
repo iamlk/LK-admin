@@ -14,14 +14,10 @@ use app\modules\backend\grid\DataColumn;
  * Time: 10:56
  * Email:wap@iamlk.cn
  */
-class DataColumnLabel extends DataColumn
-{
-    public $headerOptions = ['class'=>'text-aqua'];
-}
 
 class GridView extends YiiGridView
 {
-    public $dataColumnClass = DataColumnLabel::Class;
+    public $dataColumnClass = DataColumn::Class;
     /**
      * @var string the layout that determines how different sections of the list view should be organized.
      * The following tokens will be replaced with the corresponding section contents:

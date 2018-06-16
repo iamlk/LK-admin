@@ -38,7 +38,7 @@ class Stream extends \app\components\AppActiveRecord
     {
         return [
             [['start_time', 'end_time', 'start_weight', 'end_weight', 'the_weight', 'total_weight'], 'required'],
-            [[ 'total_weight'], 'integer'],
+            [['total_weight'], 'integer'],
             [['start_weight', 'end_weight', 'the_weight'], 'number'],
             [['start_time','end_time'], 'fomateTime'],
             [['uid', 'property_no', 'well_no', 'team_no', 'well_class'], 'string', 'max' => 50],

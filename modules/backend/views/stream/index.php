@@ -43,13 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'filterType'=>'date',
                         'attribute' => 'start_time',
-                        'format' => 'datetime',
+                        //'format' => 'datetime',
                         'options' => ['style' => 'width:160px']
                     ],
                     [
                         'filterType'=>'date',
                         'attribute' => 'end_time',
-                        'format' => 'datetime',
+                        //'format' => 'datetime',
                         'options' => ['style' => 'width:160px']
                     ],
                     'start_weight',

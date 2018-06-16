@@ -77,7 +77,7 @@ class StreamController extends BackendController
         }
         $searchModel = new StreamSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
-        $dataProvider->setSort(false);
+        //$dataProvider->setSort(false);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
