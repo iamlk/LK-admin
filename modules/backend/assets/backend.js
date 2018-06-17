@@ -3,3 +3,13 @@ $(document).ajaxError(function(event,xhr,options,exc){
         alert(xhr.responseText);
     }
 });
+$(function () {
+    'use strict'
+
+    /**
+     * Get access to plugins
+     */
+
+    $('[data-toggle="control-sidebar"]').controlSidebar()
+    $('[data-toggle="push-menu"]').pushMenu()
+});

@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc59c572-f580-4a13-88df-5912784f22ac" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/modules/backend/views/stream/data.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/backend/widgets/DataView.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/backend/assets/BackendAsset.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/assets/BackendAsset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/assets/backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/assets/backend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/layouts/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/layouts/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/layouts/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/backend/views/stream/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/stream/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/dmstr/yii2-adminlte-asset/web/AdminLteAsset.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/dmstr/yii2-adminlte-asset/web/AdminLteAsset.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,7 +23,7 @@
       <file leaf-file-name="StreamController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/backend/controllers/StreamController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
+            <state relative-caret-position="1605">
               <caret line="115" column="11" selection-start-line="115" selection-start-column="11" selection-end-line="115" selection-end-column="11" />
               <folding>
                 <element signature="e#51#77#0#PHP" expanded="true" />
@@ -37,7 +35,7 @@
       <file leaf-file-name="StreamDeleteAllAction.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/backend/actions/StreamDeleteAllAction.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
+            <state relative-caret-position="135">
               <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="16" selection-end-column="21" />
             </state>
           </provider>
@@ -46,11 +44,10 @@
       <file leaf-file-name="data.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/data.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
+            <state relative-caret-position="495">
               <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
               <folding>
                 <element signature="e#7#28#0#PHP" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,22 +56,20 @@
       <file leaf-file-name="GridView.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/backend/widgets/GridView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="1320">
               <caret line="93" column="32" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="32" />
               <folding>
                 <element signature="e#46#67#0#PHP" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataView.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DataView.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/backend/widgets/DataView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="48" column="48" lean-forward="true" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
+            <state relative-caret-position="720">
+              <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
               <folding>
                 <element signature="e#46#69#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -83,10 +78,46 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="backend.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/assets/backend.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="30" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="14" column="65" selection-start-line="14" selection-start-column="65" selection-end-line="14" selection-end-column="65" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="27" column="78" selection-start-line="27" selection-start-column="78" selection-end-line="27" selection-end-column="78" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="439">
+              <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DataColumn.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/grid/DataColumn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2214">
+            <state relative-caret-position="405">
               <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
             </state>
           </provider>
@@ -171,14 +202,16 @@
         <option value="$PROJECT_DIR$/models/Stream.php" />
         <option value="$PROJECT_DIR$/components/AppActiveRecord.php" />
         <option value="$PROJECT_DIR$/web/print.css" />
-        <option value="$PROJECT_DIR$/modules/backend/views/layouts/main.php" />
-        <option value="$PROJECT_DIR$/modules/backend/views/stream/index.php" />
         <option value="$PROJECT_DIR$/modules/backend/assets/BackendAsset.php" />
         <option value="$PROJECT_DIR$/vendor/dmstr/yii2-adminlte-asset/web/AdminLteAsset.php" />
         <option value="$PROJECT_DIR$/modules/backend/widgets/GridView.php" />
         <option value="$PROJECT_DIR$/modules/backend/views/stream/data.php" />
         <option value="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" />
         <option value="$PROJECT_DIR$/modules/backend/widgets/DataView.php" />
+        <option value="$PROJECT_DIR$/modules/backend/assets/backend.js" />
+        <option value="$PROJECT_DIR$/modules/backend/views/layouts/header.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/layouts/main.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/stream/index.php" />
       </list>
     </option>
   </component>
@@ -226,7 +259,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -269,6 +301,13 @@
               <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
@@ -366,6 +405,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -418,11 +458,13 @@
       <workItem from="1529069225845" duration="632000" />
       <workItem from="1529143139298" duration="6216000" />
       <workItem from="1529185050221" duration="8287000" />
+      <workItem from="1529197559683" duration="300000" />
+      <workItem from="1529227542332" duration="490000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50385000" />
+    <option name="totallyTimeSpent" value="51175000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -433,7 +475,6 @@
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.32900944" />
       <window_info anchor="bottom" id="Migrations" order="11" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32900944" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -448,6 +489,7 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32900944" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,13 +499,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/news/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/web/YiiAsset.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -622,10 +657,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret line="57" column="61" selection-start-line="57" selection-start-column="61" selection-end-line="57" selection-end-column="61" />
-          <folding>
-            <element signature="e#6#89#0#PHP" expanded="true" />
-            <element signature="e#131#150#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -692,40 +723,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/print.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/web/print.css" />
     <entry file="file://$PROJECT_DIR$/modules/backend/views/page/index.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="34" column="53" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="53" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/content.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
-          <folding>
-            <element signature="e#7#28#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,7 +750,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/grid/DataColumn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2214">
+        <state relative-caret-position="405">
           <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
         </state>
       </provider>
@@ -766,33 +771,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/widgets/GridView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="1320">
           <caret line="93" column="32" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="32" />
           <folding>
             <element signature="e#46#67#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/actions/StreamDeleteAllAction.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
+        <state relative-caret-position="135">
           <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="16" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/controllers/StreamController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
+        <state relative-caret-position="1605">
           <caret line="115" column="11" selection-start-line="115" selection-start-column="11" selection-end-line="115" selection-end-column="11" />
           <folding>
             <element signature="e#51#77#0#PHP" expanded="true" />
@@ -802,23 +798,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/data.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
+        <state relative-caret-position="495">
           <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
           <folding>
             <element signature="e#7#28#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/widgets/DataView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="48" column="48" lean-forward="true" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
+        <state relative-caret-position="720">
+          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
           <folding>
             <element signature="e#46#69#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/assets/backend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="30" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="65" selection-start-line="14" selection-start-column="65" selection-end-line="14" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="27" column="78" selection-start-line="27" selection-start-column="78" selection-end-line="27" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
         </state>
       </provider>
     </entry>
