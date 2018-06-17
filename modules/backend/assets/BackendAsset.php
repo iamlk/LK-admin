@@ -24,7 +24,7 @@ class BackendAsset extends AssetBundle
         'skin.js',
         'backend.js',
         'jquery.jqprint-0.3.js',
-        'http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js',
+        'jquery-migrate-1.2.1.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

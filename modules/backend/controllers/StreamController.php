@@ -10,6 +10,7 @@ use app\modules\backend\components\BackendController;
 use app\modules\backend\actions\StreamDeleteAllAction;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * ContentController implements the CRUD actions for Content model.
@@ -84,16 +85,47 @@ class StreamController extends BackendController
         ]);
     }
 
+    public function actionData()
+    {
+        $searchModel = new StreamSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 1);
+        return $this->render('data', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
     /**
      * Displays a single Content model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $ids =  Yii::$app->request->post('ids');
+        if(empty($ids)){
+            return ['data'=>'id不能为空','code'=>1];
+        }
+
+        /** @var $query ContentQuery */
+        $query = Stream::find();
+
+        $query->andFilterWhere([
+            'in', 'id', $ids
         ]);
+        try {
+            //Stream::deleteAll($query->where);
+            return [
+                'code'=>0,
+                'data'=>'操作成功'
+            ];
+        }catch(Exception $e){
+            return [
+                'code'=>1,
+                'data'=>$e->getMessage()
+            ];
+        }
     }
 
     /**

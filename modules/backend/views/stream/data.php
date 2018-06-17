@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use app\modules\backend\widgets\GridView;
+use app\modules\backend\widgets\DataView;
 use yii\grid\CheckboxColumn;
 use app\models\StreamType;
 
@@ -10,14 +10,39 @@ use app\models\StreamType;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $pagination yii\data\Pagination */
 
-$this->title = '出入料管理';
+$this->title = '数据报表';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJs('$(function () {
+        "use strict";
+        var bar = new Morris.Bar({
+            element: \'bar-chart\',
+            resize: true,
+            data: [
+                {y: \'2006\', a: 100, b: 90},
+                {y: \'2007\', a: 75, b: 65},
+                {y: \'2008\', a: 50, b: 40},
+                {y: \'2009\', a: 75, b: 65},
+                {y: \'2010\', a: 50, b: 40},
+                {y: \'2011\', a: 75, b: 65},
+                {y: \'2012\', a: 100, b: 90}
+            ],
+            barColors: [\'#00a65a\', \'#dd4b39\'],
+            xkey: \'y\',
+            ykeys: [\'a\', \'b\'],
+            labels: [\'进料\', \'出料\'],
+            hideHover: \'auto\'
+        });
+    });');
+$this->registerCss('.table-striped>tbody>tr{
+        display:none;
+    }');
 ?>
 <div class="content-index">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><?= Html::a($this->title, ['index']) ?></li>
-            <li role="presentation"><?= Html::a('数据报表', ['data']) ?></li>
+            <li role="presentation"><?= Html::a('出入料管理', ['index']) ?></li>
+            <li role="presentation" class="active"><?= Html::a($this->title, ['data']) ?></li>
             <li role="presentation"><?= Html::a('导入数据', ['create']) ?></li>
         </ul>
         <div class="tab-content">
@@ -26,7 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
-                    ['class' => CheckboxColumn::className()],
                     [
                         'attribute' => 'type',
                         'filter'=>StreamType::$TypeList,
@@ -53,10 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'format' => 'datetime',
                         'options' => ['style' => 'width:160px']
                     ],
-                    'start_weight',
-                    'end_weight',
-                    'the_weight',
-                    'total_weight',
                     [
                         'attribute' => 'property_no',
                         'filter'=>StreamType::GetList(StreamType::PROPERTY),
@@ -85,14 +105,28 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'html',
                         'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
                     ],
-
-//             'start_time:datetime',
-                    ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
                 ],
             ]
             ?>
 
-            <?= GridView::widget($params); ?>
+            <?= DataView::widget($params); ?>
         </div>
+
+
+        <!-- BAR CHART -->
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Bar Chart</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body chart-responsive">
+                <div class="chart" id="bar-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
     </div>
 </div>
