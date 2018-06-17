@@ -1,4 +1,4 @@
 
 web/assets/
 *.DS_Store
-workspace.xml
+.idea/
