@@ -68,4 +68,14 @@ class StreamType extends \app\components\AppActiveRecord
         }
         return $data;
     }
+
+    public static function  GetAll($type)
+    {
+        $list = self::findAll(['type'=>$type]);
+        $data = [];
+        foreach($list as $li){
+            $data[] = $li->value;
+        }
+        return $data;
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 
 /**
  * This is the model class for table "stream".
@@ -38,37 +37,12 @@ class Stream extends \app\components\AppActiveRecord
     {
         return [
             [['start_time', 'end_time', 'start_weight', 'end_weight'], 'required'],
-            [['total_weight'], 'integer'],
-            [['start_weight', 'end_weight', 'the_weight'], 'number'],
-            [['start_time','end_time'], 'fomateTime'],
+            [['start_time', 'end_time'], 'safe'],
+            [['start_weight', 'end_weight', 'the_weight', 'total_weight'], 'number'],
             [['uid', 'property_no', 'well_no', 'team_no', 'well_class'], 'string', 'max' => 50],
             [['type'], 'string', 'max' => 6],
             [['uid'], 'unique'],
         ];
-    }
-
-    public function afterFind()
-    {
-        parent::afterFind();
-        $this->start_time   = date('Y-m-d H:i:s', $this->start_time);
-        $this->end_time     = date('Y-m-d H:i:s', $this->end_time);
-    }
-
-    public function fomateTime($attr,$params)
-    {
-        if ($this->hasErrors()) return false;
-
-        $datetime = $this->{$attr};
-
-        $time = strtotime($datetime);
-        // 验证时间格式是否正确
-        if ($time === false) {
-            $this->addError($attr, '时间格式错误.');
-            return false;
-        }
-        // 将转换为时间戳后的时间赋值给time属性
-        $this->{$attr} = $time;
-        return true;
     }
 
     /**
@@ -91,5 +65,54 @@ class Stream extends \app\components\AppActiveRecord
             'team_no' => '队号',
             'well_class' => '钻井队',
         ];
+    }
+
+    public static function importData($list){
+        $type = [];
+        $time = '2050-12-12 12:12:12';
+        foreach($list as $li){
+            $model = new Stream();
+            $model->attributes = $li;
+            $type[$li['property_no']] = StreamType::PROPERTY;
+            $type[$li['team_no']] = StreamType::TEAM;
+            if($model->save()){//数据合法，才比较time
+                if($time>$li['start_time']) $time = $li['start_time'];
+            }
+        }
+        foreach($type as $team => $t){
+            $model = new StreamType();
+            $model->type = $t;
+            $model->value = $team;
+            $model->save();
+        }
+        Stream::updateAll(['the_weight'=>0.0,'total_weight'=>0],'start_time'>$time);
+    }
+
+    public static function initData(){
+        $count = Stream::find()->where(['total_weight'=>0])->count();
+        if($count == 0) return;
+        $list = null;
+        $teamList = StreamType::GetAll(StreamType::TEAM);
+        $team = [];
+        foreach($teamList as $item){
+            $model = Stream::find()->where(['and','total_weight>0','team_no="'.$item.'"','type="'.StreamType::IN.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
+            if($model){
+                $team[StreamType::IN][$item] = $model->total_weight;
+            }else{
+                $team[StreamType::IN][$item] = 0;
+            }
+            $model = Stream::find()->where(['and','total_weight>0','team_no="'.$item.'"','type="'.StreamType::OUT.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
+            if($model){
+                $team[StreamType::OUT][$item] = $model->total_weight;
+            }else{
+                $team[StreamType::OUT][$item] = 0;
+            }
+        }
+        foreach(Stream::find()->where(['total_weight'=>0])->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
+            $li->the_weight = ($li->type == StreamType::IN)?($li->end_weight - $li->start_weight):($li->start_weight - $li->end_weight);
+            $team[$li->type][$li->team_no] += $li->the_weight;
+            $li->total_weight = $team[$li->type][$li->team_no];
+            $li->save();
+        }
     }
 }

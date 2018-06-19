@@ -102,7 +102,9 @@ class StreamController extends BackendController
      */
     public function actionView()
     {
-        for($i=1; $i<1; $i++){
+
+        /**
+        for($i=0; $i<5000; $i++){
             $model = new Stream();
             $model->uid = time().'_'.$i;
             $model->type = rand(0,1)?'出料':'进料';
@@ -117,6 +119,18 @@ class StreamController extends BackendController
             $model->well_class = '东华公司';
             $model->save();
         }
+        $list = Stream::find()->all();
+        $data = [];
+        foreach($list as $li){
+            $data[] = $li->attributes;
+        }
+        file_put_contents('data.json',json_encode($data,true));*/
+
+        $data = file_get_contents('data.json');
+        $data = json_decode($data,true);
+        //Stream::importData($data);
+        Stream::initData();
+        return $this->render('_search');
     }
 
     /**
