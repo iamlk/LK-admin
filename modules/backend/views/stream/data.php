@@ -84,27 +84,6 @@ $this->registerCss('.table-striped>tbody>tr{
                         'format' => 'html',
                         'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
                     ],
-                    [
-                        'attribute' => 'well_no',
-                        'filter'=>StreamType::GetList(StreamType::WELL),
-                        'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
-                        'attribute' => 'team_no',
-                        'filter'=>StreamType::GetList(StreamType::TEAM),
-                        'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
-                        'attribute' => 'well_class',
-                        'filter'=>StreamType::GetList(StreamType::CLS),
-                        'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
                 ],
             ]
             ?>

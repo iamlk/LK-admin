@@ -37,7 +37,7 @@ class Stream extends \app\components\AppActiveRecord
     public function rules()
     {
         return [
-            [['start_time', 'end_time', 'start_weight', 'end_weight', 'the_weight', 'total_weight'], 'required'],
+            [['start_time', 'end_time', 'start_weight', 'end_weight'], 'required'],
             [['total_weight'], 'integer'],
             [['start_weight', 'end_weight', 'the_weight'], 'number'],
             [['start_time','end_time'], 'fomateTime'],

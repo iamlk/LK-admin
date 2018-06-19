@@ -27,7 +27,7 @@ class StreamSearch extends Stream
     {
         return [
             [['id'], 'integer'],
-            [['type', 'start_time','end_time', 'property_no', 'well_no', 'team_no', 'well_class'], 'safe'],
+            [['type', 'start_time','end_time', 'property_no'], 'safe'],
         ];
     }
 
@@ -71,9 +71,9 @@ class StreamSearch extends Stream
             'id' => $this->id,
             'type' => $this->type,
             'property_no' => $this->property_no,
-            'well_no' => $this->well_no,
-            'team_no' => $this->team_no,
-            'well_class' => $this->well_class,
+            //'well_no' => $this->well_no,
+            //'team_no' => $this->team_no,
+            //'well_class' => $this->well_class,
         ]);
 
         if($this->start_time)

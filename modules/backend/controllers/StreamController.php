@@ -102,29 +102,20 @@ class StreamController extends BackendController
      */
     public function actionView()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $ids =  Yii::$app->request->post('ids');
-        if(empty($ids)){
-            return ['data'=>'id不能为空','code'=>1];
-        }
-
-        /** @var $query ContentQuery */
-        $query = Stream::find();
-
-        $query->andFilterWhere([
-            'in', 'id', $ids
-        ]);
-        try {
-            //Stream::deleteAll($query->where);
-            return [
-                'code'=>0,
-                'data'=>'操作成功'
-            ];
-        }catch(Exception $e){
-            return [
-                'code'=>1,
-                'data'=>$e->getMessage()
-            ];
+        for($i=1; $i<1; $i++){
+            $model = new Stream();
+            $model->uid = time().'_'.$i;
+            $model->type = rand(0,1)?'出料':'进料';
+            $model->start_time = date('Y-m-d H:i:s',1520002278+$i*3000);
+            $model->end_time = date('Y-m-d H:i:s',1520002278+$i*3500);
+            $model->start_weight = rand(100,1000)+rand(1,90)/100;
+            $random = rand(1,1000)+rand(1,90)/100;
+            $model->end_weight = ($model->type == '出料')?($model->start_weight-$random):($model->start_weight+$random);
+            $model->property_no = '罐子'.rand(1,4);
+            $model->well_no = '川A'.rand(1000,9999);
+            $model->team_no = '钻井队'.rand(1,9);
+            $model->well_class = '东华公司';
+            $model->save();
         }
     }
 

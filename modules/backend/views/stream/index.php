@@ -28,6 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => CheckboxColumn::className()],
                     [
+                        'attribute' => 'property_no',
+                        'filter'=>StreamType::GetList(StreamType::PROPERTY),
+                        //'options' => ['style' => 'width:80px'],
+                        'format' => 'html',
+                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
+                    ],
+                    [
                         'attribute' => 'type',
                         'filter'=>StreamType::$TypeList,
                         'options' => ['style' => 'width:80px'],
@@ -57,34 +64,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'end_weight',
                     'the_weight',
                     'total_weight',
-                    [
-                        'attribute' => 'property_no',
-                        'filter'=>StreamType::GetList(StreamType::PROPERTY),
-                        //'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
-                        'attribute' => 'well_no',
-                        'filter'=>StreamType::GetList(StreamType::WELL),
-                        //'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
-                        'attribute' => 'team_no',
-                        'filter'=>StreamType::GetList(StreamType::TEAM),
-                        //'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
-                        'attribute' => 'well_class',
-                        'filter'=>StreamType::GetList(StreamType::CLS),
-                        //'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
+                    'well_no',
+                    'team_no',
+                    'well_class',
 
 //             'start_time:datetime',
                     ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],

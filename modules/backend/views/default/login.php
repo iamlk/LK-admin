@@ -8,8 +8,8 @@ use yii\bootstrap\ActiveForm;
 		'enableClientValidation' => false,
 	]); ?>
 		<div class="login"><?= Yii::$app->name ?></div>
-		<div class="username-text">Username:</div>
-		<div class="password-text">Password:</div>
+		<div class="username-text">登录用户:</div>
+		<div class="password-text">登录密码:</div>
 		<div class="username-field">
 			<input type="text" name="LoginForm[username]" value="" />
 		</div>
