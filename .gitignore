@@ -2,4 +2,4 @@
 web/assets/
 *.DS_Store
 .idea/
-web/upload/
+web/uploads/
