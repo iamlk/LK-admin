@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = '修改';
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation"><?= Html::a('出入料管理', ['index']) ?></li>
+            <li role="presentation"><?= Html::a('数据报表', ['data']) ?></li>
             <li role="presentation"><?= Html::a('导入数据', ['create']) ?></li>
             <li role="presentation" class="active"><?= Html::a('修改数据', '#') ?></li>
         </ul>

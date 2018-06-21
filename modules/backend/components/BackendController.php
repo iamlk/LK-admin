@@ -31,6 +31,11 @@ class BackendController extends Controller
         return $this->redirect($url);
     }
 
+    public function hasFlash($type='danger')
+    {
+        return Yii::$app->session->hasFlash($type);
+    }
+
     /**
      * 添加页面提示信息
      * @param string|array $message

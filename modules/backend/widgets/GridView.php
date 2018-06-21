@@ -52,17 +52,16 @@ class GridView extends YiiGridView
             Html::tag('button', '导出',[
                 'title'=>'当前筛选所有结果将导出',
                 'class'=>'content-operation btn btn-xs btn-success',
-                'onclick'=>'window.location.href=\'export\';',
+                'onclick'=>'if(confirm(\'您确定导出当前筛选结果？\'))window.location.href=\'export\';',
             ]),
             Html::tag('button', '打印',[
-                'title'=>'推荐先导出Excel再打印',
                 'class'=>'content-operation btn btn-xs btn-warning',
                 'onclick'=>'$(\'#w0\').jqprint({printContainer:true});',
             ]),
             Html::tag('button', '删除',[
                 'id'=>'delete',
                 'class'=>'content-operation btn btn-xs btn-danger',
-                'data-queren' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                'data-queren' => '您确定删除所选项？删除将不能恢复~',
                 'data-action'=>Url::to(['delete-all'])
             ]),
         ];

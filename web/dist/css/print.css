@@ -19,3 +19,7 @@ a::after {
 #w0 table thead .filters {
     display: none;
 }
+
+.pagination{
+    display: none;
+}

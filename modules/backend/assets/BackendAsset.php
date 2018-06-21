@@ -23,8 +23,6 @@ class BackendAsset extends AssetBundle
     public $js = [
         'skin.js',
         'backend.js',
-        'jquery.jqprint-0.3.js',
-        'jquery-migrate-1.2.1.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -33,4 +31,9 @@ class BackendAsset extends AssetBundle
 //        'mdm\admin\AutocompleteAsset',
 //        'app\modules\backend\assets\AdminLtePluginsAsset',
     ];
+
+    public static function loadSelf()
+    {
+        return new BackendAsset();
+    }
 }

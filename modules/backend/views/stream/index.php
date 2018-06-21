@@ -4,11 +4,18 @@ use yii\helpers\Html;
 use app\modules\backend\widgets\GridView;
 use yii\grid\CheckboxColumn;
 use app\models\StreamType;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\backend\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $pagination yii\data\Pagination */
+
+$this->registerJsFile('/dist/js/jquery.jqprint-0.3.js',['depends'=>['app\modules\backend\assets\BackendAsset']]);
+$this->registerJsFile('/dist/js/jquery-migrate-1.2.1.min.js',['depends'=>['app\modules\backend\assets\BackendAsset']]);
+$this->registerCssFile('/dist/css/print.css',['media'=>'print']);
+
+
 
 $this->title = '出入料管理';
 $this->params['breadcrumbs'][] = $this->title;

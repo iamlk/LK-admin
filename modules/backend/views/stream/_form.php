@@ -44,7 +44,7 @@ use kartik\date\DatePicker;
             <?= $form->field($model, 'property_no')->dropDownList(StreamType::GetList(StreamType::PROPERTY)) ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'well_no')->dropDownList(StreamType::GetList(StreamType::WELL)) ?>
+            <?= $form->field($model, 'well_no')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
     <div class="row">
@@ -52,7 +52,7 @@ use kartik\date\DatePicker;
             <?= $form->field($model, 'team_no')->dropDownList(StreamType::GetList(StreamType::TEAM)) ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'well_class')->dropDownList(StreamType::GetList(StreamType::CLS)) ?>
+            <?= $form->field($model, 'well_class')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
 

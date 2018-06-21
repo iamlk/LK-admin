@@ -36,7 +36,7 @@ class Stream extends \app\components\AppActiveRecord
     public function rules()
     {
         return [
-            [['start_time', 'end_time', 'start_weight', 'end_weight'], 'required'],
+            [['start_time', 'end_time', 'start_weight', 'end_weight', 'team_no', 'type', 'property_no'], 'required'],
             [['start_time', 'end_time'], 'safe'],
             [['start_weight', 'end_weight', 'the_weight', 'total_weight'], 'number'],
             [['uid', 'property_no', 'well_no', 'team_no', 'well_class'], 'string', 'max' => 50],
@@ -64,6 +64,7 @@ class Stream extends \app\components\AppActiveRecord
             'well_no' => '井号',
             'team_no' => '队号',
             'well_class' => '钻井队',
+            'is_deal' =>'已处理'
         ];
     }
 
@@ -75,6 +76,7 @@ class Stream extends \app\components\AppActiveRecord
             $model->attributes = $li;
             $type[$li['property_no']] = StreamType::PROPERTY;
             $type[$li['team_no']] = StreamType::TEAM;
+            $model->is_deal = 0;
             if($model->save()){//数据合法，才比较time
                 if($time>$li['start_time']) $time = $li['start_time'];
             }
@@ -85,33 +87,34 @@ class Stream extends \app\components\AppActiveRecord
             $model->value = $team;
             $model->save();
         }
-        Stream::updateAll(['the_weight'=>0.0,'total_weight'=>0],'start_time'>$time);
+        Stream::updateAll(['is_deal'=>0],'start_time'>$time);
     }
 
     public static function initData(){
-        $count = Stream::find()->where(['total_weight'=>0])->count();
+        $count = Stream::find()->where(['is_deal'=>0])->count();
         if($count == 0) return;
         $list = null;
         $teamList = StreamType::GetAll(StreamType::TEAM);
         $team = [];
         foreach($teamList as $item){
-            $model = Stream::find()->where(['and','total_weight>0','team_no="'.$item.'"','type="'.StreamType::IN.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
+            $model = Stream::find()->where(['and','is_deal=1','team_no="'.$item.'"','type="'.StreamType::IN.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
             if($model){
                 $team[StreamType::IN][$item] = $model->total_weight;
             }else{
                 $team[StreamType::IN][$item] = 0;
             }
-            $model = Stream::find()->where(['and','total_weight>0','team_no="'.$item.'"','type="'.StreamType::OUT.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
+            $model = Stream::find()->where(['and','is_deal=1','team_no="'.$item.'"','type="'.StreamType::OUT.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
             if($model){
                 $team[StreamType::OUT][$item] = $model->total_weight;
             }else{
                 $team[StreamType::OUT][$item] = 0;
             }
         }
-        foreach(Stream::find()->where(['total_weight'=>0])->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
+        foreach(Stream::find()->where(['is_deal'=>0])->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
             $li->the_weight = ($li->type == StreamType::IN)?($li->end_weight - $li->start_weight):($li->start_weight - $li->end_weight);
             $team[$li->type][$li->team_no] += $li->the_weight;
             $li->total_weight = $team[$li->type][$li->team_no];
+            $li->is_deal = 1;
             $li->save();
         }
     }

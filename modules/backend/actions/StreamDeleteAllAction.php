@@ -46,7 +46,7 @@ class StreamDeleteAllAction extends Action
             'in', 'id', $ids
         ]);
         try {
-            //Stream::deleteAll($query->where);
+            Stream::deleteAll($query->where);
             return [
                 'code'=>0,
                 'data'=>'操作成功'

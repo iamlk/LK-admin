@@ -2,15 +2,16 @@
 
 namespace app\modules\backend\controllers;
 
-use app\models\StreamType;
 use Yii;
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 use app\models\Stream;
+use app\models\Upload;
 use app\modules\backend\models\StreamSearch;
 use app\modules\backend\components\BackendController;
 use app\modules\backend\actions\StreamDeleteAllAction;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 
 /**
  * ContentController implements the CRUD actions for Content model.
@@ -43,10 +44,23 @@ class StreamController extends BackendController
 
     public function actionExport()
     {
+        set_time_limit(0);
         $session = Yii::$app->session;
-        $model = Stream::find()->all();
+        $search = $session['search'];
+        if($search){
+            $condition = ['and'];
+            if(@$search['property_no']) $condition[] = 'property_no="'.$search['property_no'].'"';
+            if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
+            if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
+            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+        }
+        else
+            $condition = '';
+        //$model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->each(500);
+        $model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->limit(30000)->all();
         \moonland\phpexcel\Excel::widget([
             'models' => $model,
+            'fileName' => 'Data.xlsx',
             'mode' => 'export', //default value as 'export'
             'columns' => [
                 'type',
@@ -102,35 +116,39 @@ class StreamController extends BackendController
      */
     public function actionView()
     {
+        set_time_limit(0);
+
+
 
         /**
-        for($i=0; $i<5000; $i++){
+        for($i=0; $i<50000; $i++){
+            $random = rand(1,1000)+rand(1,90)/100;
             $model = new Stream();
             $model->uid = time().'_'.$i;
             $model->type = rand(0,1)?'出料':'进料';
-            $model->start_time = date('Y-m-d H:i:s',1520002278+$i*3000);
-            $model->end_time = date('Y-m-d H:i:s',1520002278+$i*3500);
+            $model->start_time = date('Y-m-d H:i:s',1520002278+$i*100);
+            $model->end_time = date('Y-m-d H:i:s',1520002278+$i*100+$random*100);
             $model->start_weight = rand(100,1000)+rand(1,90)/100;
-            $random = rand(1,1000)+rand(1,90)/100;
             $model->end_weight = ($model->type == '出料')?($model->start_weight-$random):($model->start_weight+$random);
             $model->property_no = '罐子'.rand(1,4);
             $model->well_no = '川A'.rand(1000,9999);
             $model->team_no = '钻井队'.rand(1,9);
             $model->well_class = '东华公司';
             $model->save();
-        }
-        $list = Stream::find()->all();
+        }*/
+
         $data = [];
-        foreach($list as $li){
+        foreach(Stream::find()->each(100) as $li){
             $data[] = $li->attributes;
         }
-        file_put_contents('data.json',json_encode($data,true));*/
+        file_put_contents('data.json',json_encode($data,true));
 
+        /**
         $data = file_get_contents('data.json');
         $data = json_decode($data,true);
         //Stream::importData($data);
         Stream::initData();
-        return $this->render('_search');
+        return $this->render('_search');*/
     }
 
     /**
@@ -140,15 +158,30 @@ class StreamController extends BackendController
      */
     public function actionCreate()
     {
-        $model = new News();
-        $post = Yii::$app->request->post();
-        if ($post) {
-            if ($model->load($post) && $model->save()) {
-                return $this->showFlash('添加成功','success');
+        set_time_limit(0);
+        $model= new Upload();
+
+        if (Yii::$app->request->isPost) {
+            $file = UploadedFile::getInstance($model, 'file');
+            $path=\Yii::getAlias('@webroot').'/uploads/data/';
+            if ($file && $model->validate()) {
+                if(!file_exists($path)){
+                    FileHelper::createDirectory($path, 0777);
+                }
+                $fileName = date('Ymd-His') . '.' . $file->getExtension();
+                $file->saveAs($path . $fileName);
+                $c = file_get_contents($path . $fileName);
+
+
+                $list = json_decode($c,true);
+                Stream::importData($list);
+                return $this->showFlash('上传成功！','success',['create']);
             }
         }
+        $count = Stream::find()->where(['is_deal'=>0])->count();
         return $this->render('create', [
             'model' => $model,
+            'count' => $count,
         ]);
     }
 
@@ -178,7 +211,6 @@ class StreamController extends BackendController
      */
     public function actionDelete($id)
     {
-        return $this->showFlash('删除成功','success',['index']);
         if($this->findModel($id)->delete()){
             return $this->showFlash('删除成功','success',['index']);
         }
