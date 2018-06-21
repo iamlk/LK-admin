@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use app\modules\backend\widgets\DataView;
-use yii\grid\CheckboxColumn;
+use yii\data\ActiveDataProvider;
 use app\models\StreamType;
 
 /* @var $this yii\web\View */
@@ -27,12 +27,13 @@ $this->registerJs('$(function () {
                 {y: \'2011\', a: 75, b: 65},
                 {y: \'2012\', a: 100, b: 90}
             ],
-            barColors: [\'#00a65a\', \'#dd4b39\'],
+            barColors: [\'#00c0ef\', \'#dd4b39\'],
             xkey: \'y\',
             ykeys: [\'a\', \'b\'],
             labels: [\'进料\', \'出料\'],
             hideHover: \'auto\'
         });
+        bar.redraw();
     });');
 $this->registerCss('.table-striped>tbody>tr{
         display:none;
@@ -52,20 +53,6 @@ $this->registerCss('.table-striped>tbody>tr{
                 'filterModel' => $searchModel,
                 'columns' => [
                     [
-                        'attribute' => 'type',
-                        'filter'=>StreamType::$TypeList,
-                        'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'value' => function ($item) {
-                            if($item['type'] == StreamType::IN) {
-                                return '<span class="badge bg-green">' . $item['type'] . '</span>';
-                            }else{
-                                return '<span class="badge bg-red">' . $item['type'] . '</span>';
-                            }
-                        },
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
                         'filterType'=>'date',
                         'attribute' => 'start_time',
                         //'format' => 'datetime',
@@ -78,12 +65,12 @@ $this->registerCss('.table-striped>tbody>tr{
                         'options' => ['style' => 'width:160px']
                     ],
                     [
-                        'attribute' => 'property_no',
+                        'attribute' => 'well_no',
                         'filter'=>StreamType::GetList(StreamType::PROPERTY),
                         'options' => ['style' => 'width:80px'],
                         'format' => 'html',
                         'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
+                    ]
                 ],
             ]
             ?>

@@ -49,7 +49,7 @@ class StreamController extends BackendController
         $search = $session['search'];
         if($search){
             $condition = ['and'];
-            if(@$search['property_no']) $condition[] = 'property_no="'.$search['property_no'].'"';
+            if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
             if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
             if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
             if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
@@ -101,8 +101,28 @@ class StreamController extends BackendController
 
     public function actionData()
     {
+        $get = Yii::$app->request->get();
+        $session = Yii::$app->session;
+        if(empty($get['StreamSearch'])){
+            $session['data'] = [];
+        }else{
+            $session['data'] = $get['StreamSearch'];
+        }
+        $search = $session['data'];
+        $condition = ['and'];
+        if($search){
+            if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
+            if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
+            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+        }
+        else{
+            $condition = 'start_time>="'.date("Y-m-d", strtotime("7 days ago")).'"';
+        }
+        foreach(Stream::find()->where($condition)->each(50) as $li){
+            echo ".\r\n";
+        }
         $searchModel = new StreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 1);
+        $dataProvider = $searchModel->getProvider();
         return $this->render('data', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
@@ -118,6 +138,9 @@ class StreamController extends BackendController
     {
         set_time_limit(0);
 
+        $count = Stream::initData(337);
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->data = $count;
 
 
         /**
@@ -135,7 +158,7 @@ class StreamController extends BackendController
             $model->team_no = '钻井队'.rand(1,9);
             $model->well_class = '东华公司';
             $model->save();
-        }*/
+        }
 
         $data = [];
         foreach(Stream::find()->each(100) as $li){

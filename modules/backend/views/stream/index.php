@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => CheckboxColumn::className()],
                     [
-                        'attribute' => 'property_no',
-                        'filter'=>StreamType::GetList(StreamType::PROPERTY),
+                        'attribute' => 'well_no',
+                        'filter'=>StreamType::GetList(StreamType::WELL),
                         //'options' => ['style' => 'width:80px'],
                         'format' => 'html',
                         'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],

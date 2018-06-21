@@ -40,6 +40,19 @@ class StreamSearch extends Stream
         return Model::scenarios();
     }
 
+    public function getProvider()
+    {
+        $query = Stream::find();
+
+        // add conditions that should always apply here
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort'=>['defaultOrder'=>['id'=>SORT_ASC]],
+            'pagination' => ['pageSize'=>1]
+        ]);
+        return $dataProvider;
+    }
+
     /**
      * Creates data provider instance with search query applied
      *

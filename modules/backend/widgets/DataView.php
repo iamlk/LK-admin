@@ -23,17 +23,17 @@ class DataView extends GridView
             Html::tag('button', '按周',[
                 'class'=>'content-operation btn btn-xs btn-success',
                 'id'=>'week',
-                'data-action'=>Url::to(['view'])
+                'data-action'=>Url::to(['data'])
             ]),
             Html::tag('button', '按月',[
                 'class'=>'content-operation btn btn-xs btn-warning',
                 'id'=>'month',
-                'data-action'=>Url::to(['view'])
+                'data-action'=>Url::to(['data'])
             ]),
             Html::tag('button', '按季度',[
                 'id'=>'season',
                 'class'=>'content-operation btn btn-xs btn-danger',
-                'data-action'=>Url::to(['view'])
+                'data-action'=>Url::to(['data'])
             ]),
         ];
         $view = $this->getView();

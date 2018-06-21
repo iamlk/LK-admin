@@ -7,8 +7,7 @@ use kartik\file\FileInput;
 /* @var $model app\models\News */
 /* @var $form yii\widgets\ActiveForm */
 if($count){
-    $this->registerJsFile('/modules/backend/assets/backend.js');
-}
+    $this->registerJsFile('/dist/js/create.js',['depends'=>['app\modules\backend\assets\BackendAsset']]);}
 ?>
 
 <div class="content-form">
@@ -41,14 +40,14 @@ if($count){
                 <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Bookmarks</span>
-                    <span class="info-box-number">41,410</span>
+                    <span class="info-box-text">正在处理数据....</span>
+                    <span class="info-box-number counts"><?=$count;?></span>
 
                     <div class="progress">
-                        <div class="progress-bar" style="width: 70%"></div>
+                        <div id="progress" data-count="<?=$count;?>" class="progress-bar sm" style="width: 1%"></div>
                     </div>
                     <span class="progress-description">
-                    70% Increase in 30 Days
+                    当前还需要处理的数据总计为<span class="counts"><?=$count;?></span>条。
                   </span>
                 </div>
                 <!-- /.info-box-content -->

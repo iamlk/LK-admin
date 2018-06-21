@@ -74,8 +74,7 @@ class Stream extends \app\components\AppActiveRecord
         foreach($list as $li){
             $model = new Stream();
             $model->attributes = $li;
-            $type[$li['property_no']] = StreamType::PROPERTY;
-            $type[$li['team_no']] = StreamType::TEAM;
+            $type[$li['well_no']] = StreamType::WELL;
             $model->is_deal = 0;
             if($model->save()){//数据合法，才比较time
                 if($time>$li['start_time']) $time = $li['start_time'];
@@ -87,14 +86,14 @@ class Stream extends \app\components\AppActiveRecord
             $model->value = $team;
             $model->save();
         }
-        Stream::updateAll(['is_deal'=>0],'start_time'>$time);
+        Stream::updateAll(['is_deal'=>0],'start_time>="'.$time.'"');
     }
 
-    public static function initData(){
+    public static function initData($limit=100){
         $count = Stream::find()->where(['is_deal'=>0])->count();
-        if($count == 0) return;
+        if($count == 0) return 0;
         $list = null;
-        $teamList = StreamType::GetAll(StreamType::TEAM);
+        $teamList = StreamType::GetAll(StreamType::WELL);
         $team = [];
         foreach($teamList as $item){
             $model = Stream::find()->where(['and','is_deal=1','team_no="'.$item.'"','type="'.StreamType::IN.'"'])->orderBy(['start_time'=>SORT_DESC])->limit(1)->one();
@@ -110,12 +109,15 @@ class Stream extends \app\components\AppActiveRecord
                 $team[StreamType::OUT][$item] = 0;
             }
         }
-        foreach(Stream::find()->where(['is_deal'=>0])->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
+        $list = Stream::find()->where(['is_deal'=>0])->limit($limit)->all();
+        //foreach(Stream::find()->where(['is_deal'=>0])->limit($limit)->each(50) as $li){
+        foreach($list as $li){
             $li->the_weight = ($li->type == StreamType::IN)?($li->end_weight - $li->start_weight):($li->start_weight - $li->end_weight);
-            $team[$li->type][$li->team_no] += $li->the_weight;
-            $li->total_weight = $team[$li->type][$li->team_no];
+            $team[$li->type][$li->well_no] += $li->the_weight;
+            $li->total_weight = $team[$li->type][$li->well_no];
             $li->is_deal = 1;
             $li->save();
         }
+        return $count-$limit;
     }
 }

@@ -17,9 +17,6 @@ class BackendAsset extends AssetBundle
 {
     public $sourcePath ='@app/modules/backend/assets/';
     public $baseUrl = '@web';
-    public $css = [
-
-    ];
     public $js = [
         'skin.js',
         'backend.js',
@@ -31,9 +28,4 @@ class BackendAsset extends AssetBundle
 //        'mdm\admin\AutocompleteAsset',
 //        'app\modules\backend\assets\AdminLtePluginsAsset',
     ];
-
-    public static function loadSelf()
-    {
-        return new BackendAsset();
-    }
 }
