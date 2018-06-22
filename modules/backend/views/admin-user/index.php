@@ -9,6 +9,39 @@ use yii\grid\GridView;
 
 $this->title = '管理员管理';
 $this->params['breadcrumbs'][] = $this->title;
+$data = [
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+
+        [
+            'attribute' => 'id',
+            'options' => ['style' => 'width:50px']
+        ],
+        'username',
+        'role',
+        [
+            'attribute' => 'created_at',
+            'format' => 'datetime',
+        ],
+        [
+            'attribute' => 'updated_at',
+            'format' => 'datetime',
+        ],
+        [
+            'header'=>'操作',
+            'class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {delete}',
+            'options' => ['style' => 'width:100px'],
+            'buttons' => ['update'=>
+                function ($url, $model, $key) {
+                    $options = ['onclick'=>'if(confirm(\'确定要将该用户密码重置?\')==false)return false;'];
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                }
+            ]
+        ]
+    ]
+];
 ?>
 <div class="admin-user-index">
     <div class="nav-tabs-custom">
@@ -18,39 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </ul>
         <div class="tab-content">
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-
-                    [
-                        'attribute' => 'id',
-                        'options' => ['style' => 'width:50px']
-                    ],
-                    'username',
-                    'email:email',
-                    [
-                        'attribute' => 'status',
-                        'options' => ['style' => 'width:50px']
-                    ],
-                    // 'access_token',
-                    [
-                        'attribute' => 'created_at',
-                        'format' => 'datetime',
-                        'options' => ['style' => 'width:150px']
-                    ],
-                    [
-                        'attribute' => 'updated_at',
-                        'format' => 'datetime',
-                        'options' => ['style' => 'width:150px']
-                    ],
-                    [
-                        'class' => 'yii\grid\ActionColumn',
-                        'options' => ['style' => 'width:100px']
-                    ],
-                ],
-            ]); ?>
+            <?= GridView::widget($data); ?>
         </div>
     </div>
 </div>

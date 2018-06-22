@@ -18,15 +18,7 @@ $this->registerJs('$(function () {
         var bar = new Morris.Bar({
             element: \'bar-chart\',
             resize: true,
-            data: [
-                {y: \'2006\', a: 100, b: 90},
-                {y: \'2007\', a: 75, b: 65},
-                {y: \'2008\', a: 50, b: 40},
-                {y: \'2009\', a: 75, b: 65},
-                {y: \'2010\', a: 50, b: 40},
-                {y: \'2011\', a: 75, b: 65},
-                {y: \'2012\', a: 100, b: 90}
-            ],
+            data: '.$json.',
             barColors: [\'#00c0ef\', \'#dd4b39\'],
             xkey: \'y\',
             ykeys: [\'a\', \'b\'],
@@ -66,7 +58,7 @@ $this->registerCss('.table-striped>tbody>tr{
                     ],
                     [
                         'attribute' => 'well_no',
-                        'filter'=>StreamType::GetList(StreamType::PROPERTY),
+                        'filter'=>StreamType::GetList(StreamType::WELL),
                         'options' => ['style' => 'width:80px'],
                         'format' => 'html',
                         'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
@@ -82,7 +74,7 @@ $this->registerCss('.table-striped>tbody>tr{
         <!-- BAR CHART -->
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">Bar Chart</h3>
+                <h3 class="box-title">统计图表</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>

@@ -121,7 +121,7 @@ class AdminUser extends AppActiveRecord
     public function rules()
     {
         return [
-            [['username', 'updated_at'],'required'],
+            [['username', 'updated_at', 'role'],'required'],
 
             [['updated_at'], 'required', 'on'=>'update'],
 
@@ -131,7 +131,6 @@ class AdminUser extends AppActiveRecord
             [['username', 'password_hash', 'password_reset_token', 'email', 'access_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
-            [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
         ];
     }
@@ -152,6 +151,7 @@ class AdminUser extends AppActiveRecord
             'access_token' => 'Access Token',
             'created_at' => '创建时间',
             'updated_at' => '最后修改',
+            'role' => '管理角色'
         ];
     }
 }

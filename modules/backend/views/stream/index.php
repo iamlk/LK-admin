@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'end_weight',
                     'the_weight',
                     'total_weight',
-                    'well_no',
+                    'property_no',
                     'team_no',
                     'well_class',
 

@@ -56,8 +56,8 @@ class StreamController extends BackendController
         }
         else
             $condition = '';
-        //$model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->each(500);
-        $model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->limit(30000)->all();
+        $model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->each(500);
+        //$model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->limit(40000)->all();
         \moonland\phpexcel\Excel::widget([
             'models' => $model,
             'fileName' => 'Data.xlsx',
@@ -101,14 +101,18 @@ class StreamController extends BackendController
 
     public function actionData()
     {
+        set_time_limit(0);
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
+        $start_date = date("Y-m-d", strtotime("30 days ago"));
         if(empty($get['StreamSearch'])){
-            $session['data'] = [];
+            if(empty($get['type'])){
+                $session['StreamSearch'] = ['start_time'=>$start_date];
+            }
         }else{
-            $session['data'] = $get['StreamSearch'];
+            $session['StreamSearch'] = $get['StreamSearch'];
         }
-        $search = $session['data'];
+        $search = $session['StreamSearch'];
         $condition = ['and'];
         if($search){
             if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
@@ -116,16 +120,18 @@ class StreamController extends BackendController
             if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
         }
         else{
-            $condition = 'start_time>="'.date("Y-m-d", strtotime("7 days ago")).'"';
+            $condition = 'start_time>="'.$start_date.'"';
         }
-        foreach(Stream::find()->where($condition)->each(50) as $li){
-            echo ".\r\n";
-        }
+        $json = [];
+        if(@$get['type']=='w' || empty($get['type'])) $json = Stream::byWeek($condition);
+        if(@$get['type']=='m') $json = Stream::byMonth($condition);
+        if(@$get['type']=='s') $json = Stream::bySeason($condition);
         $searchModel = new StreamSearch();
-        $dataProvider = $searchModel->getProvider();
+        $dataProvider = $searchModel->search($session, 1);
         return $this->render('data', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'json'=>$json
         ]);
     }
 
@@ -138,33 +144,33 @@ class StreamController extends BackendController
     {
         set_time_limit(0);
 
+
+
         $count = Stream::initData(337);
         Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
         Yii::$app->response->data = $count;
 
-
         /**
-        for($i=0; $i<50000; $i++){
-            $random = rand(1,1000)+rand(1,90)/100;
-            $model = new Stream();
-            $model->uid = time().'_'.$i;
-            $model->type = rand(0,1)?'出料':'进料';
-            $model->start_time = date('Y-m-d H:i:s',1520002278+$i*100);
-            $model->end_time = date('Y-m-d H:i:s',1520002278+$i*100+$random*100);
-            $model->start_weight = rand(100,1000)+rand(1,90)/100;
-            $model->end_weight = ($model->type == '出料')?($model->start_weight-$random):($model->start_weight+$random);
-            $model->property_no = '罐子'.rand(1,4);
-            $model->well_no = '川A'.rand(1000,9999);
-            $model->team_no = '钻井队'.rand(1,9);
-            $model->well_class = '东华公司';
-            $model->save();
-        }
-
         $data = [];
-        foreach(Stream::find()->each(100) as $li){
-            $data[] = $li->attributes;
+        for($i=0; $i<50000; $i++){
+            $item = [];
+            $random = rand(1,1000)+rand(1,90)/100;
+            $item['uid']=time().'_'.$i;
+            $item['type']=rand(0,1)?'出料':'进料';
+            $item['start_time']=date('Y-m-d H:i:s',1430002278+$i*2000);
+            $item['end_time']=date('Y-m-d H:i:s',1430002278+$i*2000+intval($random*100));
+            $item['start_weight']=rand(100,1000)+rand(1,90)/100;
+            $item['end_weight']=($item['type'] == '出料')?($item['start_weight']-$random):($item['start_weight']+$random);
+            $item['the_weight']=$random;
+            $item['property_no']='罐子'.rand(1,4);
+            $item['well_no']='川A0X'.rand(15,25);
+            $item['team_no']='钻井队'.rand(1,9);
+            $item['well_class']='东华公司';
+            $data[] = $item;
         }
         file_put_contents('data.json',json_encode($data,true));
+/**
+
 
         /**
         $data = file_get_contents('data.json');
@@ -198,7 +204,7 @@ class StreamController extends BackendController
 
                 $list = json_decode($c,true);
                 Stream::importData($list);
-                return $this->showFlash('上传成功！','success',['create']);
+                //return $this->showFlash('上传成功！','success',['create']);
             }
         }
         $count = Stream::find()->where(['is_deal'=>0])->count();

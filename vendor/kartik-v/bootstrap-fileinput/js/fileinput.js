@@ -1561,6 +1561,7 @@
         },
         _submitForm: function () {
             var self = this;
+            self.$btnUpload.attr('disabled',true);
             return self._isFileSelectionValid() && !self._abort({});
         },
         _clearPreview: function () {

@@ -68,6 +68,105 @@ class Stream extends \app\components\AppActiveRecord
         ];
     }
 
+    public static function bySeason($condition){
+        $json = [];
+        $data=[];$y='';$a=0;$b=0;
+        $month = 0;
+        $season = [0,  1,1,1,  4,4,4,  7,7,7,  10,10,10];
+        $current_date = '';
+        foreach(Stream::find()->where($condition)->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
+            $time = strtotime($li->start_time);
+            $m = date('n',$time);
+            if($month != $season[$m]){
+                $y .= $current_date;
+                echo $month.'-'.$m.' ';
+                Stream::_resetData($json,$data, $y, $a, $b);
+                $y = date('Y/m',$time).'-';
+            }
+            if($li->type==StreamType::IN){
+                $a += $li->the_weight;
+            }else{
+                $b += $li->the_weight;
+            }
+            $current_date = date('Y/m',$time);
+            $month = $season[$m];
+        }
+        if($a || $b){
+            $y .= $current_date;
+            Stream::_resetData($json,$data, $y, $a, $b);
+        }
+        $json = array_slice($json,1);
+        return json_encode($json,true);
+    }
+
+    public static function byMonth($condition){
+        $json = [];
+        $data=[];$y='';$a=0;$b=0;
+        $month = 0;
+        foreach(Stream::find()->where($condition)->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
+            $time = strtotime($li->start_time);
+            $m = date('n',$time);
+            if($m != $month){
+                Stream::_resetData($json,$data, $y, $a, $b);
+                $y = date('Y-m',$time);
+            }
+            if($li->type==StreamType::IN){
+                $a += $li->the_weight;
+            }else{
+                $b += $li->the_weight;
+            }
+            $month = $m;
+        }
+        if($a || $b){
+            Stream::_resetData($json,$data, $y, $a, $b);
+        }
+        $json = array_slice($json,1);
+        return json_encode($json,true);
+    }
+
+    public static function byWeek($condition){
+        $json = [];
+        $data=[];$y='';$a=0;$b=0;
+        $day = 8;   //当前星期几，理论上会越来越大，如果变小了就说明是下一周了
+        $current_date = '';
+        $oneweek = strtotime('2000-01-01');
+        foreach(Stream::find()->where($condition)->orderBy(['start_time'=>SORT_ASC])->each(50) as $li){
+            $time = strtotime($li->start_time);
+            $w = date('w',$time);
+            if($w == 0) $w = 7;
+            if($w<$day || ($time-$oneweek)>86400*7){
+                $oneweek = $time;
+                $y .= $current_date;
+                Stream::_resetData($json,$data, $y, $a, $b);
+                $y = date('m.d',$time).'-';
+            }
+            if($li->type==StreamType::IN){
+                $a += $li->the_weight;
+            }else{
+                $b += $li->the_weight;
+            }
+            $current_date = date('m.d',$time);
+            $day = $w;
+        }
+        if($a || $b){
+            $y .= $current_date;
+            Stream::_resetData($json,$data, $y, $a, $b);
+        }
+        $json = array_slice($json,1);
+        return json_encode($json,true);
+    }
+
+    private static function _resetData(&$json, &$data, &$y, &$a, &$b){
+        $data['y'] = $y;
+        $data['a'] = $a;
+        $data['b'] = $b;
+        $json[] = $data;
+        $data = ['y'=>'','a'=>0,'b'=>0];
+        $y = '';
+        $a = 0;
+        $b = 0;
+    }
+
     public static function importData($list){
         $type = [];
         $time = '2050-12-12 12:12:12';
@@ -87,6 +186,25 @@ class Stream extends \app\components\AppActiveRecord
             $model->save();
         }
         Stream::updateAll(['is_deal'=>0],'start_time>="'.$time.'"');
+    }
+
+    public static function json2Sql($inserts)
+    {
+        //取出第一个要保存的数据的key值来拼field
+        $fields = "`".  implode("`,`", array_keys(current($inserts)))."`";
+
+        //拼接要保存的值
+        foreach($inserts as $insert)
+        {
+            $insert = array_map('addslashes', $insert); //使用addslashes，是避免在保存的值中出现' "这些会影响sql语句的情况。一般情况下，mysql设置为：转义后的值在保存到数据库后会自动反转义。
+            $values[] = "\"".  implode("\",\"", $insert)."\"";  //拼接数据
+        }
+        $valueStr = implode("),(", $values);    //把数组数据拼接成字符串
+
+        //注意要插入的数据可能已经存在
+        $sql = "INSERT IGNORE INTO Stream::tableName() ($fields) VALUES ($valueStr)";    //重点是使用IGNORE,即遇到失败的插入直接跳过，如，纪录己存在
+
+        return mysqlInsert($sql);   //自定义的一个数据插入方法
     }
 
     public static function initData($limit=100){

@@ -43,6 +43,7 @@ class Assignment extends Object
     {
         $manager = Configs::authManager();
         $success = 0;
+        $manager->revokeAll($this->id);
         foreach ($items as $name) {
             try {
                 $item = $manager->getRole($name);

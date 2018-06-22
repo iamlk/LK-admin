@@ -42,13 +42,13 @@ class AdminUserSearch extends AdminUser
      */
     public function search($params, $pageSize)
     {
-        $query = AdminUser::find();
+        $query = AdminUser::find()->where('id>1');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=>['defaultOrder'=>['id'=>SORT_DESC]],
+            'sort'=>['defaultOrder'=>['id'=>SORT_ASC]],
             'pagination' => ['pageSize'=>$pageSize]
         ]);
 

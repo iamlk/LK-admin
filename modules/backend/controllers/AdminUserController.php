@@ -39,9 +39,7 @@ class AdminUserController extends BackendController
     {
         $searchModel = new AdminUserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
-
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -80,13 +78,15 @@ class AdminUserController extends BackendController
         $post = Yii::$app->request->post();
         if($post){
             $items = [];
-            $items[] = $post['AdminUser']['email'];
-            $post['AdminUser']['email'] = '';
+            $items[] = $post['AdminUser']['role'];
+            $model->role = $post['AdminUser']['role'];
+            $model->created_at = time();
+            $model->updated_at = time();
         }
         if ($model->load($post) && $model->save()) {
             $assignment = new Assignment($model->id);
             $assignment->assign($items);
-            return $this->showFlash('添加成功', 'success');
+            return $this->showFlash('添加成功', 'success',['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -105,25 +105,10 @@ class AdminUserController extends BackendController
     {
         $model = $this->findModel($id);
         $model->scenario = 'update';
-
-        //DROP LIST
-        $role = new AuthItem(['type' => 1]);
-        $role = $role->search([]);
-        $role = $role->getModels();
-        $dropList = [];
-        foreach($role as $name=>$d){
-            if($name=='Administrator' || $name=='Visitor') continue;
-            $dropList[$name] = $d->name;
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->showFlash('修改成功', 'success');
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-                'dropList' => $dropList,
-            ]);
-        }
+        $model->updated_at = time();
+        $model->password_hash = AdminUser::createPassword('123456');
+        $model->save();
+        return $this->showFlash('密码已重置为123456', 'success',['index']);
     }
 
     /**
@@ -139,6 +124,8 @@ class AdminUserController extends BackendController
             return $this->showFlash('不可删除自己当前使用的账户','warning', Yii::$app->getUser()->getReturnUrl());
         }
         if($model->delete()) {
+            $assignment = new Assignment($model->id);
+            $assignment->assign([]);
             return $this->showFlash('删除成功','success',['index']);
         }else{
             return $this->showFlash('删除失败','danger', Yii::$app->getUser()->getReturnUrl());
