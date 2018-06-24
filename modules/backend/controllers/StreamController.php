@@ -104,7 +104,8 @@ class StreamController extends BackendController
         set_time_limit(0);
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
-        $start_date = date("Y-m-d", strtotime("30 days ago"));
+        //$start_date = date("Y-m-d", strtotime("30 days ago"));
+        $start_date = '2015-12-01';
         if(empty($get['StreamSearch'])){
             if(empty($get['type'])){
                 $session['StreamSearch'] = ['start_time'=>$start_date];
