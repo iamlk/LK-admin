@@ -42,8 +42,8 @@ use app\widgets\Nav;
                                  alt="User Image"/>
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                Leonidax &amp; Panda - Web Developer
+                                <small>Member since Jun. 2018</small>
                             </p>
                         </li>
 <!--                         Menu Body -->
