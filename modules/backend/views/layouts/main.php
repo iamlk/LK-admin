@@ -25,7 +25,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini fixed sidebar-collapse">
+    <body class="skin-blue sidebar-mini fixed sidebar-mini-expand-feature">
     <?php $this->beginBody() ?>
 
     <div class="wrap" style="height: auto;">
