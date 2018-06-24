@@ -144,32 +144,42 @@ class StreamController extends BackendController
     {
         set_time_limit(0);
 
-
-
         $count = Stream::initData(337);
         Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
         Yii::$app->response->data = $count;
 
         /**
-        $data = [];
-        for($i=0; $i<50000; $i++){
-            $item = [];
+        $starttime = explode(' ',microtime());
+
+        $data = file_get_contents('data.txt');
+        print_r(($data[0]));return;
+
+        $endtime = explode(' ',microtime());
+        $thistime = $endtime[0]+$endtime[1]-($starttime[0]+$starttime[1]);
+        $thistime = round($thistime,3);
+        echo $thistime;return;
+
+        $data = '';
+        for($i=0; $i<20000; $i++){
+            $item = '';
             $random = rand(1,1000)+rand(1,90)/100;
-            $item['uid']=time().'_'.$i;
-            $item['type']=rand(0,1)?'出料':'进料';
-            $item['start_time']=date('Y-m-d H:i:s',1430002278+$i*2000);
-            $item['end_time']=date('Y-m-d H:i:s',1430002278+$i*2000+intval($random*100));
-            $item['start_weight']=rand(100,1000)+rand(1,90)/100;
-            $item['end_weight']=($item['type'] == '出料')?($item['start_weight']-$random):($item['start_weight']+$random);
-            $item['the_weight']=$random;
-            $item['property_no']='罐子'.rand(1,4);
-            $item['well_no']='川A0X'.rand(15,25);
-            $item['team_no']='钻井队'.rand(1,9);
-            $item['well_class']='东华公司';
-            $data[] = $item;
+            $type = rand(0,1)?'出料':'进料';
+            $start = rand(100,1000)+rand(1,90)/100;
+            $item .= '"uid":"'.(time().'_'.$i).'",';
+            $item .= '"type":"'.$type.'",';
+            $item .='"start_time":"'.date('Y-m-d H:i:s',1430002278+$i*2000).'",';
+            $item .='"end_time":"'.date('Y-m-d H:i:s',1430002278+$i*2000+intval($random*100)).'",';
+            $item .='"start_weight":"'.$start.'",';
+            $item .='"end_weight":"'.(($type == '出料')?($start-$random):($start+$random)).'",';
+            $item .='"the_weight":"'.$random.'",';
+            $item .='"property_no":"'.('罐子'.rand(1,4)).'",';
+            $item .='"well_no":"'.('川A0X'.rand(15,25)).'",';
+            $item .='"team_no":"'.('钻井队'.rand(1,9)).'",';
+            $item .='"well_class":"'.('东华公司').'"';
+            $data .= $item."\r\n";
         }
-        file_put_contents('data.json',json_encode($data,true));
-/**
+        file_put_contents('data.txt',$data);
+
 
 
         /**
@@ -197,14 +207,19 @@ class StreamController extends BackendController
                 if(!file_exists($path)){
                     FileHelper::createDirectory($path, 0777);
                 }
-                $fileName = date('Ymd-His') . '.' . $file->getExtension();
+                $fileName = time();
                 $file->saveAs($path . $fileName);
-                $c = file_get_contents($path . $fileName);
-
-
-                $list = json_decode($c,true);
+                $sha1 =  sha1_file($path . $fileName);
+                if(file_exists($path.$sha1)){
+                    return $this->showFlash('该文件已经上传过，请勿重复上传！','warning',['create']);
+                }
+                rename($path . $fileName, $path . $sha1);
+                $data = file_get_contents($path . $sha1);
+                $data = str_replace("\r\n",'},{', trim($data));
+                $data = '[{'.$data.'}]';
+                $list = json_decode($data, true);
                 Stream::importData($list);
-                //return $this->showFlash('上传成功！','success',['create']);
+                return $this->showFlash('文件已上传，请耐心等待数据处理中....','success',['create']);
             }
         }
         $count = Stream::find()->where(['is_deal'=>0])->count();
