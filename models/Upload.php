@@ -15,7 +15,7 @@ class Upload extends Model
 
     public function rules(){
         return [
-            [['file'], 'file', 'extensions' => 'json,js', 'mimeTypes' => '*/json',],
+            [['file'], 'file', 'extensions' => 'bin', 'mimeTypes' => '*/bin',],
         ];
     }
 
