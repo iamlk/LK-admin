@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'end_weight',
                         'the_weight',
                         'total_weight',
-                        'property_no',
+                        //'property_no',
                         [
                             'attribute' => 'well_no',
                             'filter'=>StreamType::GetList(StreamType::WELL),

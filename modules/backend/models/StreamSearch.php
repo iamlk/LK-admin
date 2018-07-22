@@ -68,7 +68,7 @@ class StreamSearch extends Stream
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=>['defaultOrder'=>['start_time'=>SORT_DESC]],
+            'sort'=>['defaultOrder'=>['start_time'=>SORT_ASC]],
             'pagination' => ['pageSize'=>$pageSize]
         ]);
 
