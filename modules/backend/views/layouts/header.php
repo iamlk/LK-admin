@@ -19,14 +19,15 @@ use app\widgets\Nav;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-                <!-- User Account: style can be found in dropdown.less -->
+                <!-- User Account: style can be found in dropdown.less
                 <li>
                     <a href="<?=Url::to(['/backend/default/clear-cache'])?>" role="button" title="清理缓存">
                         <span class="fa fa-trash-o"></span>
                     </a>
                 </li>
+                -->
                 <li>
-                    <a href="<?=Yii::$app->homeUrl?>" role="button" title="前台首页">
+                    <a href="<?=Yii::$app->homeUrl?>" role="button" title="后台首页">
                         <span class="fa fa-home"></span>
                     </a>
                 </li>
