@@ -20,6 +20,14 @@ $this->registerCssFile('/dist/css/print.css',['media'=>'print']);
 $this->title = '出入料管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 0;
+        border-radius: 4px;
+    }
+</style>
 <div class="content-index">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
@@ -31,56 +39,56 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $params = [
                     'caption'=>$total,
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => CheckboxColumn::className()],
-                    'uid',
-                    [
-                        'attribute' => 'type',
-                        'filter'=>StreamType::$TypeList,
-                        'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'value' => function ($item) {
-                            if($item['type'] == StreamType::IN) {
-                                return '<span class="badge bg-green">' . $item['type'] . '</span>';
-                            }else{
-                                return '<span class="badge bg-red">' . $item['type'] . '</span>';
-                            }
-                        },
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    [
-                        'filterType'=>'date',
-                        'attribute' => 'start_time',
-                        //'format' => 'datetime',
-                        'options' => ['style' => 'width:160px']
-                    ],
-                    [
-                        'filterType'=>'date',
-                        'attribute' => 'end_time',
-                        //'format' => 'datetime',
-                        'options' => ['style' => 'width:160px']
-                    ],
-                    'start_weight',
-                    'end_weight',
-                    'the_weight',
-                    'total_weight',
-                    'property_no',
-                    [
-                        'attribute' => 'well_no',
-                        'filter'=>StreamType::GetList(StreamType::WELL),
-                        //'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
-                    'team_no',
-                    'well_class',
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => [
+                        ['class' => CheckboxColumn::className()],
+                        'uid',
+                        [
+                            'attribute' => 'type',
+                            'filter'=>StreamType::$TypeList,
+                            'options' => ['style' => 'width:80px'],
+                            'format' => 'html',
+                            'value' => function ($item) {
+                                if($item['type'] == StreamType::IN) {
+                                    return '<span class="badge bg-green">' . $item['type'] . '</span>';
+                                }else{
+                                    return '<span class="badge bg-red">' . $item['type'] . '</span>';
+                                }
+                            },
+                            'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
+                        ],
+                        [
+                            'filterType'=>'date',
+                            'attribute' => 'start_time',
+                            //'format' => 'datetime',
+                            'options' => ['style' => 'width:160px']
+                        ],
+                        [
+                            'filterType'=>'date',
+                            'attribute' => 'end_time',
+                            //'format' => 'datetime',
+                            'options' => ['style' => 'width:160px']
+                        ],
+                        'start_weight',
+                        'end_weight',
+                        'the_weight',
+                        'total_weight',
+                        'property_no',
+                        [
+                            'attribute' => 'well_no',
+                            'filter'=>StreamType::GetList(StreamType::WELL),
+                            //'options' => ['style' => 'width:80px'],
+                            'format' => 'html',
+                            'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
+                        ],
+                        'team_no',
+                        'well_class',
 
-//             'start_time:datetime',
-                    ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
-                ],
-            ]
+    //             'start_time:datetime',
+                        ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
+                    ],
+                ]
             ?>
 
             <?= GridView::widget($params); ?>
