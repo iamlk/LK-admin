@@ -34,5 +34,5 @@ function ajaxPost(){
 
 (function($) {
     count = $('#progress').data('count');
-    window.setInterval("ajaxPost()",500);
+    window.setInterval("ajaxPost()",1000);
 })(jQuery);

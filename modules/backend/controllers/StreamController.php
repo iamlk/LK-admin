@@ -220,12 +220,14 @@ class StreamController extends BackendController
                 }
                 $fileName = time();
                 $file->saveAs($path . $fileName);
+                /**
                 $sha1 =  sha1_file($path . $fileName);
                 if(file_exists($path.$sha1)){
-                    //return $this->showFlash('该文件已经上传过，请勿重复上传！','warning',['create']);
+                    return $this->showFlash('该文件已经上传过，请勿重复上传！','warning',['create']);
                 }
                 rename($path . $fileName, $path . $sha1);
-                $data = file_get_contents($path . $sha1);
+                $data = file_get_contents($path . $sha1);*/
+                $data = file_get_contents($path . $fileName);
                 $data = str_replace("\r\n",'},{', trim($data));
                 $data = '[{'.$data.'}]';
                 $list = json_decode($data, true);

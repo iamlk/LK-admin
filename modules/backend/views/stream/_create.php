@@ -7,7 +7,8 @@ use kartik\file\FileInput;
 /* @var $model app\models\News */
 /* @var $form yii\widgets\ActiveForm */
 if($count){
-    $this->registerJsFile('/dist/js/create.js',['depends'=>['app\modules\backend\assets\BackendAsset']]);}
+    $this->registerJsFile('/dist/js/create.js',['depends'=>['app\modules\backend\assets\BackendAsset']]);
+}
 ?>
 
 <div class="content-form">
