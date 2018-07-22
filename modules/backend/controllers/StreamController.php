@@ -208,7 +208,6 @@ class StreamController extends BackendController
      */
     public function actionCreate()
     {
-        set_time_limit(0);
         $model= new Upload();
 
         if (Yii::$app->request->isPost) {
@@ -228,6 +227,7 @@ class StreamController extends BackendController
                 rename($path . $fileName, $path . $sha1);
                 $data = file_get_contents($path . $sha1);*/
                 $data = file_get_contents($path . $fileName);
+                $data = strstr($data,'"');
                 $data = str_replace("\r\n",'},{', trim($data));
                 $data = '[{'.$data.'}]';
                 $list = json_decode($data, true);
