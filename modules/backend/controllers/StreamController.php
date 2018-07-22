@@ -91,13 +91,19 @@ class StreamController extends BackendController
         if(empty($get['StreamSearch'])){
             $session['search'] = [];
         }else{
-
             $session['search'] = $get['StreamSearch'];
+            $search = $get['StreamSearch'];
+            $condition = ['and'];
+            if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
+            if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
+            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+            $total = Stream::getTotalMessage($condition);
         }
         //$dataProvider->setSort(false);
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'total'=>$total
         ]);
     }
 
