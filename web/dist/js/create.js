@@ -9,6 +9,7 @@ function ajaxPost(){
         type : "GET",
         url : '/backend/stream/view',
         success:function(left){
+            if(left<0) left=0;
             $('.counts').text(left+'');
             var width = (count-left)*100/count;
             width = parseInt(width);
@@ -18,7 +19,7 @@ function ajaxPost(){
                 return true;
             }else {
                 oked = 0;
-                location.reload();
+                window.location.href="/";
             }
         },
         complete:function (data) {

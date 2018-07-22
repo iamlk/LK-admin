@@ -31,9 +31,9 @@ $menuItems = MenuHelper::getAssignedMenu(Yii::$app->user->id,null,function($menu
 <aside class="main-sidebar">
     <section class="sidebar" style="height: auto;">
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="/admin" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" id="menu-keyword" name="q" class="form-control" placeholder="Search..."/>
+                <input type="text" id="menu-keyword" name="StreamSearch[well_no]" class="form-control" placeholder="井号..."/>
                 <span class="input-group-btn">
                 <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
