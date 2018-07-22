@@ -53,7 +53,7 @@ class Stream extends \app\components\AppActiveRecord
         return [
             'id' => 'ID',
             'uid' => '索引',
-            'type' => '类型',
+            'type' => '进出类型',
             'start_time' => '开始时间',
             'end_time' => '结束时间',
             'start_weight' => '起始重量',
