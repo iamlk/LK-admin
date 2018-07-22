@@ -19,7 +19,7 @@ function ajaxPost(){
                 return true;
             }else {
                 oked = 0;
-                location.reload();
+                window.location.href="/";
             }
         },
         complete:function (data) {
