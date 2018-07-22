@@ -104,8 +104,8 @@ class StreamController extends BackendController
         set_time_limit(0);
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
-        //$start_date = date("Y-m-d", strtotime("30 days ago"));
-        $start_date = '2015-12-01';
+        $start_date = date("Y-m-d", strtotime("30 days ago"));
+        //$start_date = '2015-12-01';
         if(empty($get['StreamSearch'])){
             if(empty($get['type'])){
                 $session['StreamSearch'] = ['start_time'=>$start_date];
@@ -144,7 +144,6 @@ class StreamController extends BackendController
     public function actionView()
     {
         set_time_limit(0);
-
         $count = Stream::initData(337);
         Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
         Yii::$app->response->data = $count;
@@ -161,15 +160,18 @@ class StreamController extends BackendController
         echo $thistime;return;
 
         $data = '';
-        for($i=0; $i<20000; $i++){
+        for($i=0; $i<10000; $i++){
             $item = '';
             $random = rand(1,1000)+rand(1,90)/100;
             $type = rand(0,1)?'出料':'进料';
             $start = rand(100,1000)+rand(1,90)/100;
+            if($random>$start){
+                if($type == '出料') $random=$start;
+            }
             $item .= '"uid":"'.(time().'_'.$i).'",';
             $item .= '"type":"'.$type.'",';
-            $item .='"start_time":"'.date('Y-m-d H:i:s',1430002278+$i*2000).'",';
-            $item .='"end_time":"'.date('Y-m-d H:i:s',1430002278+$i*2000+intval($random*100)).'",';
+            $item .='"start_time":"'.date('Y-m-d H:i:s',1440002278+$i*9500).'",';
+            $item .='"end_time":"'.date('Y-m-d H:i:s',1440002278+$i*9500+intval($random*10)).'",';
             $item .='"start_weight":"'.$start.'",';
             $item .='"end_weight":"'.(($type == '出料')?($start-$random):($start+$random)).'",';
             $item .='"the_weight":"'.$random.'",';
