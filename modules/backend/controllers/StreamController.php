@@ -94,6 +94,7 @@ class StreamController extends BackendController
             $session['search'] = $get['StreamSearch'];
             $search = $get['StreamSearch'];
             $condition = ['and'];
+            if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
             if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
             if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
             if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
@@ -155,50 +156,6 @@ class StreamController extends BackendController
         $count = Stream::initData(337);
         Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
         Yii::$app->response->data = $count;
-
-        /**
-        $starttime = explode(' ',microtime());
-
-        $data = file_get_contents('data.txt');
-        print_r(($data[0]));return;
-
-        $endtime = explode(' ',microtime());
-        $thistime = $endtime[0]+$endtime[1]-($starttime[0]+$starttime[1]);
-        $thistime = round($thistime,3);
-        echo $thistime;return;
-
-        $data = '';
-        for($i=0; $i<10000; $i++){
-            $item = '';
-            $random = rand(1,1000)+rand(1,90)/100;
-            $type = rand(0,1)?'出料':'进料';
-            $start = rand(100,1000)+rand(1,90)/100;
-            if($random>$start){
-                if($type == '出料') $random=$start;
-            }
-            $item .= '"uid":"'.(time().'_'.$i).'",';
-            $item .= '"type":"'.$type.'",';
-            $item .='"start_time":"'.date('Y-m-d H:i:s',1440002278+$i*9500).'",';
-            $item .='"end_time":"'.date('Y-m-d H:i:s',1440002278+$i*9500+intval($random*10)).'",';
-            $item .='"start_weight":"'.$start.'",';
-            $item .='"end_weight":"'.(($type == '出料')?($start-$random):($start+$random)).'",';
-            $item .='"the_weight":"'.$random.'",';
-            $item .='"property_no":"'.('罐子'.rand(1,4)).'",';
-            $item .='"well_no":"'.('川A0X'.rand(15,25)).'",';
-            $item .='"team_no":"'.('钻井队'.rand(1,9)).'",';
-            $item .='"well_class":"'.('东华公司').'"';
-            $data .= $item."\r\n";
-        }
-        file_put_contents('data.txt',$data);
-
-
-
-        /**
-        $data = file_get_contents('data.json');
-        $data = json_decode($data,true);
-        //Stream::importData($data);
-        Stream::initData();
-        return $this->render('_search');*/
     }
 
     /**
@@ -290,3 +247,48 @@ class StreamController extends BackendController
         }
     }
 }
+
+
+/**
+$starttime = explode(' ',microtime());
+
+$data = file_get_contents('data.txt');
+print_r(($data[0]));return;
+
+$endtime = explode(' ',microtime());
+$thistime = $endtime[0]+$endtime[1]-($starttime[0]+$starttime[1]);
+$thistime = round($thistime,3);
+echo $thistime;return;
+
+$data = '';
+for($i=0; $i<10000; $i++){
+$item = '';
+$random = rand(1,1000)+rand(1,90)/100;
+$type = rand(0,1)?'出料':'进料';
+$start = rand(100,1000)+rand(1,90)/100;
+if($random>$start){
+if($type == '出料') $random=$start;
+}
+$item .= '"uid":"'.(time().'_'.$i).'",';
+$item .= '"type":"'.$type.'",';
+$item .='"start_time":"'.date('Y-m-d H:i:s',1440002278+$i*9500).'",';
+$item .='"end_time":"'.date('Y-m-d H:i:s',1440002278+$i*9500+intval($random*10)).'",';
+$item .='"start_weight":"'.$start.'",';
+$item .='"end_weight":"'.(($type == '出料')?($start-$random):($start+$random)).'",';
+$item .='"the_weight":"'.$random.'",';
+$item .='"property_no":"'.('罐子'.rand(1,4)).'",';
+$item .='"well_no":"'.('川A0X'.rand(15,25)).'",';
+$item .='"team_no":"'.('钻井队'.rand(1,9)).'",';
+$item .='"well_class":"'.('东华公司').'"';
+$data .= $item."\r\n";
+}
+file_put_contents('data.txt',$data);
+
+
+
+/**
+$data = file_get_contents('data.json');
+$data = json_decode($data,true);
+//Stream::importData($data);
+Stream::initData();
+return $this->render('_search');*/
