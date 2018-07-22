@@ -28,7 +28,7 @@ class GridView extends YiiGridView
      * - `{sorter}`: the sorter. See [[renderSorter()]].
      * - `{pager}`: the pager. See [[renderPager()]].
      */
-    public $layout = "<div style='height: 30px'><div class='pull-left'>{operation}</div><div class='pull-right'>{summary}</div></div>\n{items}\n<div style='height: 30px'><div class='pull-left'>{operation}</div><div class='pull-right'>{summary}</div></div>{pager}<br/>{errors}\n";
+    public $layout = "<div style='height: 30px'><div class='pull-left'>{operation}</div><div class='pull-right'>{summary}</div></div>\n{items}\n<div style='height: 30px'><div class='pull-left'>{errors}</div><div class='pull-right'>{pager}</div></div>\n";
     /**
      * Renders a section of the specified name.
      * If the named section is not supported, false will be returned.
@@ -40,9 +40,18 @@ class GridView extends YiiGridView
         switch ($name) {
             case '{operation}':
                 return $this->renderOperation();
+                break;
+            case '{summary}':
+                return $this->renderSummary();
+                break;
             default:
                 return parent::renderSection($name);
         }
+    }
+
+    public function renderCaption()
+    {
+        return '';
     }
 
     public function renderErrors(){
