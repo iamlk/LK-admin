@@ -68,6 +68,25 @@ class Stream extends \app\components\AppActiveRecord
         ];
     }
 
+    public static function getTotalMessage($condition){
+        $out = 0;
+        $in = 0;
+        $time = 0;
+        foreach(Stream::find()->where($condition)->orderBy(['id'=>SORT_ASC])->each(50) as $li){
+            $time++;
+            if($li->type == '进料'){
+                $in += $li->the_weight;
+            }else{
+                $out += $li->the_weight;
+            }
+        }
+        if($time==0) return '';
+        $message = '合计次数：'.$time.'次&nbsp;';
+        if($in>0) $message .= '进料：'.$in.'&nbsp;';
+        if($out>0) $message .= '出料:'.$out;
+        return $message;
+    }
+
     public static function bySeason($condition){
         $json = [];
         $data=[];$y='';$a=0;$b=0;

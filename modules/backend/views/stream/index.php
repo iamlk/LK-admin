@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="tab-content">
             <?php
             $params = [
+                    'caption'=>$total,
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
@@ -84,8 +85,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= GridView::widget($params); ?>
         </div>
-    </div>
-    <div>
-        合计次数
     </div>
 </div>
