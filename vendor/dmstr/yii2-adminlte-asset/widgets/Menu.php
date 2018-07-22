@@ -77,7 +77,6 @@ class Menu extends \yii\widgets\Menu
             $labelTemplate = $this->labelTemplate;
             $linkTemplate = $this->linkTemplate;
         }
-
         $replacements = [
             '{label}' => strtr($this->labelTemplate, ['{label}' => $item['label'],]),
             '{icon}' => empty($item['icon']) ? $this->defaultIconHtml
