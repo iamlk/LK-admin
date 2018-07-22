@@ -87,10 +87,11 @@ class StreamController extends BackendController
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
         $searchModel = new StreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
         if(empty($get['StreamSearch'])){
             $session['search'] = [];
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         }else{
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
             $session['search'] = $get['StreamSearch'];
             $search = $get['StreamSearch'];
             $condition = ['and'];
@@ -113,31 +114,42 @@ class StreamController extends BackendController
         set_time_limit(0);
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
+        /**
         $start_date = date("Y-m-d", strtotime("30 days ago"));
-        //$start_date = '2015-12-01';
         if(empty($get['StreamSearch'])){
             if(empty($get['type'])){
                 $session['StreamSearch'] = ['start_time'=>$start_date];
             }
         }else{
             $session['StreamSearch'] = $get['StreamSearch'];
+        }*/
+        $search = '';
+        if(!empty($get['StreamSearch'])){
+            $s = $get['StreamSearch'];
+            if($s['well_no'] || $s['start_time'] || $s['end_time']){
+                $session['StreamSearch'] = $s;
+                $search = $s;
+            }else{
+                Yii::$app->session['StreamSearch'] = null;
+            }
+        }elseif(!empty($session['StreamSearch'])){
+            $search = $session['StreamSearch'];
         }
-        $search = $session['StreamSearch'];
         $condition = ['and'];
+        $page = 1;
+        $json = '[]';
         if($search){
             if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
             if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
             if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+            if(@$get['type']=='w' || empty($get['type'])) $json = Stream::byWeek($condition);
+            if(@$get['type']=='m') $json = Stream::byMonth($condition);
+            if(@$get['type']=='s') $json = Stream::bySeason($condition);
+        }else{
+            $page = 0;
         }
-        else{
-            $condition = 'start_time>="'.$start_date.'"';
-        }
-        $json = [];
-        if(@$get['type']=='w' || empty($get['type'])) $json = Stream::byWeek($condition);
-        if(@$get['type']=='m') $json = Stream::byMonth($condition);
-        if(@$get['type']=='s') $json = Stream::bySeason($condition);
         $searchModel = new StreamSearch();
-        $dataProvider = $searchModel->search($session, 1);
+        $dataProvider = $searchModel->search($session, $page);
         return $this->render('data', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

@@ -58,11 +58,11 @@ $this->registerCss('.table-striped>tbody>tr{
                     ],
                     [
                         'attribute' => 'well_no',
-                        'filter'=>StreamType::GetList(StreamType::WELL),
-                        'options' => ['style' => 'width:80px'],
+                        //'filter'=>StreamType::GetList(StreamType::WELL),
+                        'options' => ['style' => 'width:120px'],
                         'format' => 'html',
                         'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ]
+                    ],
                 ],
             ]
             ?>

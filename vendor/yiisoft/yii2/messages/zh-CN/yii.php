@@ -32,7 +32,7 @@ return [
     'No' => '否',
     'No help for unknown command "{command}".' => '命令"{command}"发生未知的错误。',
     'No help for unknown sub-command "{command}".' => '子命令"{command}"发生未知的错误。',
-    'No results found.' => '没有找到数据。',
+    'No results found.' => '没有选择筛选条件或没有找到数据。',
     'Only files with these MIME types are allowed: {mimeTypes}.' => '只允许这些MIME类型的文件: {mimeTypes}。',
     'Only files with these extensions are allowed: {extensions}.' => '只允许使用以下文件扩展名的文件：{extensions}。',
     'Page not found.' => '页面未找到。',
