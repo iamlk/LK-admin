@@ -87,7 +87,7 @@ class StreamController extends BackendController
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
         $searchModel = new StreamSearch();
-        if(empty($get['StreamSearch'])){
+        if(empty($get['StreamSearch']['well_no'])){
             $session['search'] = [];
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
         }else{
@@ -126,7 +126,7 @@ class StreamController extends BackendController
         $search = '';
         if(!empty($get['StreamSearch'])){
             $s = $get['StreamSearch'];
-            if($s['well_no'] || $s['start_time'] || $s['end_time']){
+            if($s['well_no']){
                 $session['StreamSearch'] = $s;
                 $search = $s;
             }else{
