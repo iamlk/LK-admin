@@ -51,8 +51,8 @@ class Stream extends \app\components\AppActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'uid' => '序号',
+            'id' => '序号',
+            'uid' => '索引',
             'type' => '进出类型',
             'start_time' => '开始时间',
             'end_time' => '结束时间',

@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => CheckboxColumn::className()],
-                        'uid',
+                        'id',
                         [
                             'attribute' => 'type',
                             'filter'=>StreamType::$TypeList,
