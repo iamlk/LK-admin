@@ -64,7 +64,7 @@ class StreamSearch extends Stream
     public function search($params, $pageSize=20)
     {
         $query = Stream::find();
-
+        if($pageSize==0) $query->where('1=0');
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
