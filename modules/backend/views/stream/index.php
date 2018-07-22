@@ -34,13 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => CheckboxColumn::className()],
-                    [
-                        'attribute' => 'well_no',
-                        'filter'=>StreamType::GetList(StreamType::WELL),
-                        //'options' => ['style' => 'width:80px'],
-                        'format' => 'html',
-                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
-                    ],
+                    'uid',
                     [
                         'attribute' => 'type',
                         'filter'=>StreamType::$TypeList,
@@ -72,6 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'the_weight',
                     'total_weight',
                     'property_no',
+                    [
+                        'attribute' => 'well_no',
+                        'filter'=>StreamType::GetList(StreamType::WELL),
+                        //'options' => ['style' => 'width:80px'],
+                        'format' => 'html',
+                        'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
+                    ],
                     'team_no',
                     'well_class',
 
@@ -83,5 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= GridView::widget($params); ?>
         </div>
+    </div>
+    <div>
+        合计次数
     </div>
 </div>
