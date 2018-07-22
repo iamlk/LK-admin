@@ -83,15 +83,17 @@ class StreamController extends BackendController
      */
     public function actionIndex()
     {
+        $total = '';
         $get = Yii::$app->request->get();
         $session = Yii::$app->session;
+        $searchModel = new StreamSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
         if(empty($get['StreamSearch'])){
             $session['search'] = [];
         }else{
+
             $session['search'] = $get['StreamSearch'];
         }
-        $searchModel = new StreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $this->module->params['pageSize']);
         //$dataProvider->setSort(false);
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -214,7 +216,7 @@ class StreamController extends BackendController
                 $file->saveAs($path . $fileName);
                 $sha1 =  sha1_file($path . $fileName);
                 if(file_exists($path.$sha1)){
-                    return $this->showFlash('该文件已经上传过，请勿重复上传！','warning',['create']);
+                    //return $this->showFlash('该文件已经上传过，请勿重复上传！','warning',['create']);
                 }
                 rename($path . $fileName, $path . $sha1);
                 $data = file_get_contents($path . $sha1);
