@@ -41,18 +41,18 @@ use kartik\date\DatePicker;
 
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'property_no')->dropDownList(StreamType::GetList(StreamType::PROPERTY)) ?>
+            <?= $form->field($model, 'well_no')->dropDownList(StreamType::GetList(StreamType::WELL)) ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'well_no')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'property_no')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'team_no')->dropDownList(StreamType::GetList(StreamType::TEAM)) ?>
+            <?= $form->field($model, 'well_class')->textInput(['maxlength' => true])  ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'well_class')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'team_no')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
 
