@@ -10,7 +10,7 @@ use app\models\StreamType;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $pagination yii\data\Pagination */
 
-$this->title = '数据报表';
+$this->title = '进出料统计图';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJs('$(function () {
