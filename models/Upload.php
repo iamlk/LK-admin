@@ -22,7 +22,7 @@ class Upload extends Model
 
     public function attributeLabels(){
         return [
-            'file'=>'上传过程中需要耐心等待~'
+            'file'=>'请选择数据文件.'
         ];
     }
 }
