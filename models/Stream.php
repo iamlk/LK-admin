@@ -63,7 +63,7 @@ class Stream extends \app\components\AppActiveRecord
             'property_no' => '资产号',
             'well_no' => '井号',
             'team_no' => '队号',
-            'well_class' => '钻井队',
+            'well_class' => '钻井单位',
             'is_deal' =>'已处理'
         ];
     }
@@ -82,8 +82,8 @@ class Stream extends \app\components\AppActiveRecord
         }
         if($time==0) return '';
         $message = '合计次数：'.$time.'次&nbsp;';
-        if($in>0) $message .= '进料：'.$in.'&nbsp;';
-        if($out>0) $message .= '出料:'.$out;
+        if($in>0) $message .= '进料：'.$in.'Kg&nbsp;';
+        if($out>0) $message .= '出料:'.$out.'Kg';
         return $message;
     }
 

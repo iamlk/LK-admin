@@ -84,8 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         'team_no',
                         'well_class',
-
-    //             'start_time:datetime',
+                        //'start_time:datetime',
                         ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
                     ],
                 ]
