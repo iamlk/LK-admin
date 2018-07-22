@@ -29,12 +29,12 @@ class DataView extends GridView
                 'class'=>'content-operation btn btn-xs btn-warning _data',
                 'id'=>'month',
                 'data-action'=>Url::to(['data?type=m'])
-            ]),
+            ]),/**
             Html::tag('button', '按季度',[
                 'id'=>'season',
                 'class'=>'content-operation btn btn-xs btn-danger _data',
                 'data-action'=>Url::to(['data?type=s'])
-            ]),
+            ]),*/
         ];
         $view = $this->getView();
         $view->registerJs('

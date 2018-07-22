@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation"><?= Html::a('出入料管理', ['index']) ?></li>
-            <li role="presentation"><?= Html::a('数据报表', ['data']) ?></li>
+            <li role="presentation"><?= Html::a('进出料统计图', ['data']) ?></li>
             <li role="presentation" class="active"><?= Html::a($this->title, ['create']) ?></li>
         </ul>
         <div class="tab-content">

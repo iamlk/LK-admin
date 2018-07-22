@@ -71,7 +71,7 @@ class AdminUserController extends BackendController
         $role = $role->getModels();
         $dropList = [];
         foreach($role as $name=>$d){
-            if($name=='Administrator' || $name=='Visitor') continue;
+            if($name=='Administrator' || $name=='Visitor' || $name=='管理员') continue;
             $dropList[$name] = $d->name;
         }
 

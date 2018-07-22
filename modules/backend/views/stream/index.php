@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><?= Html::a($this->title, ['index']) ?></li>
-            <li role="presentation"><?= Html::a('数据报表', ['data']) ?></li>
+            <li role="presentation"><?= Html::a('进出料统计图', ['data']) ?></li>
             <li role="presentation"><?= Html::a('导入数据', ['create']) ?></li>
         </ul>
         <div class="tab-content">
@@ -43,11 +43,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => CheckboxColumn::className()],
-                        'id',
+                        [
+                            'attribute' => 'id',
+                            'options' => ['style' => 'width:60px']
+                        ],
                         [
                             'attribute' => 'type',
                             'filter'=>StreamType::$TypeList,
-                            'options' => ['style' => 'width:80px'],
+                            'options' => ['style' => 'width:100px'],
                             'format' => 'html',
                             'value' => function ($item) {
                                 if($item['type'] == StreamType::IN) {
@@ -56,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return '<span class="badge bg-red">' . $item['type'] . '</span>';
                                 }
                             },
-                            'filterInputOptions' => ['prompt'=>'全部','class'=>'form-control'],
+                            'filterInputOptions' => ['prompt'=>'进出流水','class'=>'form-control'],
                         ],
                         [
                             'filterType'=>'date',
