@@ -32,11 +32,12 @@ $data = [
             'header'=>'操作',
             'class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete}',
-            'options' => ['style' => 'width:100px'],
+            'options' => ['style' => 'width:150px'],
             'buttons' => ['update'=>
                 function ($url, $model, $key) {
-                    $options = ['onclick'=>'if(confirm(\'确定要将该用户密码重置?\')==false)return false;'];
-                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    $options = ['onclick'=>'if(confirm(\'确定要将该用户密码重置?\')==false)return false;',
+                        'class'=>'btn btn-success btn-sm ad-click-event'];
+                    return Html::a('重置密码', $url, $options);
                 }
             ]
         ]

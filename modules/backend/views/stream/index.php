@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'type',
                             'filter'=>StreamType::$TypeList,
-                            'options' => ['style' => 'width:110px'],
+                            'options' => ['style' => 'width:120px'],
                             'format' => 'html',
                             'value' => function ($item) {
                                 if($item['type'] == StreamType::IN) {
