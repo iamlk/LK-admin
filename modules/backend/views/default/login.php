@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 		<div class="username-text">登录用户:</div>
 		<div class="password-text">登录密码:</div>
 		<div class="username-field">
-			<input type="text" name="LoginForm[username]" value="" />
+			<input type="text" name="LoginForm[username]" value="<?=@$_COOKIE["username"];?>" />
 		</div>
 		<div class="password-field">
 			<input type="password" name="LoginForm[password]" value="" />

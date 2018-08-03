@@ -95,13 +95,42 @@ class AdminUserController extends BackendController
         }
     }
 
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        //DROP LIST
+        $role = new AuthItem(['type' => 1]);
+        $role = $role->search([]);
+        $role = $role->getModels();
+        $dropList = [];
+        foreach($role as $name=>$d){
+            if($name=='Administrator' || $name=='Visitor' || $name=='管理员') continue;
+            $dropList[$name] = $d->name;
+        }
+
+        $post = Yii::$app->request->post();
+        if($post){
+            $items = [];
+            $items[] = $post['AdminUser']['role'];
+            $model->role = $post['AdminUser']['role'];
+            $model->updated_at = time();
+        }
+        if ($model->load($post) && $model->save()) {
+            $assignment = new Assignment($model->id);
+            $assignment->assign($items);
+            return $this->showFlash('修改成功', 'success',['index']);
+        } else {
+            return $this->render('update', ['model' => $model, 'dropList' => $dropList]);
+        }
+    }
+
     /**
      * Updates an existing AdminUser model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionReset($id)
     {
         $model = $this->findModel($id);
         $model->scenario = 'update';

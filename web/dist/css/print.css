@@ -1,25 +1,98 @@
 a {
     color: black;
+    text-decoration: none;
 }
+
 a::after {
-    content: ""; /* 所有链接后显示链接地址 */
+    content: "";
+    /* 所有链接后显示链接地址 */
 }
-#w0 div:first-child {
+
+
+.pagination {
     display: none;
 }
 
-#w0 table th:first-child {
+* {
+    font-size: 12px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border: 0 none;
+}
+
+th,
+td {
+    width: auto;
+    padding: 10px 0;
+    border: 0 none;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+}
+
+th {
+    border-top: 1px solid #999;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    border-left: 1px solid #999;
+    width:4%;
+}
+th:nth-child(3),
+td:nth-child(3) {
+     width:7%;
+}
+th:nth-child(4),
+td:nth-child(4) {
+    width:11%;
+}
+th:nth-child(5),
+td:nth-child(5) {
+    width:11%;
+}
+th:nth-child(6),
+td:nth-child(6) {
+    width:8%;
+}
+th:nth-child(7),
+td:nth-child(7) {
+    width:8%;
+}
+th:nth-child(8),
+td:nth-child(8) {
+    width:10%;
+}
+th:nth-child(9),
+td:nth-child(9) {
+    width:10%;
+}
+th:nth-child(10),
+td:nth-child(10) {
+    width:10%;
+}
+th:nth-child(11),
+td:nth-child(11) {
+    width:10%;
+}
+th:nth-child(12),
+td:nth-child(12) {
+
+}
+
+th:first-child,
+td:first-child {
     display: none;
 }
 
-#w0 table td:first-child {
+th:last-child,
+td:last-child {
     display: none;
 }
 
-#w0 table thead .filters {
-    display: none;
-}
-
-.pagination{
-    display: none;
+th:nth-child(6),
+td:nth-child(6) {
+    /* width: 50px !important; */
 }

@@ -5,7 +5,12 @@ use app\widgets\Nav;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
-
+<style>
+    .navbar-nav>.user-menu>.dropdown-menu>.user-footer{
+        background-color: #8aa4af;
+        padding: 10px;
+    }
+</style>
 <header class="main-header">
 
     <?= Html::a('<span class="logo-mini">CMS</span><span class="logo-lg">' . Yii::$app->name . '</span>', ['/backend/'], ['class' => 'logo']) ?>
