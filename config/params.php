@@ -5,7 +5,7 @@
     'keywords' => '',
     'description' => '',
     'cacheDuration' => '-1',
-    'pageSize' => '100',
+    'pageSize' => '50',
     'mdm.admin.configs' => [
         'menuTable' => 'admin_menu',
     ],

@@ -60,24 +60,35 @@ class GridView extends YiiGridView
 
     public function renderOperation()
     {
+        $print = $this->caption?'window.location.href=\'/backend/stream/print\'':'$(\'#table\').jqprint({printContainer:true});';
         $id = $this->options['id'];
-        $buttonList = [
-            Html::tag('button', '导出',[
-                'title'=>'当前筛选所有结果将导出',
-                'class'=>'content-operation btn btn-xs btn-success',
-                'onclick'=>'if(confirm(\'您确定导出当前筛选结果？\'))window.location.href=\'/backend/stream/export\';',
-            ]),
-            Html::tag('button', '打印',[
-                'class'=>'content-operation btn btn-xs btn-warning',
-                'onclick'=>'$(\'#w0\').jqprint({printContainer:true});',
-            ]),
-            Html::tag('button', '删除',[
-                'id'=>'delete',
-                'class'=>'content-operation btn btn-xs btn-danger',
-                'data-queren' => '您确定删除所选项？删除将不能恢复~',
-                'data-action'=>Url::to(['delete-all'])
-            ]),
-        ];
+        if($this->caption) {
+            $buttonList = [
+                Html::tag('button', '导出', [
+                    'title' => '当前筛选所有结果将导出',
+                    'class' => 'content-operation btn btn-xs btn-success',
+                    'onclick' => 'if(confirm(\'您确定导出当前筛选结果？\'))window.location.href=\'/backend/stream/export\';',
+                ]),
+                Html::tag('a', '打印', [
+                    'class' => 'content-operation btn btn-xs btn-warning',
+                    'href' => '/backend/stream/print',
+                    'target' => '_blank'
+                ]),
+                Html::tag('button', '删除', [
+                    'id' => 'delete',
+                    'class' => 'content-operation btn btn-xs btn-danger',
+                    'data-queren' => '您确定删除所选项？删除将不能恢复~',
+                    'data-action' => Url::to(['delete-all'])
+                ]),
+            ];
+        }else{
+            $buttonList = [
+                Html::tag('button', '打印', [
+                    'class' => 'content-operation btn btn-xs btn-warning',
+                    'onclick' => $print,
+                ])
+            ];
+        }
         $view = $this->getView();
         $view->registerJs('$(\'#delete\').click(function(){
             var self = this;
@@ -108,7 +119,14 @@ class GridView extends YiiGridView
                 });
             }
             self.disabled = false;
-        });');
+        });
+        $(\'#from\').datepicker({
+          autoclose: true,  format: "yyyy-mm-dd", language: "zh-CN"
+        });
+        $(\'#to\').datepicker({
+          autoclose: true,  format: "yyyy-mm-dd", language: "zh-CN"
+        });
+        ');
         return Html::tag('div', implode('', $buttonList), [
             'class'=>'btn-group'
         ]);

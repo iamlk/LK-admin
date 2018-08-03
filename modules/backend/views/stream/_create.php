@@ -18,14 +18,18 @@ if($count){
     <div class="row <?=$count?'hide':''?>">
         <div class="col-sm-6">
 
-            <?= $form->field($model, 'file')->widget(
+            <?= $form->field($model, 'file[]')->widget(
                 FileInput::class,
                 [
+                        'options'=>[
+                            'multiple'=>true,
+                        ],
                     'pluginOptions' => [
                         'showUpload' => true,
                         'showPreview'=>false,
                         'showRemove'=>true,
                         'initialPreviewAsData' => true,
+
                     ],
                 ]
             ) ?>

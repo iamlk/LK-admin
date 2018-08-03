@@ -31,9 +31,9 @@ $data = [
         [
             'header'=>'操作',
             'class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {delete}',
+            'template' => '{reset} {update} {delete}',
             'options' => ['style' => 'width:150px'],
-            'buttons' => ['update'=>
+            'buttons' => ['reset'=>
                 function ($url, $model, $key) {
                     $options = ['onclick'=>'if(confirm(\'确定要将该用户密码重置?\')==false)return false;',
                         'class'=>'btn btn-success btn-sm ad-click-event'];
@@ -48,7 +48,7 @@ $data = [
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><?= Html::a('管理员管理', ['index']) ?></li>
-            <li role="presentation"><?= Html::a('添加管理员', ['create']) ?></li>
+            <li role="presentation"><?= Html::a('添加普通用户', ['create']) ?></li>
         </ul>
         <div class="tab-content">
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

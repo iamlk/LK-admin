@@ -192,6 +192,7 @@ class Stream extends \app\components\AppActiveRecord
         foreach($list as $li){
             $model = new Stream();
             $model->attributes = $li;
+            if(empty($li['well_no'])) continue;
             $type[$li['well_no']] = StreamType::WELL;
             $model->is_deal = 0;
             if($model->save()){//数据合法，才比较time
@@ -247,6 +248,7 @@ class Stream extends \app\components\AppActiveRecord
             }
         }
         $list = Stream::find()->where(['is_deal'=>0])->limit($limit)->all();
+
         //foreach(Stream::find()->where(['is_deal'=>0])->limit($limit)->each(50) as $li){
         foreach($list as $li){
             $li->the_weight = ($li->type == StreamType::IN)?($li->end_weight - $li->start_weight):($li->start_weight - $li->end_weight);

@@ -43,6 +43,7 @@ class AdminUserSearch extends AdminUser
     public function search($params, $pageSize)
     {
         $query = AdminUser::find()->where('id>1');
+        $query->andOnCondition('role="普通用户"');
 
         // add conditions that should always apply here
 

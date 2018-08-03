@@ -41,7 +41,7 @@ use kartik\date\DatePicker;
 
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'well_no')->dropDownList(StreamType::GetList(StreamType::WELL)) ?>
+            <?= $form->field($model, 'well_no')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-6">
             <?= $form->field($model, 'property_no')->textInput(['maxlength' => true]) ?>

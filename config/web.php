@@ -16,6 +16,9 @@ $config = [
 //    'bootstrap' => ['log','assetsAutoCompress'],
     'bootstrap' => ['log',],
     'components' => [
+        'aes' => [
+            'class' => 'app\vendor\aes\Aes',
+        ],
         'assetsAutoCompress' => [
             'class' => '\skeeks\yii2\assetsAuto\AssetsAutoCompressComponent',
         ],
@@ -26,7 +29,7 @@ $config = [
         'user' => [
             'class'=>'yii\web\User',
             'identityClass' => 'app\modules\backend\models\AdminUserIdentity',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
             'loginUrl'=>['backend/default/login']
         ],
         'cache' => [

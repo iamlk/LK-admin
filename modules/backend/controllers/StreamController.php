@@ -77,10 +77,53 @@ class StreamController extends BackendController
                 ],
         ]);
     }
+
+    public function actionPrint()
+    {
+        set_time_limit(0);
+        $this->layout="main-print";
+        $session = Yii::$app->session;
+        $print = [];
+        $print['StreamSearch'] = $session['search'];
+        $searchModel = new StreamSearch();
+        $dataProvider = $searchModel->search($print, 5000);
+
+        return $this->render('print', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'total'=>''
+        ]);
+    }
+
+    public function actionIndex()
+    {
+        $total = '';
+        $get = Yii::$app->request->get();
+        $session = Yii::$app->session;
+        $searchModel = new StreamSearch();
+        if(empty($get['StreamSearch']['well_no'])){
+            $session['search'] = [];
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
+        }else{
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 50);
+            $session['search'] = $get['StreamSearch'];
+            $search = $get['StreamSearch'];
+            $condition = ['and'];
+            if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
+            if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
+            if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
+            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+            $total = Stream::getTotalMessage($condition);
+        }
+        return $this->render('index2', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'total'=>$total
+        ]);
+    }
     /**
      * Lists all Content models.
      * @return mixed
-     */
     public function actionIndex()
     {
         $total = '';
@@ -108,6 +151,7 @@ class StreamController extends BackendController
             'total'=>$total
         ]);
     }
+     */
 
     public function actionData()
     {
@@ -166,7 +210,7 @@ class StreamController extends BackendController
     {
         set_time_limit(0);
         $count = Stream::initData(337);
-        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->format = 'json';
         Yii::$app->response->data = $count;
     }
 
@@ -180,26 +224,25 @@ class StreamController extends BackendController
         $model= new Upload();
 
         if (Yii::$app->request->isPost) {
-            $file = UploadedFile::getInstance($model, 'file');
+            $files = UploadedFile::getInstances($model, 'file');
             $path=\Yii::getAlias('@webroot').'/uploads/data/';
-            if ($file && $model->validate()) {
-                if(!file_exists($path)){
-                    FileHelper::createDirectory($path, 0777);
+            if(!file_exists($path)){
+                FileHelper::createDirectory($path, 0777);
+            }
+            if ($files && $model->validate()) {
+                $content = '';
+                $aes = Yii::$app->aes;
+                foreach($files as $i => $file){
+                    $file->saveAs($path . $i);
+                    $data = file_get_contents($path . $i);
+                    $data = trim($data);
+                    $data = $aes->decrypt($data);
+                    $content .= $data."\r\n";
                 }
-                $fileName = time();
-                $file->saveAs($path . $fileName);
-                /**
-                $sha1 =  sha1_file($path . $fileName);
-                if(file_exists($path.$sha1)){
-                    return $this->showFlash('该文件已经上传过，请勿重复上传！','warning',['create']);
-                }
-                rename($path . $fileName, $path . $sha1);
-                $data = file_get_contents($path . $sha1);*/
-                $data = file_get_contents($path . $fileName);
-                $data = strstr($data,'"');
-                $data = str_replace("\r\n",'},{', trim($data));
-                $data = '[{'.$data.'}]';
-                $list = json_decode($data, true);
+                $content = trim($content);
+                $content = str_replace("\r\n",'},{', trim($content));
+                $content = '[{'.$content.'}]';
+                $list = json_decode($content, true);
                 Stream::importData($list);
                 return $this->showFlash('文件已上传，请耐心等待数据处理中....','success',['create']);
             }
