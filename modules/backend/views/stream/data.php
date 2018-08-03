@@ -74,7 +74,10 @@ $this->registerCss('.table-striped>tbody>tr{
         <!-- BAR CHART -->
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">统计图表</h3>
+                <h3 class="box-title">统计图表
+                    <span class="description-percentage " style="color: #00c0ef;"><i class="fa glyphicon glyphicon-minus"></i> 进料</span>
+                    <span class="description-percentage " style="color: #dd4b39;"><i class="fa glyphicon glyphicon-minus"></i> 出料</span>
+                </h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
