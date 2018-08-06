@@ -71,19 +71,18 @@ class Stream extends \app\components\AppActiveRecord
     public static function getTotalMessage($condition){
         $out = 0;
         $in = 0;
-        $time = 0;
+        $time_in = 0;
+        $time_out = 0;
         foreach(Stream::find()->where($condition)->orderBy(['id'=>SORT_ASC])->each(50) as $li){
-            $time++;
             if($li->type == '进料'){
                 $in += $li->the_weight;
+                $time_in++;
             }else{
                 $out += $li->the_weight;
+                $time_out++;
             }
         }
-        if($time==0) return '';
-        $message = '合计次数：'.$time.'次&nbsp;';
-        if($in>0) $message .= '进料：'.$in.'Kg&nbsp;';
-        if($out>0) $message .= '出料:'.$out.'Kg';
+        $message = '合计出料次数：'.$time_out.'次&nbsp;合计出料：'.$in.'Kg&nbsp;合计进料次数：'.$time_in.'次&nbsp;合计进料：'.$in.'Kg';
         return $message;
     }
 
