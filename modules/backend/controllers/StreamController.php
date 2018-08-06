@@ -244,7 +244,7 @@ class StreamController extends BackendController
                 $content = '[{'.$content.'}]';
                 $list = json_decode($content, true);
                 Stream::importData($list);
-                return $this->showFlash('文件已上传，请耐心等待数据处理中....','success',['create']);
+                return $this->showFlash('文件已成功导入....','success',['index']);
             }
         }
         $count = Stream::find()->where(['is_deal'=>0])->count();

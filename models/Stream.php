@@ -193,7 +193,7 @@ class Stream extends \app\components\AppActiveRecord
             $model->attributes = $li;
             if(empty($li['well_no'])) continue;
             $type[$li['well_no']] = StreamType::WELL;
-            $model->is_deal = 0;
+            $model->is_deal = 1;
             if($model->save()){//数据合法，才比较time
                 if($time>$li['start_time']) $time = $li['start_time'];
             }
