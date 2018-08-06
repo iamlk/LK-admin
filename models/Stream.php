@@ -82,7 +82,14 @@ class Stream extends \app\components\AppActiveRecord
                 $time_out++;
             }
         }
-        $message = '合计出料次数：'.$time_out.'次&nbsp;合计出料：'.$in.'Kg&nbsp;合计进料次数：'.$time_in.'次&nbsp;合计进料：'.$in.'Kg';
+        $message = '<span style="font-size:18px;">';
+        if($time_out>0){
+            $message .= '合计出料次数：'.$time_out.'次&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合计出料：'.$in.'Kg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if($time_in>0){
+            $message .= '合计进料次数：'.$time_in.'次&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合计进料：'.$in.'Kg';
+        }
+        $message .= '</span>';
         return $message;
     }
 
