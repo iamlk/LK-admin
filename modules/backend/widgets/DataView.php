@@ -14,7 +14,7 @@ use Yii;
 
 class DataView extends GridView
 {
-    public $layout = "{items}\n<div style='height: 30px'><div class='pull-left'>{operation}</div><div class='pull-right'>{summary}</div></div>\n";
+    public $layout = "{items}\n<div style='height: 30px'><div class='pull-left'>{operation}</div><div class='pull-right'></div></div>\n";
 
     public function renderOperation()
     {
