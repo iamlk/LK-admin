@@ -46,9 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => CheckboxColumn::className()],
                     [
-                        'attribute' => 'id',
-                        'filter' => '',
-                        'options' => ['style' => 'width:60px']
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '<a href="#">序号</a>'
                     ],
                     [
                         'attribute' => 'type',
