@@ -83,11 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => null,
                     'columns' => [
-                        ['class' => CheckboxColumn::className()],
+                        ['class' => CheckboxColumn::className()],//'yii\grid\SerialColumn'],//
                         [
-                            'attribute' => 'id',
-                            'filter' => '',
-                            'options' => ['style' => 'width:60px']
+                            'class' => 'yii\grid\SerialColumn',
+                            'header' => '<a href="#">序号</a>'
                         ],
                         [
                             'attribute' => 'type',
