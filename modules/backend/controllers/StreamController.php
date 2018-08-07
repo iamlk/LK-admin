@@ -2,6 +2,7 @@
 
 namespace app\modules\backend\controllers;
 
+use app\models\StreamType;
 use Yii;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
@@ -208,10 +209,14 @@ class StreamController extends BackendController
      */
     public function actionView()
     {
-        set_time_limit(0);
-        $count = Stream::initData(337);
-        Yii::$app->response->format = 'json';
-        Yii::$app->response->data = $count;
+        if(Yii::$app->request->isPost){
+            if($_POST['pass']=='666666'){
+                Stream::deleteAll("1=1");
+                StreamType::deleteAll("1=1");
+                return $this->showFlash('数据已清空....','success',['index']);
+            }
+        }
+        return $this->render('view');
     }
 
     /**
