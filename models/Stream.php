@@ -194,7 +194,7 @@ class Stream extends \app\components\AppActiveRecord
 
     public static function importData($list){
         $type = [];
-        $time = '2050-12-12 12:12:12';
+        //$time = '2050-12-12 12:12:12';
         foreach($list as $li){
             $model = new Stream();
             $model->attributes = $li;
@@ -202,7 +202,7 @@ class Stream extends \app\components\AppActiveRecord
             $type[$li['well_no']] = StreamType::WELL;
             $model->is_deal = 1;
             if($model->save()){//数据合法，才比较time
-                if($time>$li['start_time']) $time = $li['start_time'];
+                //if($time>$li['start_time']) $time = $li['start_time'];
             }
         }
         foreach($type as $team => $t){
@@ -211,7 +211,7 @@ class Stream extends \app\components\AppActiveRecord
             $model->value = $team;
             $model->save();
         }
-        Stream::updateAll(['is_deal'=>0],'start_time>="'.$time.'"');
+        //Stream::updateAll(['is_deal'=>0],'start_time>="'.$time.'"');
     }
 
     public static function json2Sql($inserts)
