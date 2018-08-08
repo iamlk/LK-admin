@@ -198,6 +198,7 @@ class Stream extends \app\components\AppActiveRecord
         foreach($list as $li){
             $model = new Stream();
             $model->attributes = $li;
+            if($li->the_weight<0) $model->the_weight = 0-$li->the_weight;
             if(empty($li['well_no'])) continue;
             $type[$li['well_no']] = StreamType::WELL;
             $model->is_deal = 1;
