@@ -12,6 +12,7 @@ class Car extends Db{
     protected $time = 0;
     const YICHEWANG='易车网';
     const AUTOCAR='汽车之家';
+    const CHEZHIWANG='车质网';
     public $table = 'car';
     public $attr = [
         'id',

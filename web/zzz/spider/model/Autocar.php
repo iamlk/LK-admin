@@ -22,31 +22,35 @@ class Autocar extends Car{
         $this->bbs = new Bbs();
     }
 
-    public function matchAll(){
-        $list = $this->findAll('bbs="'.self::AUTOCAR.'" AND is_fetch=1');
+    public function matchAll($id=0){
+        $list = $this->findAll('bbs="'.self::AUTOCAR.'" AND is_fetch=1 AND id<=3197');
+        if($id) $list = $this->findAll('id='.$id);/**
+        foreach($list as $li){
+        echo '<a href="/zzz/test.php?id='.$li['id'].'">'.$li['model'].'</a><br/><br/>';
+        }
+        exit;*/
         foreach($list as $li){
             @$this->bbs->data['car_id'] = $li['id'];
-            $this->fetchBBS($li['core']);
+            $this->fetchBBS($li['core']);exit;
         }
     }
 
     public function fetchBBSItem($src,$page=1){
-        $url = str_replace('-1.html','-'.$page.'.html',$src);
-        $url = "https://club.autohome.com.cn/bbs/thread/150663af40430380/75641540-1.html";
+        $url = 'https://club.autohome.com.cn'.$src;
+        $url = str_replace('-1.html','-'.$page.'.html',$url);
         $html = Http::curl($url,[],'get','https://club.autohome.com.cn/bbs/forum-c-3852-1.html?orderby=dateline&qaType=-1#pvareaid=101061');
         if(empty($html)){
             if($page>1) return;
             $html = Http::curl($url);
             if(empty($html)){
                 $html = Http::curl($url);
-                if(empty($html)) return;
+                if(empty($html)) exit($url);
             }
         }
-        $html = gzdecode($html);
+        if(!strpos($html,'x-pages2')) $html = @gzdecode($html);
         $html = mb_convert_encoding($html,'utf-8','gb2312');
         $html = str_replace('charset=gb2312','charset=utf-8',$html);
         if(!strpos($html,'x-pages2')) return;
-
         @$this->bbs->data['url'] = $url;
         $dom = new DOMDocument();
         $libxml_previous_state = libxml_use_internal_errors(true);
@@ -66,7 +70,9 @@ class Autocar extends Car{
     }
 
     private function fetchBBS($core){
-        $page = 1;
+        $id = $this->bbs->data['car_id'];
+        if(empty($_GET['page']))$page = 1;
+        else $page = $_GET['page'];
         while(true){
             $url = "https://club.autohome.com.cn/bbs/forum-c-$core-$page.html?orderby=dateline&qaType=-1";
             $html = Http::curl($url);
@@ -77,7 +83,7 @@ class Autocar extends Car{
                     sleep(1);
                     $html = Http::curl($url);
                     if(empty($html)){
-                        continue;
+                        return;
                     }
                 }
             }
@@ -93,12 +99,15 @@ class Autocar extends Car{
             libxml_use_internal_errors($libxml_previous_state);
             $xpath = new DOMXPath($dom);
             $list = $xpath->query('//div[@id="subcontent"]/dl[@class="list_dl"]/dt');
+            if(count($list)<=1) exit("<head><title>$id-$page</title><meta http-equiv=\"refresh\" content=\"3;url=/zzz/test.php?id=$id&page=$page\"> </head><body>1</body>");
             foreach($list as $li){
                 $url = trim($li->childNodes[3]->attributes->getNamedItem('href')->value);
                 if(empty($url)) continue;
-                if($this->bbs->findOne('url="'.$url.'"')) continue;
+                $url2 = 'https://club.autohome.com.cn'.$url;
+                if($this->bbs->findOne('url="'.$url2.'"')) continue;
                 @$this->bbs->data['title'] = trim($li->childNodes[3]->nodeValue);
-                $date = $li->nextSibling->nextSibling->childNodes[2]->nodeValue;
+                $date = @$li->nextSibling->nextSibling->childNodes[2]->nodeValue;
+                if(empty($date)) continue;
                 $date = trim($date);
                 $time = strtotime($date);
                 if($time < $this->time){
@@ -107,10 +116,13 @@ class Autocar extends Car{
                     return;
                 }
                 @$this->bbs->data['created'] = date('Y-m-d',$time);
-                $this->fetchBBSItem($url);exit;
+                $this->fetchBBSItem($url);
+                sleep(5);
             }
-            if($p == $page) return;
+            if($p != $page) return;
             $page++;
+            echo "<head><title>$id-$page</title><meta http-equiv=\"refresh\" content=\"3;url=/zzz/test.php?id=$id&page=$page\"> </head><body>1</body>";
+            return;
         }
     }
 

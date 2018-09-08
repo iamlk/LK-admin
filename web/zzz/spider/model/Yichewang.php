@@ -21,8 +21,15 @@ class Yichewang extends Car{
         $this->bbs = new Bbs();
     }
 
-    public function matchAll(){
+    public function matchAll($id=0){
         $list = $this->findAll('bbs="'.self::YICHEWANG.'" AND is_fetch=1');
+        if($id) $list = $this->findAll('id='.$id);
+        else{
+            foreach($list as $li){
+                echo '<a target="_blank" href="/zzz/index.php?id='.$li['id'].'">'.$li['model'].'</a><br/><br/>';
+            }
+            return;
+        }
         foreach($list as $li){
             @$this->bbs->data['car_id'] = $li['id'];
             $this->fetchBBS($li['core']);
@@ -30,7 +37,8 @@ class Yichewang extends Car{
     }
 
     public function fetchBBSItem($src,$page=1){
-        $url = str_replace('.html','-'.$page.'.html',$src);
+        if($page>1) $url = str_replace('.html','-'.$page.'.html',$src);
+        else    $url = $src;
         $html = Http::curl($url);
         if(empty($html)){
             if($page>1) return;
@@ -49,6 +57,7 @@ class Yichewang extends Car{
         libxml_use_internal_errors($libxml_previous_state);
         $xpath = new DOMXPath($dom);
         $list = $xpath->query('//div[@class="post_width"]');
+        if(count($list)==0) return;
         foreach($list as $li){
             unset($this->bbs->data['id']);
             @$this->bbs->data['content'] = trim($li->nodeValue);
@@ -60,6 +69,7 @@ class Yichewang extends Car{
 
     private function fetchBBS($core){
         $page = 1;
+        $i=0;
         while(true){
             $url = "http://baa.bitauto.com/$core/index-all-all-$page-1.html";
             //echo $url."\r\n";
@@ -71,7 +81,12 @@ class Yichewang extends Car{
                     sleep(1);
                     $html = Http::curl($url);
                     if(empty($html)){
-                        continue;
+                        sleep(1);
+                        $i++;
+                        if($i==10)
+                            exit($url);
+                        else
+                            continue;
                     }
                 }
             }
@@ -87,6 +102,8 @@ class Yichewang extends Car{
                 $url = trim($li->firstChild->attributes->getNamedItem('href')->value);
                 if(empty($url)) continue;
                 if($this->bbs->findOne('url="'.$url.'"')) continue;
+                $url2 = str_replace('.html','-1.html',$url);
+                if($this->bbs->findOne('url="'.$url2.'"')) continue;
                 @$this->bbs->data['title'] = trim($li->firstChild->nodeValue);
                 $date = $li->nextSibling->nextSibling->nextSibling->nextSibling->childNodes[3]->nodeValue;
                 $date = str_replace(' ','',trim($date));
@@ -103,7 +120,9 @@ class Yichewang extends Car{
                 $this->fetchBBSItem($url);
             }
             $page++;
+            sleep(2);
         }
+        echo 'End';exit;
     }
 
     //匹配哪些车型需要抓取

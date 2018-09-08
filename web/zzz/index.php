@@ -19,4 +19,5 @@ use spider\tool\Match;
 
 set_time_limit(0);
 $car = new Yichewang();
-$car->matchAll();
+$id = @intval($_GET['id']);
+$car->matchAll($id);
