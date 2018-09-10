@@ -210,7 +210,14 @@ class StreamController extends BackendController
     public function actionView()
     {
         if(Yii::$app->request->isPost){
+            $connection = Yii::$app->db;
             if($_POST['pass']=='666666'){
+                $sql = "alter table stream modify column `start_weight` float(12,2)  NOT NULL COMMENT '起始量',
+ modify column  `end_weight` float(12,2)  NOT NULL COMMENT '结束量',
+  modify column `the_weight` float(12,2)  DEFAULT '0.00' COMMENT '本次出/入量',
+  modify column `total_weight` double(12,2)  DEFAULT '0.00' COMMENT '累计出/入量';";
+                $command=$connection->createCommand($sql);
+                $command->execute();
                 Stream::deleteAll("1=1");
                 StreamType::deleteAll("1=1");
                 return $this->showFlash('数据已清空....','success',['index']);
@@ -248,8 +255,11 @@ class StreamController extends BackendController
                 $content = str_replace("\r\n",'},{', trim($content));
                 $content = '[{'.$content.'}]';
                 $list = json_decode($content, true);
-                Stream::importData($list);
-                return $this->showFlash('文件已成功导入....','success',['index']);
+                $res = Stream::importData($list);
+                if($res)
+                    return $this->showFlash('文件已成功导入....','success',['index']);
+                else
+                    return $this->showFlash('数据有误！！！！','danger',['index']);
             }
         }
         $count = Stream::find()->where(['is_deal'=>0])->count();

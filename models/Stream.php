@@ -195,9 +195,11 @@ class Stream extends \app\components\AppActiveRecord
     public static function importData($list){
         $type = [];
         //$time = '2050-12-12 12:12:12';
+        if(empty($list)) return false;
         foreach($list as $li){
             $model = new Stream();
             $model->attributes = $li;
+            if(!isset($li['the_weight'])) return false;
             if($li['the_weight']<0) $model->the_weight = 0-$li['the_weight'];
             if(empty($li['well_no'])) continue;
             $type[$li['well_no']] = StreamType::WELL;
@@ -212,6 +214,7 @@ class Stream extends \app\components\AppActiveRecord
             $model->value = $team;
             $model->save();
         }
+        return true;
         //Stream::updateAll(['is_deal'=>0],'start_time>="'.$time.'"');
     }
 
