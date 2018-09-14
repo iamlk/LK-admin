@@ -21,12 +21,90 @@ class Yichewang extends Car{
         $this->bbs = new Bbs();
     }
 
-    public function matchAll($id=0){
+    public function koubei($id=0){
         $list = $this->findAll('bbs="'.self::YICHEWANG.'" AND is_fetch=1');
+        if($id)
+            $list = $this->findAll('id='.$id);
+        else {
+            foreach ($list as $li) {echo 'ok';
+                $url = 'http://car.bitauto.com/'.$li['core'].'/koubei/';
+                $html = Http::curl($url);
+                $dom = new DOMDocument();
+                $libxml_previous_state = libxml_use_internal_errors(true);
+                $dom->loadHTML($html);
+                libxml_clear_errors();
+                libxml_use_internal_errors($libxml_previous_state);
+                $xpath = new DOMXPath($dom);
+                $list = $xpath->query('//a[@id="aTopicListUrl"]');
+                echo count($list);
+                foreach($list as $li){
+                    print_r($li);
+                }exit;
+                echo '<a href="/zzz/y.php?id=' . $li['id'] . '">' . $li['model'] . '</a><br/><br/>';
+            }
+            exit;
+        }
+        foreach($list as $li){
+            @$this->kb->data['car_id'] = $li['id'];
+            $this->fetchKoubei($li['core']);
+        }
+        echo 'End';
+    }
+
+
+    private function fetchKoubei($core){
+        $page = @$_GET['page']?$_GET['page']:1;
+        $id = $this->kb->data['car_id'];
+        while(true){
+            $url = "http://www.12365auto.com/review/$core"."_0_0_$page.shtml";
+            $html = Http::curl($url);
+            if(empty($html)){
+                sleep(1);
+                $html = Http::curl($url);
+                if(empty($html)){
+                    sleep(1);
+                    $html = Http::curl($url);
+                    if(empty($html)){
+                        continue;
+                    }
+                }
+            }
+            $dom = new DOMDocument();
+            $libxml_previous_state = libxml_use_internal_errors(true);
+            $dom->loadHTML($html);
+            libxml_clear_errors();
+            libxml_use_internal_errors($libxml_previous_state);
+            $xpath = new DOMXPath($dom);
+            $list = $xpath->query('//div[@class="kbfb"]/dl/dt');
+            $l2 = $xpath->query('//div[@class="kbfb"]/dl/dd/div[@class="kbnr"]');
+            $star = $xpath->query('//div[@class="kbfb"]/dl/dd/div[@class="cx_bt"]/p/b');
+            if(count($list)==0) exit('<a href='.$url.'">finish</a>');
+            if(count($l2)==0) exit('<a href='.$url.'">finish</a>');
+            foreach($list as $i => $li){
+                @$this->kb->data['uid'] = intval($li->attributes->getNamedItem('uid')->value);
+                $this->kb->data['author'] = trim($li->childNodes[1]->nodeValue);
+                $this->kb->data['note'] = trim($l2[$i]->childNodes[1]->nodeValue);
+                $this->kb->data['merit'] = trim($l2[$i]->childNodes[3]->childNodes[0]->nodeValue);
+                $this->kb->data['defect'] = trim($l2[$i]->childNodes[3]->childNodes[2]->nodeValue);
+                $this->kb->data['summary'] = trim($l2[$i]->childNodes[3]->childNodes[4]->nodeValue);
+                $date = $l2[$i]->childNodes[3]->childNodes[6]->nodeValue;
+                $date = str_replace('----','',$date);
+                $date = trim($date);
+                $this->kb->data['created'] = $date;
+                $this->kb->data['star'] = trim($star[$i]->nodeValue);
+                unset($this->kb->data['id']);
+                $this->kb->insert();
+            }
+            $page++;
+        }
+    }
+
+    public function matchAll($id=0){
+        $list = $this->findAll('bbs="'.self::YICHEWANG.'" AND is_fetch=1 AND letter is not null');
         if($id) $list = $this->findAll('id='.$id);
         else{
             foreach($list as $li){
-                echo '<a target="_blank" href="/zzz/index.php?id='.$li['id'].'">'.$li['model'].'</a><br/><br/>';
+                echo '<a target="_blank" href="/zzz/y.php?id='.$li['id'].'">'.$li['model'].'</a><br/><br/>';
             }
             return;
         }
@@ -34,6 +112,7 @@ class Yichewang extends Car{
             @$this->bbs->data['car_id'] = $li['id'];
             $this->fetchBBS($li['core']);
         }
+        echo 'End';
     }
 
     public function fetchBBSItem($src,$page=1){
@@ -45,7 +124,7 @@ class Yichewang extends Car{
             $html = Http::curl($url);
             if(empty($html)){
                 $html = Http::curl($url);
-                if(empty($html)) return;
+                if(empty($html)) return $this->fetchBBSItem($src);
             }
         }
         if(!strpos($html,'linknow') && $page>1) return;
@@ -61,14 +140,22 @@ class Yichewang extends Car{
         foreach($list as $li){
             unset($this->bbs->data['id']);
             @$this->bbs->data['content'] = trim($li->nodeValue);
+            break;
+        }
+        $list = $xpath->query('//div[@class="user_name"]/a');
+        if(count($list)==0) return;
+        foreach ($list as $li){
+            @$this->bbs->data['author'] = trim($li->nodeValue);
             $this->bbs->insert();
+            return;
         }
         $page++;
         $this->fetchBBSItem($src,$page);
     }
 
     private function fetchBBS($core){
-        $page = 1;
+        $page = @$_GET['page']?$_GET['page']:1;
+        $id = $this->bbs->data['car_id'];
         $i=0;
         while(true){
             $url = "http://baa.bitauto.com/$core/index-all-all-$page-1.html";
@@ -90,6 +177,7 @@ class Yichewang extends Car{
                     }
                 }
             }
+            $i=0;
             if(!strpos($html,'linknow') && $page>1) return;
             $dom = new DOMDocument();
             $libxml_previous_state = libxml_use_internal_errors(true);
@@ -98,6 +186,7 @@ class Yichewang extends Car{
             libxml_use_internal_errors($libxml_previous_state);
             $xpath = new DOMXPath($dom);
             $list = $xpath->query('//div[@class="postscontent"]/div[@class="postslist_xh"]/ul/li[@class="bt"]');
+            if(count($list)<1) exit('<a href="http://localhost/zzz/y.php?id='.$id.'&page='.$page.'">'.$url.'</a>');
             foreach($list as $li){
                 $url = trim($li->firstChild->attributes->getNamedItem('href')->value);
                 if(empty($url)) continue;
@@ -120,7 +209,6 @@ class Yichewang extends Car{
                 $this->fetchBBSItem($url);
             }
             $page++;
-            sleep(2);
         }
         echo 'End';exit;
     }

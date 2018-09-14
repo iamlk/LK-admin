@@ -23,19 +23,24 @@ class Autocar extends Car{
     }
 
     public function matchAll($id=0){
-        $list = $this->findAll('bbs="'.self::AUTOCAR.'" AND is_fetch=1 AND id<=3197');
-        if($id) $list = $this->findAll('id='.$id);/**
-        foreach($list as $li){
-        echo '<a href="/zzz/test.php?id='.$li['id'].'">'.$li['model'].'</a><br/><br/>';
+        $list = $this->findAll('bbs="'.self::AUTOCAR.'" AND is_fetch=1');
+        if($id)
+            $list = $this->findAll('id='.$id);
+        else{
+            foreach($list as $li){
+            echo '<a href="/zzz/a.php?id='.$li['id'].'">'.$li['model'].'</a><br/><br/>';
+            }
+            exit;
         }
-        exit;*/
         foreach($list as $li){
             @$this->bbs->data['car_id'] = $li['id'];
-            $this->fetchBBS($li['core']);exit;
+            $this->fetchBBS($li['core']);
         }
+        echo 'End';
     }
 
     public function fetchBBSItem($src,$page=1){
+        sleep(1);
         $url = 'https://club.autohome.com.cn'.$src;
         $url = str_replace('-1.html','-'.$page.'.html',$url);
         $html = Http::curl($url,[],'get','https://club.autohome.com.cn/bbs/forum-c-3852-1.html?orderby=dateline&qaType=-1#pvareaid=101061');
@@ -44,9 +49,13 @@ class Autocar extends Car{
             $html = Http::curl($url);
             if(empty($html)){
                 $html = Http::curl($url);
-                if(empty($html)) exit($url);
+                if(empty($html)) return $this->fetchBBSItem($src);
             }
         }
+        $id = $this->bbs->data['car_id'];
+        $p = @$_GET['page']?$_GET['page']:1;
+        if(strpos($html,'V2</title>'))
+            exit("<head><title>$id-$p</title><meta http-equiv=\"refresh\" content=\"3;url=/zzz/a.php?id=$id&page=$p\"> </head><body>1</body>");
         if(!strpos($html,'x-pages2')) $html = @gzdecode($html);
         $html = mb_convert_encoding($html,'utf-8','gb2312');
         $html = str_replace('charset=gb2312','charset=utf-8',$html);
@@ -63,7 +72,15 @@ class Autocar extends Car{
         foreach($list as $li){
             unset($this->bbs->data['id']);
             @$this->bbs->data['content'] = trim($li->nodeValue);
-            $this->bbs->insert();
+        }
+        $list = $xpath->query('//ul[@class="maxw"]/li/a');
+        if(count($list)==0) return;
+        foreach($list as $li){
+            $this->bbs->data['author'] = trim($li->nodeValue);
+            //$this->bbs->insert();
+            print_r($this->bbs->data);echo 'ok';
+            exit;
+            return;
         }
         $page++;
         $this->fetchBBSItem($src,$page);
@@ -71,8 +88,7 @@ class Autocar extends Car{
 
     private function fetchBBS($core){
         $id = $this->bbs->data['car_id'];
-        if(empty($_GET['page']))$page = 1;
-        else $page = $_GET['page'];
+        $page = @$_GET['page']?$_GET['page']:1;
         while(true){
             $url = "https://club.autohome.com.cn/bbs/forum-c-$core-$page.html?orderby=dateline&qaType=-1";
             $html = Http::curl($url);
@@ -83,14 +99,18 @@ class Autocar extends Car{
                     sleep(1);
                     $html = Http::curl($url);
                     if(empty($html)){
-                        return;
+                        exit("<head><title>$id-$page</title><meta http-equiv=\"refresh\" content=\"3;url=/zzz/a.php?id=$id&page=$page\"> </head><body>1</body>");
                     }
                 }
             }
+            echo 'aaa';exit;
             $html = mb_convert_encoding($html,'utf-8','gb2312');
             $html = str_replace('charset=gb2312','charset=utf-8',$html);
+            if(strpos($html,'V2</title>'))
+                exit("<head><title>$id-$page</title><meta http-equiv=\"refresh\" content=\"3;url=/zzz/a.php?id=$id&page=$page\"> </head><body>1</body>");
             $match = [];
             preg_match("/<span class='cur'>(.*?)<\/span>/", $html,$match);
+
             $p = $match[1];
             $dom = new DOMDocument();
             $libxml_previous_state = libxml_use_internal_errors(true);
@@ -99,7 +119,7 @@ class Autocar extends Car{
             libxml_use_internal_errors($libxml_previous_state);
             $xpath = new DOMXPath($dom);
             $list = $xpath->query('//div[@id="subcontent"]/dl[@class="list_dl"]/dt');
-            if(count($list)<=1) exit("<head><title>$id-$page</title><meta http-equiv=\"refresh\" content=\"3;url=/zzz/test.php?id=$id&page=$page\"> </head><body>1</body>");
+            if(count($list)<1) exit($url);
             foreach($list as $li){
                 $url = trim($li->childNodes[3]->attributes->getNamedItem('href')->value);
                 if(empty($url)) continue;
@@ -117,7 +137,7 @@ class Autocar extends Car{
                 }
                 @$this->bbs->data['created'] = date('Y-m-d',$time);
                 $this->fetchBBSItem($url);
-                sleep(5);
+                sleep(1);
             }
             if($p != $page) return;
             $page++;

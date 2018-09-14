@@ -7,9 +7,6 @@
  */
 namespace spider\model;
 use spider\db\Db;
-use spider\tool\Http;
-use \DOMXPath;
-use \DOMDocument;
 
 class Bbs extends Db{
     public $table = 'bbs';
@@ -20,7 +17,8 @@ class Bbs extends Db{
         'title',
         'content',
         'core',
-        'created'
+        'created',
+        'author'
     ];
     public $data = [];
 }

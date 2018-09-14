@@ -13,7 +13,7 @@ class Http{
     public static function curl($url, $paramStr=[],$flag='get',$fromurl='https://www.baidu.com/'){
         $file = dirname(__FILE__).'/../../cookie.txt';
         $cookie = file_get_contents($file);
-        $user_agent = "Mozilla/5.7 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0";
+        $user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.9 Safari/537.36";
         $curl = curl_init();
         if($flag=='post'){//post传递
             curl_setopt($curl, CURLOPT_POST, 1);
