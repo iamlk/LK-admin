@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <!-- /.box-body -->
             <?php
             $params = [
-                'tableOptions'=>['id'=>'table','class'=>"table table-striped table-bordered",'border'=>'1','cellspacing'=>'0'],
+                'tableOptions'=>['id'=>'table','style'=>'font-size: 12px;','class'=>"table table-striped table-bordered",'border'=>'1','cellspacing'=>'0'],
                 'caption'=>$total,
                 'dataProvider' => $dataProvider,
                 'filterModel' => null,
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'end_weight',
                     'the_weight',
                     'total_weight',
-                    //'property_no',
+                    'property_no',
                     [
                         'attribute' => 'well_no',
                         //'filter'=>StreamType::GetList(StreamType::WELL),
