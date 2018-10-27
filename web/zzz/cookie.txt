@@ -1,1 +1,1 @@
-CYHTooltip=1;
+http://localhost/zzz/a.php?id=3197&page=1
