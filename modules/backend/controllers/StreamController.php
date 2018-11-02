@@ -90,7 +90,6 @@ class StreamController extends BackendController
         $dataProvider = $searchModel->search($print, 5000);
 
         return $this->render('print', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'total'=>''
         ]);
@@ -117,7 +116,6 @@ class StreamController extends BackendController
             $total = Stream::getTotalMessage($condition);
         }
         return $this->render('index2', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'total'=>$total
         ]);

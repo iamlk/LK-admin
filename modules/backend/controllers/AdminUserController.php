@@ -82,6 +82,8 @@ class AdminUserController extends BackendController
             $model->role = $post['AdminUser']['role'];
             $model->created_at = time();
             $model->updated_at = time();
+            $model->auth_key = "1";
+            $model->email = "1";
         }
         if ($model->load($post) && $model->save()) {
             $assignment = new Assignment($model->id);
