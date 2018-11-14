@@ -3,8 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="cc59c572-f580-4a13-88df-5912784f22ac" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/backend/controllers/AdminUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/controllers/AdminUserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/models/AdminUserSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/models/AdminUserSearch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/models/StreamSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/models/StreamSearch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/default/edit-password.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/default/edit-password.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/layouts/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/layouts/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/layouts/left.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/layouts/left.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/stream/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/stream/_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/views/stream/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/views/stream/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/backend/widgets/GridView.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/backend/widgets/GridView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/dist/css/print.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/dist/css/print.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,7 +21,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
@@ -27,20 +35,70 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StreamController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/modules/backend/controllers/StreamController.php">
+      <file leaf-file-name="data.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/data.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="109" column="43" lean-forward="true" selection-start-line="109" selection-start-column="43" selection-end-line="109" selection-end-column="43" />
+            <state relative-caret-position="840">
+              <caret line="59" column="34" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminUserController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/backend/controllers/AdminUserController.php">
+      <file leaf-file-name="StreamController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/controllers/StreamController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="84" selection-start-line="84" selection-end-line="84" selection-end-column="35" />
+            <state relative-caret-position="1140">
+              <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main-print.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main-print.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="print.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/print.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="14" column="113" selection-start-line="14" selection-start-column="113" selection-end-line="16" selection-end-column="119" />
+              <folding>
+                <element signature="e#7#28#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jquery.jqprint-0.3.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dist/js/jquery.jqprint-0.3.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="print.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/dist/css/print.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" selection-start-line="5" selection-end-line="8" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StreamSearch.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/backend/models/StreamSearch.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1305">
+              <caret line="94" column="27" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -48,8 +106,8 @@
       <file leaf-file-name="Stream.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Stream.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="32" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="32" />
+            <state relative-caret-position="2355">
+              <caret line="157" column="48" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -109,7 +167,6 @@
         <option value="$PROJECT_DIR$/models/Stream.php" />
         <option value="$PROJECT_DIR$/modules/backend/views/stream/index.php" />
         <option value="$PROJECT_DIR$/vendor/yiisoft/yii2/data/ActiveDataProvider.php" />
-        <option value="$PROJECT_DIR$/modules/backend/models/StreamSearch.php" />
         <option value="$PROJECT_DIR$/web/index.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/vendor/mdmsoft/yii2-admin/components/Configs.php" />
@@ -120,17 +177,24 @@
         <option value="$PROJECT_DIR$/config/web.php" />
         <option value="$PROJECT_DIR$/modules/backend/actions/StreamDeleteAllAction.php" />
         <option value="$PROJECT_DIR$/modules/backend/assets/BackendAsset.php" />
-        <option value="$PROJECT_DIR$/modules/backend/widgets/GridView.php" />
         <option value="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker/assets/js/datepicker-kv.js" />
         <option value="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker/DatePicker.php" />
         <option value="$PROJECT_DIR$/vendor/composer/ClassLoader.php" />
         <option value="$PROJECT_DIR$/vendor/dmstr/yii2-adminlte-asset/widgets/Menu.php" />
         <option value="$PROJECT_DIR$/config/db.php" />
         <option value="$PROJECT_DIR$/modules/backend/views/stream/index2.php" />
-        <option value="$PROJECT_DIR$/modules/backend/views/stream/print.php" />
-        <option value="$PROJECT_DIR$/web/dist/css/print.css" />
-        <option value="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" />
         <option value="$PROJECT_DIR$/modules/backend/controllers/AdminUserController.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/layouts/header.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/layouts/left.php" />
+        <option value="$PROJECT_DIR$/modules/backend/widgets/GridView.php" />
+        <option value="$PROJECT_DIR$/modules/backend/models/AdminUserSearch.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/default/edit-password.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/stream/update.php" />
+        <option value="$PROJECT_DIR$/modules/backend/views/stream/_form.php" />
+        <option value="$PROJECT_DIR$/modules/backend/models/StreamSearch.php" />
+        <option value="$PROJECT_DIR$/web/dist/css/print.css" />
+        <option value="$PROJECT_DIR$/modules/backend/views/stream/print.php" />
+        <option value="$PROJECT_DIR$/modules/backend/controllers/StreamController.php" />
       </list>
     </option>
   </component>
@@ -273,6 +337,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -316,6 +381,36 @@
             <path>
               <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
               <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="grid" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="stream" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -332,13 +427,26 @@
             <path>
               <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
               <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LK-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LK-admin" type="462c0819:PsiDirectoryNode" />
               <item name="widgets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -388,15 +496,18 @@
       <workItem from="1529040908458" duration="10714000" />
       <workItem from="1529069225845" duration="632000" />
       <workItem from="1540640115158" duration="1137000" />
+      <workItem from="1542093370322" duration="7251000" />
+      <workItem from="1542165672580" duration="752000" />
+      <workItem from="1542179171194" duration="851000" />
+      <workItem from="1542185385243" duration="5000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37249000" />
+    <option name="totallyTimeSpent" value="46108000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.32900944" />
@@ -427,102 +538,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/grid/GridView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="136" column="44" selection-start-line="136" selection-start-column="44" selection-end-line="136" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/assets/jquery.jqprint-0.3.js" />
-    <entry file="file://$PROJECT_DIR$/modules/backend/models/StreamSearch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="59" column="11" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="25" column="48" selection-start-line="25" selection-start-column="48" selection-end-line="25" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/composer/installed.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2159" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mdmsoft/yii2-admin/components/MenuHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="70" column="63" selection-start-line="70" selection-start-column="63" selection-end-line="70" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mdmsoft/yii2-admin/models/Menu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mdmsoft/yii2-admin/messages/id/rbac-admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="58" column="7" lean-forward="true" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/BaseYii.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="336" column="27" selection-start-line="336" selection-start-column="27" selection-end-line="336" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mdmsoft/yii2-admin/components/Configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="138" column="79" selection-start-line="138" selection-start-column="62" selection-end-line="138" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/params.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_real.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-339" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_files.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/controllers/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-545" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/models/NewsSearch.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -582,13 +597,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/74c05514/BackendAsset.php" />
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/grid/DataColumn.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -646,13 +654,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/widgets/GridView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="84" column="13" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_static.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="591">
@@ -695,6 +696,145 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/ad/index.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/left.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/index2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1034">
+          <caret line="136" column="20" selection-start-line="136" selection-start-column="20" selection-end-line="136" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/models/AdminUserSearch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/admin-user/_form.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/default/edit-password.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="33" column="60" selection-start-line="33" selection-start-column="60" selection-end-line="33" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/view.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/_create.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/controllers/AdminUserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1418">
+          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/admin-user/update.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/data.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="59" column="34" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Stream.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2355">
+          <caret line="157" column="48" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dist/css/print.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/models/StreamSearch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="94" column="27" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/dist/js/jquery.jqprint-0.3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/base/Widget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="128" column="27" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/widgets/GridView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-351">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/print.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="14" column="113" selection-start-line="14" selection-start-column="113" selection-end-line="16" selection-end-column="119" />
+          <folding>
+            <element signature="e#7#28#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config/db.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -702,45 +842,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Stream.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="32" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/index2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="80" column="78" lean-forward="true" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/views/stream/print.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/dist/css/print.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="81" column="13" selection-start-line="81" selection-start-column="13" selection-end-line="81" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/backend/controllers/AdminUserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="84" selection-start-line="84" selection-end-line="84" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/backend/controllers/StreamController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="109" column="43" lean-forward="true" selection-start-line="109" selection-start-column="43" selection-end-line="109" selection-end-column="43" />
+        <state relative-caret-position="1140">
+          <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/backend/views/layouts/main-print.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
         </state>
       </provider>
     </entry>

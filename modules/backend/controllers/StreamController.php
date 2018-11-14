@@ -48,17 +48,19 @@ class StreamController extends BackendController
         set_time_limit(0);
         $session = Yii::$app->session;
         $search = $session['search'];
-        if($search){
-            $condition = ['and'];
-            if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
-            if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
-            if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
-            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+        $condition = ['and'];
+        if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
+        if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
+        if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
+        if(@$search['end_time']){
+            $search['end_time'] = date('Y-m-d',(strtotime($search['end_time'])+86400));
+            $condition[] = 'start_time <= "'.$search['end_time'].'"';
         }
         else
             $condition = '';
-        $model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->each(500);
-        //$model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->limit(40000)->all();
+        //$model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->each(500);
+        $model = Stream::find()->where( $condition)->orderBy(['start_time'=>SORT_ASC])->limit(40000)->all();
+
         \moonland\phpexcel\Excel::widget([
             'models' => $model,
             'fileName' => 'Data.xlsx',
@@ -89,9 +91,19 @@ class StreamController extends BackendController
         $searchModel = new StreamSearch();
         $dataProvider = $searchModel->search($print, 5000);
 
+        $search = $print['StreamSearch'];
+        $condition = ['and'];
+        if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
+        if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
+        if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
+        if(@$search['end_time']){
+            $search['end_time'] = date('Y-m-d',(strtotime($search['end_time'])+86400));
+            $condition[] = 'start_time <= "'.$search['end_time'].'"';
+        }
+        $total = Stream::getTotalMessage($condition);
         return $this->render('print', [
             'dataProvider' => $dataProvider,
-            'total'=>''
+            'total'=>$total
         ]);
     }
 
@@ -112,7 +124,10 @@ class StreamController extends BackendController
             if(@$search['type']) $condition[] = 'type="'.$search['type'].'"';
             if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
             if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
-            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+            if(@$search['end_time']){
+                $search['end_time'] = date('Y-m-d',(strtotime($search['end_time'])+86400));
+                $condition[] = 'start_time <= "'.$search['end_time'].'"';
+            }
             $total = Stream::getTotalMessage($condition);
         }
         return $this->render('index2', [
@@ -184,7 +199,10 @@ class StreamController extends BackendController
         if($search){
             if(@$search['well_no']) $condition[] = 'well_no="'.$search['well_no'].'"';
             if(@$search['start_time']) $condition[] = 'start_time >= "'.$search['start_time'].'"';
-            if(@$search['end_time']) $condition[] = 'end_time <= "'.$search['end_time'].'"';
+            if(@$search['end_time']){
+                $search['end_time'] = date('Y-m-d',strtotime($search['end_time'])+86400);
+                $condition[] = 'start_time <= "'.$search['end_time'].'"';
+            }
             if(@$get['type']=='w' || empty($get['type'])) $json = Stream::byWeek($condition);
             if(@$get['type']=='m') $json = Stream::byMonth($condition);
             if(@$get['type']=='s') $json = Stream::bySeason($condition);

@@ -30,7 +30,7 @@ $menuItems = MenuHelper::getAssignedMenu(Yii::$app->user->id,null,function($menu
 ?>
 <aside class="main-sidebar">
     <section class="sidebar" style="height: auto;">
-        <!-- search form -->
+        <!-- search form
         <form action="/admin" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" id="menu-keyword" name="StreamSearch[well_no]" class="form-control" placeholder="井号..."/>
@@ -40,7 +40,7 @@ $menuItems = MenuHelper::getAssignedMenu(Yii::$app->user->id,null,function($menu
                 </span>
             </div>
         </form>
-        <!-- /.search form -->
+         /.search form -->
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu'],

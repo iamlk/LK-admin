@@ -38,6 +38,14 @@ use kartik\date\DatePicker;
             <?= $form->field($model, 'end_weight')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <?= $form->field($model, 'the_weight')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-6">
+            <?= $form->field($model, 'total_weight')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-sm-6">

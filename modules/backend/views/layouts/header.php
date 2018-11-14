@@ -32,7 +32,7 @@ use app\widgets\Nav;
                 </li>
                 -->
                 <li>
-                    <a href="<?=Yii::$app->homeUrl?>" role="button" title="后台首页">
+                    <a href="<?=Yii::$app->homeUrl?>" role="button" title="返回首页">
                         <span class="fa fa-home"></span>
                     </a>
                 </li>
@@ -43,14 +43,9 @@ use app\widgets\Nav;
                     </a>
                     <ul class="dropdown-menu">
 <!--                         User image -->
-                        <li class="user-header">
+                        <li class="user-header" style="height:auto;">
                             <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
                                  alt="User Image"/>
-
-                            <p>
-                                Leonidax &amp; Panda - Web Developer
-                                <small>Member since Jun. 2018</small>
-                            </p>
                         </li>
 <!--                         Menu Body -->
 <!--                        <li class="user-body">-->
@@ -80,10 +75,6 @@ use app\widgets\Nav;
                     </ul>
                 </li>
 
-                <!-- User Account: style can be found in dropdown.less -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
             </ul>
         </div>
     </nav>

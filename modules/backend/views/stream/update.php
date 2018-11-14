@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\News */
 
-$this->title = '修改数据: ' . $model->uid;
+$this->title = '修改数据: ';
 $this->params['breadcrumbs'][] = ['label' => '出入料管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = '修改';
 ?>

@@ -83,10 +83,6 @@ class GridView extends YiiGridView
             ];
         }else{
             $buttonList = [
-                Html::tag('button', '打印', [
-                    'class' => 'content-operation btn btn-xs btn-warning',
-                    'onclick' => $print,
-                ])
             ];
         }
         $view = $this->getView();

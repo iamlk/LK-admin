@@ -91,8 +91,10 @@ class StreamSearch extends Stream
 
         if($this->start_time)
             $query->andFilterWhere(['>=','start_time',$this->start_time]);
-        if($this->end_time)
-            $query->andFilterWhere(['<=','end_time',$this->end_time]);
+        if($this->end_time){
+            $this->end_time = date('Y-m-d',(strtotime($this->end_time)+86400));
+            $query->andFilterWhere(['<=','start_time',$this->end_time]);
+        }
         return $dataProvider;
     }
 
