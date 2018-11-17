@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use app\modules\backend\widgets\GridView;
+use app\modules\backend\widgets\PrintView;
 use yii\grid\CheckboxColumn;
 use app\models\StreamType;
 use yii\widgets\ActiveForm;
@@ -44,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'filterModel' => null,
                 'columns' => [
-                    ['class' => CheckboxColumn::className()],
                     [
                         'class' => 'yii\grid\SerialColumn',
                         'header' => '<a href="#">序号</a>'
@@ -52,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'type',
                         'filter'=>StreamType::$TypeList,
+                        'header'=>'<a href="#">类型</a>',
                         'options' => ['style' => 'width:120px'],
                         'format' => 'html',
                         'value' => function ($item) {
@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
             ?>
 
-            <?= GridView::widget($params); ?>
+            <?= PrintView::widget($params); ?>
         </div>
     </div>
 </div>

@@ -1,0 +1,122 @@
+<?php
+namespace app\modules\backend\widgets;
+
+use yii\widgets\Pjax;
+use yii\bootstrap\Html;
+use yii\grid\GridView as YiiGridView;
+use yii\helpers\Url;
+use Yii;
+use app\modules\backend\grid\DataColumn;
+/**
+ * Created by PhpStorm.
+ * User: Leonidax
+ * Date: 2017/1/5
+ * Time: 10:56
+ * Email:wap@iamlk.cn
+ */
+
+class PrintView extends YiiGridView
+{
+    public $dataColumnClass = DataColumn::Class;
+    /**
+     * @var string the layout that determines how different sections of the list view should be organized.
+     * The following tokens will be replaced with the corresponding section contents:
+     *
+     * - `{summary}`: the summary section. See [[renderSummary()]].
+     * - `{errors}`: the filter model error summary. See [[renderErrors()]].
+     * - `{items}`: the list items. See [[renderItems()]].
+     * - `{sorter}`: the sorter. See [[renderSorter()]].
+     * - `{pager}`: the pager. See [[renderPager()]].
+     */
+    public $layout = "<div style='height: 30px'><div class='pull-left'>{operation}</div><div class='pull-right'>{summary}</div></div>\n{items}\n<div style='height: 30px'><div class='pull-left'>{errors}</div><div class='pull-right'>{pager}</div></div>\n";
+    /**
+     * Renders a section of the specified name.
+     * If the named section is not supported, false will be returned.
+     * @param string $name the section name, e.g., `{summary}`, `{items}`.
+     * @return string|boolean the rendering result of the section, or false if the named section is not supported.
+     */
+    public function renderSection($name)
+    {
+        switch ($name) {
+            case '{operation}':
+                return $this->renderOperation();
+                break;
+            case '{summary}':
+                return $this->renderSummary();
+                break;
+            default:
+                return parent::renderSection($name);
+        }
+    }
+
+    public function renderCaption()
+    {
+        return '';
+    }
+
+    public function renderErrors(){
+        return $this->caption;
+    }
+
+    public function renderOperation()
+    {
+        $print = '$(\'#table\').jqprint({printContainer:true});';
+        $id = $this->options['id'];
+        $buttonList = [
+            Html::tag('button', '打印', [
+                'class' => 'content-operation btn btn-xs btn-warning',
+                'onclick' => $print,
+            ])
+        ];
+        $view = $this->getView();
+        $view->registerJs('$(\'#delete\').click(function(){
+            var self = this;
+            this.disabled =true;
+            var url = $(this).data(\'action\');
+            var queren = $(this).data(\'queren\');
+            var ids = $(\'#'.$id.'\').yiiGridView(\'getSelectedRows\');
+            if(!url){
+                alert(\'action不能为空\');
+                self.disabled = false;
+                return;
+            }
+            if(ids==""){
+                alert(\'请选择要处理的记录\');
+                self.disabled = false;
+                return;
+            }
+            if(confirm(queren)){
+                $.ajax({
+                    "url":url,
+                    "type":"post",
+                    "data":{"ids":ids},
+                    "dataType":"json"
+                }).done(function(res){
+                    alert(res.data);
+                    $(\'#'.$id.'\').yiiGridView(\'applyFilter\');
+                    self.disabled = false;
+                });
+            }
+            self.disabled = false;
+        });
+        $(\'#from\').datepicker({
+          autoclose: true,  format: "yyyy-mm-dd", language: "zh-CN"
+        });
+        $(\'#to\').datepicker({
+          autoclose: true,  format: "yyyy-mm-dd", language: "zh-CN"
+        });
+        ');
+        return Html::tag('div', implode('', $buttonList), [
+            'class'=>'btn-group'
+        ]);
+    }
+    public function run()
+    {
+        ob_start();
+        ob_implicit_flush(false);
+        Pjax::begin();
+        parent::run();
+        Pjax::end();
+        return ob_get_clean();
+    }
+}
